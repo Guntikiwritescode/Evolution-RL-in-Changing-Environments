@@ -1,4 +1,4 @@
-# Part 3 world constants (docs/SPEC_part3.md, Section 3). Provisional until check-in 8.
+# Part 3 world constants (docs/SPEC_part3.md, Section 3). Used for pilot and final runs.
 # Every key must match a field of evo2.env.world.WorldConfig; unknown keys are an error.
 common:
   max_food: 64            # food slots; the largest F in any split is 60

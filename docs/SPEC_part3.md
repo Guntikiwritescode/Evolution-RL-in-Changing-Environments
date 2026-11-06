@@ -1,6 +1,6 @@
 # Neural environment and implementation specification
 
-Scientific excerpts from the dated study protocol. Operational checklists, private discussion and task lists are omitted. Original section numbers and decision rules are retained. These are edited archival excerpts, not a new registration. Original document SHA-256: `c1061810041008bec5a3ca4e00ba6889d0c516cdbfaca650f3e0c896ff176b15`.
+Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `c1061810041008bec5a3ca4e00ba6889d0c516cdbfaca650f3e0c896ff176b15`.
 
 ## 3. The world (`src/evo2/env`)
 
@@ -130,11 +130,11 @@ Every method uses the same brain, world, compute budget (Section 6), tuning budg
 - the copies appear at random places with birth energy 100, which comes from outside the world;
 - there is still no fitness function: every living agent is equally likely to be copied, so longer-lived agents are copied more only because they are alive longer;
 - every floor birth is counted and reported, next to normal births.
-In one 16,000-step quick try with the floor (seed 3980, default settings, "train_run" keys), floor births were 354 of the 489 births in the first 6,000 steps and 381 of the 471 in the last 6,000; the population averaged 18.3 agents, and 16.3 in the last 2,000 steps. So in this try the population still lived mostly on floor births after 16,000 steps (about 290,000 agent-steps, 0.15% of the provisional training budget). One run only. Whether OE breeds on its own later is a pilot question; if it does not, that is a stop-and-ask trigger (PREREG Section 10).
+In one 16,000-step quick try with the floor (seed 3980, default settings, "train_run" keys), floor births were 354 of the 489 births in the first 6,000 steps and 381 of the 471 in the last 6,000; the population averaged 18.3 agents, and 16.3 in the last 2,000 steps. So in this try the population still lived mostly on floor births after 16,000 steps (about 290,000 agent-steps, 0.15% of the provisional training budget).
 
 **Method details settled while building [core build]:**
 - **PPO:** dead agents' steps are left out of every loss term (a `valid` mask); an agent's death ends its trajectory; the end of an episode (500 steps) also ends it, as in PureJaxRL. Optional running reward normalization (PureJaxRL's NormalizeVecReward) is a tuning setting. In the adaptation phase PPO continues from its trained weights with a fresh Adam state.
-- **ES:** the policy after training is the ES mean (not the best candidate seen). Body traits (option (a)) are 3 numbers mapped to the trait ranges with a sigmoid, starting at the default body.
+- **ES:** the policy after training is the ES mean (not the best candidate seen). In the optional body-optimization design, which was not used, body traits are 3 numbers mapped to the trait ranges with a sigmoid, starting at the default body.
 - **OE:** in the adaptation phase OE keeps evolving with the environment fixed to the test environment.
 
 Lifetime learning and neural mechanism ablations were planned but not run.
@@ -180,7 +180,7 @@ Lifetime learning and neural mechanism ablations were planned but not run.
 - For OE, 16 agents are sampled from the living population, a new sample for each episode (without replacement when at least 16 are alive).
 - The random policy is scored on the same episodes as the policy. The adaptation curve's point 0 is the zero-shot competence (the same number). Evaluation episodes are the same for every method and run; the adaptation's own randomness comes from the run's seed, so it differs between runs.
 - PPO's reward-normalization statistics are taken over living agents and carried into the adaptation phase with the weights.
-- For PPO and ES, 16 copies of the policy are used. With option (a), PPO uses its tuned body and ES its optimized one.
+- For PPO and ES, 16 copies of the policy are used. In the optional body-optimization design, which was not used, PPO uses its tuned body and ES its optimized one.
 
 **Normalization** per test environment: (score − random policy score) ÷ (best observed score − random policy score).
 - The random policy draws actions uniformly within bounds and uses the default body.
@@ -230,7 +230,7 @@ Each seed is split into named streams with SeedSequence / JAX PRNG keys, and a t
 | rliable | 1.2.0 | Apache-2.0 | statistics |
 | PureJaxRL (code adapted, not installed) | commit 31756b1 | Apache-2.0 | PPO |
 
-Every version is pinned in `requirements_part3.txt`, with pandas held at 2.3.3 so that rliable's dependency arch 7.2.0 imports. rliable is used for the IQM and the probability of improvement; its bootstrap is not used (PREREG Section 8.1). Parts 1–2 keep their own environment (`requirements.txt`), so they stay reproducible.
+Historical neural dependencies are pinned in `environments/historical_requirements_part3.txt`, with pandas held at 2.3.3 so that rliable's dependency arch 7.2.0 imports. rliable is used for the IQM and the probability of improvement; its bootstrap is not used (`PREREG_part3.md` Section 8.1). The historical Parts 1–2 environment is listed separately in `environments/historical_requirements.txt`. The checked CPU reanalysis environment is documented in `REPRODUCE.md` at the repository root.
 
 ---
 

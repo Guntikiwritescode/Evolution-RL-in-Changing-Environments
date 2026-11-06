@@ -1,4 +1,4 @@
-"""Part 3 tuning (check-in 9): random search, the same for every method (PREREG Section 5).
+"""Part 3 tuning: random search, the same for every method (PREREG Section 5).
 
 For each method: TRIALS trials. Trial t of method m uses tuning seed 4000 + 100 * m + t
 (m = 0 OE, 1 OE-fixed, 2 PPO-fixed, 3 PPO-DR, 4 ES-DR; 5 ES-fixed, Addendum A, PREREG Section 16). Its settings are drawn from the
@@ -39,7 +39,7 @@ from evo2.runio import enable_compile_cache, hardware, load_pickle, require_clea
 from evo2.seeds import base_key, check_seed, stream_key
 from evo2.train_loop import train_run
 
-TRIALS = 8                 # AA, check-in 8 (3 Nov 2026); the draft proposed 16
+TRIALS = 8                 # Selected on 3 Nov 2026; the draft proposed 16
 BUDGET_FRACTION = 0.25     # of the final training budget (PREREG Section 5)
 METHOD_INDEX = {"oe": 0, "oe_fixed": 1, "ppo_fixed": 2, "ppo_dr": 3, "es_dr": 4, "es_fixed": 5}
 FAMILY = {"oe": "oe", "oe_fixed": "oe", "ppo_fixed": "ppo", "ppo_dr": "ppo", "es_dr": "es", "es_fixed": "es"}
@@ -136,7 +136,7 @@ def tune_method(method: str, mcfg: dict, out: Path, quick: bool) -> dict:
         print(method, t, seed, json.dumps(settings), round(row["score"], 3), flush=True)
     chosen = best_trial(trials)
     if chosen.get("failed"):
-        raise SystemExit(f"every {method} trial failed; stop and ask AA (PREREG Section 9)")
+        raise SystemExit(f"every {method} trial failed; stopping under PREREG Section 9")
     return {"method": method, "budget_agent_steps": budget, "trials": trials,
             "n_envs": len(envs), "episodes_per_env": n_episodes,
             "chosen": {"trial": chosen["trial"], "seed": chosen["seed"], "settings": chosen["settings"],
@@ -155,7 +155,7 @@ def write_tuned(folder: Path, path: Path = TUNED_FILE) -> dict:
                      "commit": s["git"]["commit"]}
     doc = {"source": {"written_by": "scripts/part3/tune.py --write-tuned", "folder": str(folder), "per_method": source},
            "settings": settings}
-    path.write_text("# Written by scripts/part3/tune.py --write-tuned (check-in 9). Do not edit by hand.\n"
+    path.write_text("# Written by scripts/part3/tune.py --write-tuned. Do not edit by hand.\n"
                     + yaml.safe_dump(doc, sort_keys=True))
     return doc
 
@@ -181,7 +181,7 @@ def write_addendum(folder: Path, path: Path) -> dict:
 
 
 def config_for(methods: list) -> dict:
-    """The settings tuning starts from. Core methods: only before tuned.yaml exists (check-in 9).
+    """The settings tuning starts from. Core methods: only before tuned.yaml exists.
     Addendum methods (alone): the untuned settings, read without tuned.yaml, which are the
     settings every core method started from."""
     if any(m in METHODS for m in methods):

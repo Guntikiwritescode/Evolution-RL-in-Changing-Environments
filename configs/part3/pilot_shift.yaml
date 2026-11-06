@@ -1,4 +1,4 @@
-# Stand-in shifted environments for the pilot (check-in 8) only: the pilot needs the
+# Stand-in shifted environments for the pilot only: the pilot needs the
 # variance of the adaptation measure to size the final runs, and the test split is locked.
 # The ranges are copies of T2 and T3 in the locked test file (a test keeps them equal);
 # the environments themselves are new draws with pilot-evaluation seeds, so no test

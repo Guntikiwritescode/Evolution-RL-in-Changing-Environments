@@ -1,4 +1,4 @@
-# Written by scripts/part3/tune.py --write-tuned (check-in 9). Do not edit by hand.
+# Written by scripts/part3/tune.py --write-tuned. Do not edit by hand.
 settings:
   es_dr:
     EPISODES: 1

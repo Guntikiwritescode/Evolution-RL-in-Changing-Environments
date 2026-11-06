@@ -449,7 +449,7 @@ def energy_use(seeds, outs, w="main"):
 
 def achecks(seeds, metas, outs, rundir=None):
     """Section 4 A-checks for every run seed. Seeds whose run skipped them (2100-2199 in the
-    final run) use results/<run>/achecks/seed<k>.npz from achecks_all.py (MISTAKES #37)."""
+    final run) use results/<run>/achecks/seed<k>.npz from achecks_all.py."""
     arr = {}
     for s in seeds:
         if "ACHECK__mut__g_gen" in outs[s]["_arrays"]:

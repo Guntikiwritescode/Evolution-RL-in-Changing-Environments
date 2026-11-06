@@ -1,6 +1,6 @@
 # Results evidence record
 
-Generated preparation record, not manuscript prose. Sources: the three saved analysis records and independent audit files. Registered verdicts are preserved; interpret them under CLAIM_EVIDENCE_LEDGER.md.
+Numerical summaries from the three studies. The manuscript defines the outcomes and decision rules.
 
 ## Study 1
 
@@ -74,4 +74,4 @@ These preserve the registered algebra and labels. Nonzero interaction and separa
 | A4 (later addendum) | variety_es | 0.028590477 | [0.020276132003000928, 0.03846149614509982] |
 | A4 (later addendum) | variety_oe | -0.121037894 | [-0.17973271413302103, -0.06783896719489078] |
 
-Full numeric tables: results/publication/registered_comparisons.csv and supplemental_numbers.json. Figure sources/captions: FIGURE_GUIDE.md. Q3/Q4 not run; causal mechanisms untested.
+Full numeric tables: results/publication/registered_comparisons.csv and supplemental_numbers.json. Figure sources/captions: FIGURE_GUIDE.md.

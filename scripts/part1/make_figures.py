@@ -252,7 +252,7 @@ def main():
     finish(fig, os.path.join(outdir, "fig10_compute.png"),
            "The rebuild counts creature-steps (one blob moving one tick), which is guess K1 for what the paper "
            "means by a step. ET compute is held out. GS compute is NOT an independent check: the paper's GS number "
-           "was used to set the search length at check-in 1.")
+           "was used to set the search length.")
 
     # ---- Fig 11: the statistics table, paper vs rebuild
     head = ["Metric", "Status ET / GS", "ET paper", "ET rebuild (n)", "GS paper", "GS rebuild (n)",
@@ -298,7 +298,7 @@ def main():
            "SD 0.00 means an exact match (calibration-target rows use calibration's own 10% rule instead). "
            "* = a reading chosen after seeing the data (within the printed precision, 0.005) gives the other answer. "
            "'no value' = no run had a value (every GS run died out in training). GS 'yes' on CV2 and H is zero by "
-           f"design. GS final fitness rests on {comp['fig11'][0]['gs']['n']} runs. Details in docs/REPLICATION.md.")
+           f"design. GS final fitness rests on {comp['fig11'][0]['gs']['n']} runs.")
 
 
 if __name__ == "__main__":

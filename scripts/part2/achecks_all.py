@@ -3,7 +3,7 @@
 Section 4 says every run seed gets the A-checks, shown next to rows 5 and 6. The run
 code (run2.run_seed at a1e1cdc) ran them only on exploratory seeds (2000-2099). This
 script recomputes them for any seed, from scratch, on the same streams and with the same
-calls as run_seed: ET's A phase, the clone pick, then the three A-check runs (MISTAKES #37).
+calls as run_seed: ET's A phase, the clone pick, then the three A-check runs.
 
   --verify   recompute seeds that already have A-checks and require every array to be
              bit-for-bit equal to the saved run (results/part2/<run>/seed*.npz)
@@ -94,7 +94,7 @@ def main():
             np.savez_compressed(path + ".tmp.npz", **arrays)
             os.replace(path + ".tmp.npz", path)
         with open(os.path.join(out, "run.json"), "w") as f:
-            json.dump({"seeds": lack, "why": "Section 4 A-checks for seeds the run skipped (MISTAKES #37)",
+            json.dump({"seeds": lack, "why": "Section 4 A-checks for seeds the run skipped",
                        "verified_against_run_seeds": have if args.verify else [], "provenance": prov}, f, indent=1)
         print(f"computed A-checks for {len(lack)} seeds into {os.path.relpath(out, ROOT)}")
 

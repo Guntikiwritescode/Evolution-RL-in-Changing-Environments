@@ -1,4 +1,4 @@
-"""Show that every Part 3 test can fail (MISTAKES #29, SPEC_part3.md Section 10).
+"""Show that every Part 3 test can fail.
 
 For each test: copy the repo to a temporary folder, break the code in one
 named way, run only that test there, and record whether it failed. A test
@@ -224,7 +224,7 @@ BREAKS = [
     ("es_sanity", "tests/test_part3_sanity.py::test_es_improves_on_pendulum",
      [("src/evo2/methods/es.py", "state, _ = self.strategy.tell(k_tell, pop, -score, state, self.es_params)",
        "state, _ = self.strategy.tell(k_tell, pop, score, state, self.es_params)")]),
-    # the final job's failure paths (scripts/part3/pod/final_job.sh, scripts/part3/evaluate.py; MISTAKES #59)
+    # the final job's failure paths (scripts/part3/pod/final_job.sh, scripts/part3/evaluate.py)
     ("pod_failed_kept", "tests/test_part3_pod.py::test_failed_and_crashed_runs_are_left_out_and_the_rest_evaluated",
      [("scripts/part3/pod/final_job.sh", '&& [ -f "$d/done.json" ] && [ ! -f "$d/failed.json" ]; then', '; then')]),
     ("pod_crash_stops", "tests/test_part3_pod.py::test_failed_and_crashed_runs_are_left_out_and_the_rest_evaluated",
@@ -246,7 +246,7 @@ BREAKS = [
      [("scripts/part3/tune.py", '        if s.get("quick"):\n', '        if False:\n')]),
     ("final_untuned", "tests/test_part3_scripts.py::test_final_training_needs_the_tuned_settings",
      [("scripts/part3/train.py", 'if a.purpose == "final" and "tuned_from" not in mcfg:', 'if False:')]),
-    # the final analysis (src/evo2/analysis.py, scripts/part3/analyze.py; MISTAKES #60, #61)
+    # the final analysis (src/evo2/analysis.py, scripts/part3/analyze.py)
     ('an_s1_y', 'tests/test_part3_analysis.py::test_each_secondary_comparison_uses_its_own_methods_measure_and_sets',
      [('src/evo2/analysis.py', '("S1", "oe", "es_dr", "primary"', '("S1", "oe", "ppo_dr", "primary"')]),
     ('an_s4_measure', 'tests/test_part3_analysis.py::test_each_secondary_comparison_uses_its_own_methods_measure_and_sets',

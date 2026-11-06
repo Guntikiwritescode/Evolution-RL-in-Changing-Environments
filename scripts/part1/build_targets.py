@@ -1,6 +1,5 @@
 """Build calibration/targets.json: the ET training-phase targets, the score, the
-search space and the selection rules. Written and committed BEFORE any
-calibration run (PROJECT_PLAN.md Part 1 Step 4).
+search space and selection rules, recorded before calibration.
 
 Sources: numbers printed in the paper (ER = Experiment Report pages) and values
 read off its figures by scripts/part1/digitize_figures.py.
@@ -83,7 +82,7 @@ for g in [10, 20, 40, 60, 80]:
 spec = {
     "version": 1,
     "written_before_any_calibration_run": True,
-    "plan_rule": "Calibrate only [GUESS]/approved-free settings, on ET training-phase numbers only, seeds 1000-1029. "
+    "plan_rule": "Calibrate only settings designated as free parameters, on ET training-phase numbers only, seeds 1000-1029. "
                  "Every GS number and every transfer-phase number is held out.",
     "seeds": [1000, 1029],
     "phase": "ET, Environment A, generations 0-99 (no transfer run during calibration)",
@@ -125,7 +124,7 @@ spec = {
                                       "pick the candidate whose mean over seeds is closest to the paper value (in tolerance units). "
                                       "All candidates' values are reported. Energy efficiency target: ET 0.20, tolerance 0.18 "
                                       "(paper SD), candidates E1-E5 (docs/SPEC_part1.md M11).",
-        "if_no_combination_passes": "stop and report at check-in 3; no new mechanics are added to force a match",
+        "if_no_combination_passes": "record that no combination meets the target; do not change the model within this calibration",
     },
     "log": "calibration/log.csv: one row per combination; rows are never deleted",
     "targets": targets,

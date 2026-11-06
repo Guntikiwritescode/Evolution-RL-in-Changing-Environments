@@ -152,7 +152,7 @@ def main():
               "clone_array_checks": clone_array_checks,
               "search_check_fields": search_check_fields,
               "failures": failures, "complete": not missing and not failures,
-              "scope": "Independent raw-generation-to-outcome calculations and population continuity; not a rerun of training."}
+              "scope": "Outcome calculations and population continuity from the recorded trajectories."}
     target = ROOT / "results/audit/part2_trajectories_audit.json"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(report, indent=2) + "\n")

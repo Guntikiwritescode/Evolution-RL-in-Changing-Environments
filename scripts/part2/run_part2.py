@@ -109,7 +109,7 @@ def main():
     if run2.frozen_hash(cfg) != p1_frozen and not args.quick:
         raise SystemExit("the frozen Part 1 sections differ from configs/part1/final.yaml (Section 2)")
     if prov["git"]["dirty"] and not args.quick:
-        raise SystemExit("uncommitted changes: commit first (Section 18.8, MISTAKES #12)")
+        raise SystemExit("uncommitted changes: commit first (Section 18.8)")
     seeds = seed_list(cfg, args.seeds)
     outdir = os.path.join(ROOT, "results", "part2", args.name)
     os.makedirs(outdir, exist_ok=True)

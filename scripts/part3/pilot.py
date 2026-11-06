@@ -1,4 +1,4 @@
-"""Part 3 pilot (check-in 8): throughput, repeatability, room to move, variance, power.
+"""Part 3 pilot: throughput, repeatability, room to move, variance, power.
 
 For each method, on pilot seeds (3000-3099):
   1. train to a short budget (and train the first seed twice: repeatability);

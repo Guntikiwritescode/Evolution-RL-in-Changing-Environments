@@ -1,4 +1,4 @@
-"""Checks of paper/v2/numbers.tex (REPORT_PLAN Section 5).
+"""Checks of paper/v2/numbers.tex.
 
 1. Macros against the generated reports (docs/RESULTS_part3.md, docs/RESULTS_part2.md,
    docs/EXPLORE_part3_long.md): the paper must say what the reports say.

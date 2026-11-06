@@ -69,7 +69,7 @@ def _merge_tuned(mcfg: dict, t: dict, allowed: tuple, what: str) -> None:
 def load_methods_config(path: Path | None = None, tuned: Path | None = TUNED_FILE,
                         extra_tuned: Path | None = None) -> dict:
     """methods.yaml, plus (when it exists) the settings chosen by tuning (configs/part3/tuned.yaml,
-    written by scripts/part3/tune.py at check-in 9): each method's tuned settings go under
+    written by scripts/part3/tune.py): each method's tuned settings go under
     mcfg[method]["settings"], which overrides the shared block (see method_settings). Every run
     stores the merged config in its run.json.
 

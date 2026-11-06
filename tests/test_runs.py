@@ -1,4 +1,4 @@
-"""Whole-run tests from PROJECT_PLAN.md Part 1 Step 3, plus metric hand checks."""
+"""Whole-run tests and hand-calculated metric checks."""
 import os
 
 import numpy as np
@@ -120,7 +120,7 @@ def test_welch_matches_scipy_and_paper_d_rule():
     ref = sps.ttest_ind(x, y, equal_var=False)
     assert r["t"] == pytest.approx(ref.statistic)
     assert r["p"] == pytest.approx(ref.pvalue)
-    assert r["d"] == pytest.approx(r["t"] * np.sqrt(2 / 30))  # PROJECT_PLAN clue
+    assert r["d"] == pytest.approx(r["t"] * np.sqrt(2 / 30))  # Equal-sized samples: relation between t and standardized mean difference
     assert r["p_bonferroni"] == pytest.approx(min(1, 10 * r["p"]))
     z = stats.welch(x, np.zeros(30))
     assert z["df"] == pytest.approx(29.0)  # one group with zero spread
@@ -142,7 +142,7 @@ def test_welch_handles_too_few_values():
     assert r["n_x"] == 0 and np.isnan(r["t"]) and r["stars"].startswith("n/a")
     r = stats.welch([1.0], [1.0, 2.0])
     assert np.isnan(r["p"])
-    # the group that has enough values keeps its own mean and SD (bug found 31 Oct, MISTAKES E11)
+    # the group that has enough values keeps its own mean and SD (bug found 31 Oct)
     r = stats.welch([1.0, 2.0, 3.0], [np.nan, 5.0])
     assert r["n_x"] == 3 and r["n_y"] == 1
     assert r["mean_x"] == 2.0 and r["sd_x"] == 1.0

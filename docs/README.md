@@ -1,9 +1,12 @@
 # Scientific records
 
-The manuscript presents the current interpretation of the results. These files document the experimental specifications, prespecified analysis rules and numerical reports.
+| Files | Contents |
+|---|---|
+| `PREREG_part2.md`, `PREREG_part3.md` | Protocol excerpts and dated amendments |
+| `SPEC_part1.md`, `SPEC_part3.md` | Simulator and method specifications |
+| `RESULTS_part2.md`, `RESULTS_part3.md`, `RESULTS_part3_addendum.md` | Numerical results |
+| `TUNING_part3.md` | Tuning scores and selected settings |
+| `EXPLORE_part3_long.md` | Exploratory longer-training results |
+| `FIGURE_GUIDE.md` | Figure descriptions and data paths |
 
-`PREREG_part2.md` and `PREREG_part3.md` are edited excerpts of private prospective protocols, not public registrations. Original section numbers and source hashes are retained. Personal discussion, operational checklists and unperformed extension plans are omitted or abridged. Dated amendments and the later ES-fixed comparison remain identified.
-
-`SPEC_part1.md` describes the trait simulator; `SPEC_part3.md` describes the neural environment and methods. `RESULTS_part2.md`, `RESULTS_part3.md` and `RESULTS_part3_addendum.md` preserve the numerical reports. Historical decision labels should be read with the statistical qualifications in the manuscript. `TUNING_part3.md` records core tuning scores and selected settings. `EXPLORE_part3_long.md` reports the exploratory longer-training runs.
-
-Use the root `REPRODUCE.md` for current reproduction commands.
+The protocols were not publicly registered. Excerpts retain the original section numbers, scientific rules and source hashes; ES-fixed is a later amendment. References to omitted sections are identified explicitly. Implementation notes distinguish settings verified in the supplied code and configurations from historical protocol wording. The manuscript defines the statistical interpretation of the reported decision labels. See [REPRODUCE.md](../REPRODUCE.md) for build and analysis commands.

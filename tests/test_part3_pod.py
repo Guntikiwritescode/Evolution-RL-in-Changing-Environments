@@ -1,4 +1,4 @@
-"""The final job's failure paths (scripts/part3/pod/final_job.sh; MISTAKES #59).
+"""The final job's failure paths (scripts/part3/pod/final_job.sh).
 
 A fake python stands in for train.py, curves.py and evaluate.py: it records each call, and its
 train.py finishes, fails (failed.json) or crashes depending on the seed.
@@ -77,7 +77,7 @@ def test_no_trained_run_means_no_evaluation_and_a_failure(tmp_path):
     assert "no run trained" in status
 
 
-# The exploratory longer-training job (scripts/part3/pod/explore_job.sh; PRELAUNCH_part3_explore_long.md).
+# The exploratory longer-training job (scripts/part3/pod/explore_job.sh).
 EXPLORE = ROOT / "scripts/part3/pod/explore_job.sh"
 FAKE_EXPLORE = FAKE.replace(
     "  scripts/part3/evaluate.py)",

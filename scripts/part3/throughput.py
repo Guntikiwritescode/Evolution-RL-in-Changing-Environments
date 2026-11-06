@@ -1,4 +1,4 @@
-"""Part 3 pilot stage P0: speed and repeatability on one machine (check-in 8).
+"""Part 3 pilot stage P0: speed and repeatability on one machine.
 
 For each method: two short training runs from the same pilot seed (repeatability:
 are the trained policies bit-identical?) and the speed in living agent-steps per

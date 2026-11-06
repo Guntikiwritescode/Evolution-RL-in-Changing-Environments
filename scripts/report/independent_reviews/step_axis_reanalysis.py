@@ -1,4 +1,4 @@
-"""Descriptive sensitivity using saved observations only; no new evaluations."""
+"""Step-axis sensitivity analysis using saved observations."""
 from pathlib import Path
 import csv
 import json

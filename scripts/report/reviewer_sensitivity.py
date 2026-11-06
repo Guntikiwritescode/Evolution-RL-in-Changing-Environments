@@ -1,4 +1,4 @@
-"""Post hoc descriptive checks of the registered primary comparison; no new tests.
+"""Post hoc descriptive checks of the registered primary comparison.
 
 Uses all ten runs, fixed T2/T3 environments and the original fixed anchors.
 Reports all specified summaries, including baseline-adjusted AUC, without

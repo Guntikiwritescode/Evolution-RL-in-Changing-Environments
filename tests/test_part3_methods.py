@@ -428,7 +428,7 @@ def test_adaptation_curve_points_and_budget():
 
 
 def test_config_body_option_b_gives_default_bodies_everywhere():
-    """AA's check-in 7 decision: every method uses the default body; OE mutates brains only."""
+    """Default-body configuration: every method uses the default body; OE mutates brains only."""
     from evo2.run import load_methods_config, make_trainer
     mcfg = load_methods_config()
     assert mcfg["body_option"] == "b"

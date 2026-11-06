@@ -1,9 +1,9 @@
 \section{Experimental design}
 \label{sec:methods}
 \subsection{Foraging environment and controllers}
-Agents move in a square arena with walls and regenerating food. Their observations contain 30 values: eight directional sectors for each of food, other agents and walls; current energy; the previous two-dimensional action; and three body traits. A feedforward controller has two hidden layers of 32 tanh units and two outputs, controlling turn and forward speed. Every method uses this actor architecture. Maximum speed, size and sensing range are fixed at 1, 1 and 10, respectively. No method evolves morphology in this experiment.
+Agents move in a square arena with walls and regenerating food. Their observations contain 30 values: eight directional sectors for each of food, other agents and walls; current energy; the previous two-dimensional action; and three body traits. A feedforward controller has two hidden layers of 32 tanh units and two outputs, controlling turn and forward speed. Every method uses this actor architecture. Maximum speed, size and sensing range are fixed at 1, 1 and 10, respectively. 
 
-Energy decreases with time, movement and sensing. A food item supplies 40 energy units; an agent starts with 100 and dies when its energy reaches zero. In ecological mode, agents can reproduce above an energy threshold, paying an energy cost for each offspring; they also die at a maximum age. Appendix~\ref{app:implementation} specifies these rules and the recorded settings. Episodic competence evaluation uses the same movement, sensing and food dynamics, without reproduction.
+Energy decreases with time, movement and sensing. A food item supplies 40 energy units; an agent starts with 100 and dies when its energy reaches zero. In ecological mode, agents can reproduce above an energy threshold, paying an energy cost for each offspring; they also die at a maximum age. Appendix~\ref{app:implementation} gives the full settings. Episodic competence evaluation uses the same movement, sensing and food dynamics, without reproduction.
 
 Varied training samples arena size, food supply, layout and regrowth from the ranges in Table~\ref{tab:env}. The fixed environment has side length 60, 40 food items, a uniform layout and regrowth probability 0.03. Validation uses 20 sampled training-range environments and four corner cases. Test conditions are fixed in advance of final evaluation: ten training-range environments (T1), ten smaller and resource-scarce clustered environments (T2), and ten environments with food drift and seasonal relocation (T3). T3 retains the training ranges for the remaining parameters. T2 tests resource scarcity; T3 tests changing food locations.
 
@@ -12,17 +12,17 @@ Varied training samples arena size, food supply, layout and regrowth from the ra
 \subsection{Training procedures}
 \label{sec:procedures}
 \paragraph{Ecological neuroevolution.}
-OE starts with 32 agents and permits at most 128. Each agent has its own controller. Offspring inherit the parent's weights with Gaussian perturbations; natural death and reproduction determine which lineages persist. In varied OE, the environmental parameters change every 2,000 world steps while the population continues. OE-fixed retains the canonical environment. During adaptation, either variant continues evolving in the assigned test environment.
+OE starts with 32 agents and permits at most 128. Each agent has its own controller. Offspring inherit the parent's weights with Gaussian perturbations; lineage survival depends on death, reproduction and the population-floor rule described below. In varied OE, the environmental parameters change every 2,000 world steps while the population continues. OE-fixed retains the canonical environment. During adaptation, either variant continues evolving in the assigned test environment.
 
 Both variants include a population floor of 16. After a step, vacant slots are replenished with mutated offspring of uniformly sampled surviving, non-newborn agents; if that pool is empty, agents alive at the start of the step supply the parent pool. Replacements receive birth energy and a new position. Replacements can maintain the population when natural reproduction is insufficient. We count natural and floor births separately.
 
 \paragraph{Evolution strategies.}
-ES optimizes the shared actor weights using the \texttt{Open\_ES} implementation in evosax \citep{salimans2017evolution,lange2023evosax}. It uses antithetic perturbations and centered-rank fitness shaping, with candidate fitness determined by episodic food acquisition. Candidates in a generation share evaluation conditions. ES-DR samples training environments; ES-fixed uses the canonical environment. Evaluation uses the strategy mean. ES-fixed was added after inspecting the core results, under a separate protocol written before its own tuning and final runs.
+ES optimizes the shared actor weights using the \texttt{Open\_ES} implementation in evosax \citep{salimans2017evolution,lange2023evosax}. It uses antithetic perturbations and centered-rank fitness shaping, with candidate fitness determined by episodic food acquisition. ES-DR samples training environments; ES-fixed uses the canonical environment. Evaluation uses the strategy mean.
 
 Each candidate is evaluated with 16 policy copies in 500-step worlds without births. Its score is food per initial agent, averaged over its configured episodes. Candidates in a generation share environment draws and reset/step random keys; ES-DR redraws the episode environments each generation.
 
 \paragraph{Proximal policy optimization.}
-PPO uses a clipped policy-gradient objective \citep{schulman2017proximal}, a separate value network, and a parameter-shared policy across agents in 64 parallel episodic worlds. Food acquisition supplies the reward. PPO-DR samples environment parameters at episode resets; PPO-fixed uses the canonical environment. Training actions are stochastic, whereas competence evaluation uses the actor's deterministic output. The implementation derives from PureJaxRL's continuous-action PPO, with the changes and software provenance recorded in Appendix~\ref{app:implementation}.
+PPO uses a clipped policy-gradient objective \citep{schulman2017proximal}, a separate value network, and a parameter-shared policy across agents in 64 parallel episodic worlds. Food acquisition supplies the reward. PPO-DR samples environment parameters at episode resets; PPO-fixed uses the canonical environment. Training actions are stochastic, whereas competence evaluation uses the actor's deterministic output. The implementation adapts PureJaxRL's continuous-action PPO (Appendix~\ref{app:implementation}).
 
 Each world contains 16 agents and restarts at 500 steps or when all agents die. An agent's death terminates its trajectory. Steps beginning with a dead agent are excluded from losses and advantage normalization; when enabled, reward-normalization statistics are collected over living agents.
 
@@ -43,23 +43,21 @@ Persistence is evaluated separately, before adaptation. Thirty-two sampled OE ag
 
 \subsection{Outcomes and statistical analysis}
 \label{sec:statistics}
-The analyses were specified in version-controlled protocols before the corresponding runs. These protocols were private during the study. The ES-fixed extension was specified after the core outcomes were known but before its own runs. Appendix~\ref{app:reproduction} records this chronology.
-
 Let $c_{mre}(t)$ be competence for method $m$, run $r$ and environment $e$ at normalized adaptation checkpoint $t\in\{0,0.1,\ldots,1\}$. We use the prespecified transformation
 \begin{equation}
  z_{mre}(t)=\frac{c_{mre}(t)-q_e}{b_e-q_e},\qquad
  A_{mre}=\frac{1}{10}\sum_{j=1}^{10}\frac{z_{mre}(t_{j-1})+z_{mre}(t_j)}{2},
  \label{eq:auc}
 \end{equation}
-where $q_e$ is the random-policy score and $b_e$ is the largest observed score across the five core methods, all final runs and all eleven checkpoints in that environment. No environment had $b_e\leq q_e$, so none was excluded. The later ES-fixed analysis uses the saved core anchors. The scores are relative to this observed reference.
+where $q_e$ is the random-policy score and $b_e$ is the largest observed score across the five core methods, all final runs and all eleven checkpoints in that environment. No environment had $b_e\leq q_e$, so none was excluded. The later ES-fixed analysis uses the saved core anchors.
 
 The primary effect is
 \begin{equation}
  D=\IQM\{A_{\mathrm{OE},r,e}:e\in T2\cup T3\}
  -\IQM\{A_{\mathrm{PPO\text{-}DR},r,e}:e\in T2\cup T3\},
 \end{equation}
-where the interquartile mean (IQM) averages the middle half of the pooled run--environment values. We resample complete runs, keeping each run's environment outcomes together, following the principle that repeated evaluation of a trained agent does not create new independent training runs \citep{agarwal2021deep,henderson2018deep}. There are 50,000 bootstrap draws with statistics seed 4800. The prespecified margin is $0.05$ on this reference scale. AUC measures performance over the adaptation interval, including starting competence.
+where the interquartile mean (IQM) averages the middle half of the pooled run--environment values. We bootstrap complete training runs, keeping their environment outcomes together, with 50,000 draws and statistics seed 4800 \citep{agarwal2021deep,henderson2018deep}. The prespecified margin is $0.05$ on this reference scale. AUC measures performance over the adaptation interval, including starting competence.
 
-The seven core secondary comparisons use two-sided Mann--Whitney tests on per-run environment means, with Holm adjustment within the family. Their companion IQM effects have a different statistical target from the rank tests. The later A2--A3 comparisons form a separate Holm family. H1 and A1 use their interval-based margin rules; A1 and A2 describe the same underlying ES AUC contrast. Appendix~\ref{app:inference} reports the planned core comparisons and later addendum comparisons, including the four-method summaries H2b and A4.
+The seven core secondary comparisons use two-sided Mann--Whitney tests on per-run environment means, with Holm adjustment within the family. The later ES comparisons form a separate family. These rank tests and the pooled-IQM effects summarize different aspects of performance. Appendix~\ref{app:inference} gives all comparisons and decision rules.
 
-All reported neural intervals are nominal percentile bootstrap intervals. The calculation freezes the observed normalization anchors and test environments; it does not propagate uncertainty in anchor selection, environment/episode sampling or selection of tuning configurations. Because the maximum anchors are selected from these same runs, formal conditional 95\% coverage is not established. Final seeds are independent repetitions within each method, but matching seed streams may couple different methods. We examine paired-seed resampling and re-estimation of the anchors in post hoc sensitivity analyses. Ten runs provide limited precision, especially for equivalence claims.
+Neural intervals are nominal percentile bootstrap intervals over training runs, holding the normalization anchors and test environments fixed. They exclude uncertainty from anchor selection, environment and episode sampling, and tuning; selection of the maximum anchors from the same runs leaves their coverage uncertain. Appendix~\ref{app:diagnostics} examines anchor re-estimation and paired resampling of corresponding seeds.

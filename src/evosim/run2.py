@@ -27,7 +27,7 @@ FROZEN_SECTIONS = ("world", "env_A", "env_B", "blob_default", "mutation_sd", "ph
 WORLD_IDS = {"main": 0, "arm3": 1, "side400": 2, "side500": 3, "side600": 4, "side800": 5,
              "side1000": 6, "food15": 7, "food40": 8, "ticks100": 9, "uniform": 10,
              "cann_arm3": 11, "arm2": 12,
-             # B redesign (AA, 1 Nov 2026): less energy per generation in B
+             # B redesign (1 Nov 2026): less energy per generation in B
              "energy400": 13, "energy350": 14, "energy300": 15, "energy250": 16, "energy200": 17,
              "energy150": 18, "energy100": 19, "arm4": 20}
 def world_id(name):

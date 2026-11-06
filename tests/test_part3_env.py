@@ -449,7 +449,7 @@ def test_validation_and_test_ranges_parse_like_train():
 
 
 def test_part3_libraries_import():
-    """Every library pinned for Part 3 that the code uses must import (MISTAKES #41)."""
+    """Every library pinned for Part 3 that the code uses must import."""
     import importlib
     for name in ("jax", "jaxlib", "flax", "optax", "distrax", "chex", "evosax", "gymnax",
                  "rliable.library", "rliable.metrics", "arch", "pandas", "scipy", "numpy", "yaml"):

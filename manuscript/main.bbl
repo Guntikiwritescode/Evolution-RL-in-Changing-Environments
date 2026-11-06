@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -16,27 +16,6 @@ Rishabh Agarwal, Max Schwarzer, Pablo~Samuel Castro, Aaron Courville, and
 \newblock URL
   \url{https://proceedings.neurips.cc/paper_files/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html}.
 
-\bibitem[Bhatia et~al.(2021)Bhatia, Jackson, Tian, Xu, and
-  Matusik]{bhatia2021evogym}
-Jagdeep~Singh Bhatia, Holly Jackson, Yunsheng Tian, Jie Xu, and Wojciech
-  Matusik.
-\newblock {Evolution Gym: A Large-Scale Benchmark for Evolving Soft Robots}.
-\newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~34, 2021.
-\newblock URL
-  \url{https://proceedings.neurips.cc/paper_files/paper/2021/hash/118921efba23fc329e6560b27861f0c2-Abstract.html}.
-
-\bibitem[Dennis et~al.(2020)Dennis, Jaques, Vinitsky, Bayen, Russell, Critch,
-  and Levine]{dennis2020paired}
-Michael Dennis, Natasha Jaques, Eugene Vinitsky, Alexandre Bayen, Stuart
-  Russell, Andrew Critch, and Sergey Levine.
-\newblock {Emergent Complexity and Zero-shot Transfer via Unsupervised
-  Environment Design}.
-\newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~33, 2020.
-\newblock URL
-  \url{https://proceedings.nips.cc/paper_files/paper/2020/hash/985e9a46e10005356bbaf194249f6856-Abstract.html}.
-
 \bibitem[Ge and Cheng(2026)]{ge2026arena}
 Yuxu Ge and Yifei Cheng.
 \newblock Neuroevolution arena: Nested ecological evaluation of
@@ -44,13 +23,6 @@ Yuxu Ge and Yifei Cheng.
 \newblock arXiv:2608.10323v1, 2026.
 \newblock URL \url{https://arxiv.org/abs/2608.10323}.
 \newblock Preprint, 10 August 2026.
-
-\bibitem[Gupta et~al.(2021)Gupta, Savarese, Ganguli, and
-  Fei-Fei]{gupta2021embodied}
-Agrim Gupta, Silvio Savarese, Surya Ganguli, and Li~Fei-Fei.
-\newblock {Embodied intelligence via learning and evolution}.
-\newblock \emph{Nature Communications}, 12\penalty0 (1):\penalty0 5721, 2021.
-\newblock \doi{10.1038/s41467-021-25874-z}.
 
 \bibitem[Hamon et~al.(2023)Hamon, Nisioti, and Moulin-Frier]{hamon2023eco}
 Gautier Hamon, Eleni Nisioti, and Clément Moulin-Frier.
@@ -115,18 +87,6 @@ Eleni Nisioti, Erwan Plantec, Milton Montero, Joachim Pedersen, and Sebastian
 Eleni Nisioti, Andrea Cossu, Kathrin Korte, and Sebastian Risi.
 \newblock {Continual Reinforcement Learning with Neuroevolution}.
 \newblock arXiv:2610.01583, 2026.
-
-\bibitem[{Open Ended Learning Team} et~al.(2021){Open Ended Learning Team},
-  Stooke, Mahajan, Barros, Deck, Bauer, Sygnowski, Trebacz, Jaderberg, Mathieu,
-  McAleese, Bradley-Schmieg, Wong, Porcel, Raileanu, Hughes-Fitt, Dalibard, and
-  Czarnecki]{xland2021}
-{Open Ended Learning Team}, Adam Stooke, Anuj Mahajan, Catarina Barros, Charlie
-  Deck, Jakob Bauer, Jakub Sygnowski, Maja Trebacz, Max Jaderberg, Michael
-  Mathieu, Nat McAleese, Nathalie Bradley-Schmieg, Nathaniel Wong, Nicolas
-  Porcel, Roberta Raileanu, Steph Hughes-Fitt, Valentin Dalibard, and
-  Wojciech~Marian Czarnecki.
-\newblock {Open-Ended Learning Leads to Generally Capable Agents}.
-\newblock arXiv:2107.12808, 2021.
 
 \bibitem[Palfree(2021)]{palfree_evolution_simulator}
 Jasper Palfree.

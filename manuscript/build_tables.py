@@ -1,4 +1,4 @@
-"""Generate manuscript tables from retained analysis records; no experimental runs."""
+"""Generate manuscript tables from the supplied data."""
 from pathlib import Path
 import json,csv
 R=Path(__file__).resolve().parent
@@ -24,11 +24,11 @@ def table(name,caption,label,cols,heads,rows,long=False):
 C=rd('neural_core.json');A=rd('neural_addendum.json');P=rd('trait_confirmatory.json')
 N={'oe':'OE','oe_fixed':'OE-fixed','ppo_dr':'PPO-DR','ppo_fixed':'PPO-fixed','es_dr':'ES-DR','es_fixed':'ES-fixed*'}
 methods=list(N);desc=csvread('study3_descriptives.csv')
-table('environments','Training and fixed test suites. Each test suite contains ten environments. The canonical fixed-training setting is given in the text. Unused layout parameters have no effect in a given environment.','tab:env','lXXX',['Parameter','Varied training / T1','T2','T3'],[
+table('environments','Training ranges and test suites. Each test suite contains ten environments; layout parameters apply only to the corresponding layout.','tab:env','lXXX',['Parameter','Varied training / T1','T2','T3'],[
 ['Arena side $L$','40--80','30--40','40--80'],['Food items $F$','20--60','10--20','20--60'],['Layouts','Uniform, clusters, patches','Clusters','Uniform, clusters, patches'],['Cluster count $k$','2--5','2--3','2--5'],['Cluster scale $\\sigma$','3--8','2--4','3--8'],['Patch radius','4--10','Not used','4--10'],['Regrowth probability','0.01--0.05','0.005--0.01','0.01--0.05'],['Food drift','0','0','0.05--0.3'],['Season period (steps)','None','None','100--300']])
 table('procedures','Training and transfer procedures. Each row has fixed and varied variants, separately tuned. Body traits and actor architecture are shared.','tab:procedures','lXXX',['Procedure','Training signal','Competence deployment','State at adaptation start'],[
 ['OE','Energy-dependent survival/reproduction plus floor replacements','16 sampled population members','Genomes/alive mask retained; world state and energy reset'],['ES','Rank-shaped episodic food score','16 copies of mean actor','Mean solution retained; fresh strategy/optimizer'],['PPO','Food reward and clipped policy objective','16 copies of actor','Actor/critic and reward statistics retained; fresh Adam/rollout state']])
-table('persistence','Descriptive extinction frequencies in the separate 5,000-step no-floor assay. Each cell pools ten runs across ten fixed environments; these 100 observations are not independent training runs.','tab:persistence','lXXX',['Procedure','T1','T2','T3'],[[N[m]]+[f"{float(next(r for r in desc if r['method']==m and r['set']==st)['extinction_rate']):.2f}" for st in ['T1','T2','T3']] for m in methods])
+table('persistence','Extinction frequencies in the 5,000-step persistence assay without floor support. Each cell pools ten training runs evaluated in ten environments. Asterisk: ES-fixed extension.','tab:persistence','lXXX',['Procedure','T1','T2','T3'],[[N[m]]+[f"{float(next(r for r in desc if r['method']==m and r['set']==st)['extinction_rate']):.2f}" for st in ['T1','T2','T3']] for m in methods])
 F=rd('floor_checks.json')['oe_adaptation_floor']
 table('floor','Share of new agents supplied by population-floor replacements during adaptation. Fractions pool event counts over ten runs and ten environments per suite.','tab:floor','lXX',['Suite','OE','OE-fixed'],[[st]+[f"{100*F[m+'/'+st]['floor_share']:.2f}\\%" for m in ['oe','oe_fixed']] for st in ['T1','T2','T3']])
 # All neural confirmatory contrasts; the p-values test run summaries, not the IQM.
@@ -37,16 +37,17 @@ rows=[]
 for x in C['secondary']+A['family']:
  rows.append([x['name'],N[x['x']]+' minus '+N[x['y']],sets[x['name']],ci(x),pv(x['p_holm'])])
 table('neural_tests','Complete core S1--S7 and later A2--A3 families. Differences are pooled IQMs except S7, which uses IQMs of per-run extinction fractions. Intervals are nominal 95\\% whole-run intervals. Holm correction is separate for the two families. The rank-test $p$ values apply to per-run summaries, not directly to the IQM effects.','tab:tests','lp{2.6cm}p{2.2cm}p{4.0cm}r',['ID','Comparison','Outcome','Difference [interval]','Adjusted $p$'],rows,long=True)
-table('primary_rules','Interval-rule comparisons. A1 and A2 use the same ES contrast; they are not independent confirmations. The margin is 0.05 on the empirical normalized scale.','tab:primaryrules','lXXX',['ID','Comparison','Difference [interval]','Decision'],[
+table('primary_rules','Interval-rule comparisons with a margin of 0.05 on the normalized scale. A1 uses the same ES contrast as A2.','tab:primaryrules','lXXX',['ID','Comparison','Difference [interval]','Decision'],[
 ['H1','OE minus PPO-DR',ci({'iqm_difference':C['h1']['D'],'ci':C['h1']['ci']}),'Against predicted superiority'],['A1','ES-DR minus ES-fixed',ci({'iqm_difference':A['a1']['D'],'ci':A['a1']['ci']}),'Positive, below margin']])
 rows=[]
+contrast_labels={'delta':r'$\Delta=|V|-|M|$','interaction':r'$I$','method':r'$M$','variety':r'$V$','variety_es':'ES-DR minus ES-fixed','variety_oe':'OE minus OE-fixed'}
 for lab,d in [('H2b',C['h2b']),('A4',A['a4'])]:
  for key,x in d.items():
-  if isinstance(x,dict) and 'value'in x:rows.append([lab,esc(key),f"{x['value']:+.6f}",f"[{x['ci'][0]:.6f}, {x['ci'][1]:.6f}]"])
-table('four_method','Prespecified four-method summaries. These are contrasts among selected configurations, not identified causal main effects. A4 is a later descriptive comparison whose OE component was already known.','tab:four','llrX',['Analysis','Quantity','Estimate','Nominal 95\\% interval'],rows)
+  if isinstance(x,dict) and 'value'in x:rows.append([lab,contrast_labels[key],f"{x['value']:+.6f}",f"[{x['ci'][0]:.6f}, {x['ci'][1]:.6f}]"])
+table('four_method','Four-method contrasts. H2b covers the core configurations; A4 adds ES-fixed after the OE comparison was known.','tab:four','lP{4.5cm}rX',['Analysis','Quantity','Estimate','Nominal 95\\% interval'],rows)
 rows=[]
 for r in desc:rows.append([N[r['method']],r['set']]+[f(float(r[k])) for k in ['zero_shot_mean','final_mean','auc_mean']])
-table('descriptives','All-method descriptive means. These average environments within runs and then runs; they are distinct from pooled IQMs.','tab:descriptives','llrrr',['Procedure','Suite','Zero-shot','Final','AUC'],rows,long=True)
+table('descriptives','Mean normalized performance, averaging environments within runs and then runs. Asterisk: ES-fixed extension.','tab:descriptives','llrrr',['Procedure','Suite','Zero-shot','Final','AUC'],rows,long=True)
 # Selected hyperparameters copied from frozen tuning outputs.
 settings=csvread('tuned_settings.csv')
 rows=[]
@@ -58,7 +59,7 @@ for m in methods:
   try:return f'{float(v):.6g}'
   except ValueError:return esc(v)
  rows.append([N[m],'; '.join(labels.get(k,esc(k))+' = '+pretty(v) for k,v in vals.items())])
-table('settings','Selected settings from the recorded tuning outputs, rounded to six significant digits. Exact values are retained in the accompanying tuning CSV. Fixed and varied configurations were selected separately. Asterisk: later ES-fixed extension.','tab:settings','lp{12cm}',['Procedure','Settings'],rows,long=True)
+table('settings','Selected hyperparameters, rounded to six significant digits. Exact values are in the accompanying tuning CSV. Asterisk: ES-fixed extension.','tab:settings','lp{12cm}',['Procedure','Settings'],rows,long=True)
 # Trait complete family.
 G={'1':('GS_food_frozen','ET'),'2':('GS_pop_frozen','ET'),'3':('GS_pop_mut','ET'),'4':('SV_frozen','ET'),'5':('ET_freezeB','ET'),'6':('ET_cloneB','ET_freezeB'),'7':('GS_pop_frozen','GS_food_frozen'),'8':('GS_pop_mut','GS_pop_frozen')}
 short={'GS_food_frozen':'F-food','GS_pop_frozen':'F-pop','GS_pop_mut':'M-pop','SV_frozen':'SV','ET':'ET','ET_freezeB':'ET-freeze','ET_cloneB':'ET-clone','ORACLE_B':'Oracle-B'}

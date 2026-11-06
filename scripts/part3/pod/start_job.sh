@@ -19,8 +19,8 @@ log() { echo "$(date -u +%FT%TZ) $*" >> /w/logs/status.txt; cp /w/logs/status.tx
 stop() { log "FAILED: $*"; sleep infinity; }
 # Pod-side time limit: try to delete this pod through RunPod's API with the key RunPod gives every pod.
 # The selftest job showed on 3 Nov 2026 that this does NOT work (empty reply, pod not deleted), so it
-# is not a cost-safety: the session's own polling (control.py watch; rp2.py until 3 Nov) stops every pod (MISTAKES R16, R17).
-# The attempt is kept only because it is harmless; it does not stop the job.
+# cannot enforce the cost limit. Keep control.py watch running until every pod is deleted.
+# This deletion attempt does not stop the job if the API call fails.
 self_delete() {
   curl -s -m 30 -X DELETE "https://rest.runpod.io/v1/pods/$RUNPOD_POD_ID" \
        -H "Authorization: Bearer $RUNPOD_API_KEY" > /w/logs/self_delete.txt 2>&1

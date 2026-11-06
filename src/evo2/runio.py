@@ -1,9 +1,7 @@
 """Provenance, checkpoints and run folders for the Part 3 scripts.
 
-Lessons built in (docs/MISTAKES.md): the clean-tree check uses the project's
-own command, which leaves out results/ (#12, #34); files are written to a
-temporary name and renamed, so a stopped write never looks finished (#26);
-a run is complete only when done.json exists.
+The clean-tree check excludes results/. Files are written to a temporary path
+and renamed after writing. A run is complete only when done.json exists.
 """
 from __future__ import annotations
 

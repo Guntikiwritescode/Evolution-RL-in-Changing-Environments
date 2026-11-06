@@ -9,8 +9,8 @@
       "10 runs per method\n5 core methods + ES-fixed addendum\n\nOE - PPO-DR adaptation IQM:\n-0.559 [-0.609, -0.520]\n\nZero-shot and adaptation tests"
     ],
     [
-      "C  Inference scope",
-      "Separately tuned pipelines\nOne world and variation schedule\n\nMatched nominal agent steps\nWhole-run uncertainty\n\nHistorical reconstruction:\nseparate supporting evidence"
+      "C  Neural evaluation",
+      "30 fixed test environments\n10 environments per test suite\n\nFood acquisition before and\nduring adaptation\n\nPopulation persistence\nwithout replacement support"
     ]
   ]
 }

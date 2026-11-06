@@ -4,7 +4,7 @@ Commands below run from the repository root unless stated otherwise.
 
 ## 1. Assemble and verify data
 
-Follow the four commands in the root README. They install NumPy, SciPy and pandas, assemble all three data archives and run nine statistical checks. Logs are written to `results/audit/viability/rerun/`; independent calculations go to `results/audit/viability/reanalysis/`. Assembly stops on missing files or checksum mismatches; the check chain stops on its first failure.
+Follow the four commands in the root README. They install NumPy, SciPy and pandas, assemble all three data archives from the checked-in parts under `data_archives/`, and run nine statistical checks. Logs are written to `results/audit/viability/rerun/`; independent calculations go to `results/audit/viability/reanalysis/`. Assembly stops on missing files or checksum mismatches; the check chain stops on its first failure.
 
 If using the separately distributed complete ZIP files, put them in one directory and pass `--assets /path/to/that/directory` to `assemble_data.py`. Both forms use the same archive and payload checksums.
 
@@ -26,9 +26,9 @@ python3 -m venv .venv-validation
 PYTHONPATH=src JAX_PLATFORMS=cpu .venv-validation/bin/python -m pytest tests/test_part3_analysis.py tests/test_part3_addendum.py tests/test_part3_explore_report.py tests/test_part2_sim.py tests/test_rules.py tests/test_report_numbers.py tests/test_report_bib.py tests/test_publication_preparation.py -q
 ```
 
-This command runs 86 implementation and reporting tests, including small synthetic simulator cases. It does not rerun the research experiments. All 16 test files are included; running plain `pytest` also selects learning benchmarks outside this validation suite.
+This command selects 86 implementation and reporting tests, including synthetic simulator cases. Running plain `pytest` also selects learning benchmarks.
 
-`requirements-validation.txt` records the directly relevant package versions used for validation. `environments/validation-freeze.txt` records the complete environment when available. These are CPU reanalysis records, not a freshly verified historical GPU-training environment. Do not merge historical trait and neural requirement files.
+`requirements-validation.txt` pins the CPU test dependencies; `environments/validation-freeze.txt` records the installed environment. Historical trait and neural dependencies are listed separately in `environments/`.
 
 ## 4. Rebuild the manuscript
 
@@ -43,7 +43,7 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The table generator uses only Python's standard library. These commands use the supplied vector figures and bibliography and do not access the network. They produce `main.pdf`.
+The table generator uses Python's standard library. The build uses the supplied figures and bibliography and produces `main.pdf`.
 
 ## 5. Regenerate figures from retained records
 
@@ -59,10 +59,8 @@ This regenerates the ten-figure preparation set, numerical JSON and CSV exports,
 .venv-validation/bin/python scripts/release/sync_manuscript_figures.py
 ```
 
-Recompile the manuscript afterward. Historical report helpers still write under `paper/v2/`; that directory contains only their legacy numeric/bibliography support files and is not the final manuscript source. Some optional archival scripts require older external reference material and are outside the validated quickstart. Do not run training, evaluation or cloud provisioning commands to check this release.
+Recompile the manuscript afterward. Legacy report helpers use `paper/v2/`; the current manuscript source is in `manuscript/`.
 
-## Scope
+## Training new runs
 
-These commands recompute the reported statistics and figures and check selected implementation behavior. A fresh GPU training and policy-evaluation reproduction has not been performed for this release. Historical neural training used Python 3.13.18 and RTX 4090 hardware; the CPU validation environment is recorded separately. Training entry points require a Git checkout with a commit.
-
-The manuscript's limits remain: fixed test environments, separate tuning, a selected empirical normalization reference, and incomplete mechanism controls. The prospective protocols were private; ES-fixed and the longer-training extension have their own later chronology.
+The commands above analyze existing runs. Historical neural training used Python 3.13.18 and RTX 4090 hardware and has not been repeated for this release. Its dependency list is `environments/historical_requirements_part3.txt`; the trait experiment's list is `environments/historical_requirements.txt`. These are separate from the checked CPU reanalysis environment. Training entry points require a Git checkout with a commit; their command-line options are documented by `--help`.

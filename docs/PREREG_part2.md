@@ -1,6 +1,8 @@
 # Trait experiment: scientific protocol
 
-Scientific excerpts from the dated study protocol. Operational checklists, private discussion and task lists are omitted. Original section numbers and decision rules are retained. These are edited archival excerpts, not a new registration. Original document SHA-256: `71a125c9ebb937d103fb86033cd9f4229d6b433865ee6c533100ab0f06b0d842`.
+Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `71a125c9ebb937d103fb86033cd9f4229d6b433865ee6c533100ab0f06b0d842`.
+
+Sections 0 and 12–17 of the original protocol are omitted. References to those sections identify historical material rather than sections in this excerpt. The implementation notes in Sections 9.2 and 9.3 describe the supplied code and selected configurations where the amendment text is unavailable.
 
 ## 1. The question, and what this design can and cannot answer
 
@@ -371,7 +373,7 @@ These are prespecified diagnostic checks. Each is run on the pilot and on the fi
 
 **Descriptive extra.** Whether ET's mean P1 goes above 25. The paper reports about 29.
 
-### 9.2 Arm 3: a harder B (proposed; runs only if the amendment is adopted, Section 16)
+### 9.2 Arm 3: a harder B (original proposal; required amendment adoption under original Section 16, omitted here)
 
 **Why.** In the main arm no group can beat ET (Section 1). A B where ET does not fill the food supply lets results go both ways.
 
@@ -383,13 +385,15 @@ These are prespecified diagnostic checks. Each is run on the pilot and on the fi
 - For each seed, ET runs through A once (as in the main arm). From its end-of-A population, it then runs 50 generations in each candidate B, on the same B-phase streams.
 - Choose the smallest side at which ET's mean P1 is at most 20 (80% of the 25 food) and ET is extinct at the end of B (P2, which also counts deaths in A) in at most 3 of the 30 runs. That leaves room above ET (up to 25) and below it on P1.
 - If no candidate qualifies, stop and record a protocol amendment.
-- All 30 A runs and 150 B runs are reported in an appendix, as the global rules require.
+- All 30 A runs and 150 B runs are reported in an appendix, including every run.
 
 Only ET is used, and no other group is run on these seeds. The final seeds are separate, so picking the side doesn't bias comparisons between groups. It only means ET's final mean P1 in arm 3 may come out a little above 20, since the side was picked where ET happened to score at most 20 on these 30 seeds.
 
 **Analysis.** Arm 3 has its own B search (for ORACLE_B and U2), its own Holm family of 16 tests, the same rules and labels as the main arm, and the same holds/changes check against the main arm (with the fixed level from Section 9.1).
 
 **Seeds.** The same run seeds as the main arm, so A phases are identical and only B differs.
+
+**Implementation note: adopted map setting.** The supplied `configs/part2/base.yaml` and `scripts/part2/maprule.py --round 2` define a second candidate set of 650, 700 and 750, evaluated on seeds 2830–2859 with the same mean-P1 and extinction criteria above. `configs/part2/arm3.yaml` records side 750 and rule revision `e5423a8ec25b0368a06f318bf617aba04042d4c0`; `RESULTS_part2.md` reports that setting for the final experiment. The associated result path is `results/part2/maprule_round2/maprule.json`. These are implementation and result-record details, not a reconstruction of the omitted amendment's wording.
 
 ### 9.3 Arm 4: a B that calls for a different design (added after the pilot, at the design amendment, 1 Nov 2026)
 
@@ -398,18 +402,20 @@ Only ET is used, and no other group is run on these seeds. The final seeds are s
 - Every B tried also rewarded small, fast, cheap foragers.
 - So none of them tested whether being able to change helps when the world asks for something different.
 
-The study used to redesign B before any final run.
+B was redesigned before any final run.
 
 **What.** The main B with one change: **less energy per generation in B** (`world.energy_per_generation`, 500 in A). Moving fast costs much more energy than moving slowly (`kernel.motion_cost`), so a low budget should favor a different, slower or cheaper design. Everything else is as in the main B: 300 × 300, 25 food in 5 clusters, spread 15, fresh spots, random edge starts, tick limit 200, 50 generations, blob-eating off.
 
 **How the energy level is set (clones only; no compared group is used):**
 1. **Probe** (seeds 2870–2871). For energy 500, 400, 300, 250, 200, 150 and 100, compare the stage-1 landscapes of A and B, and see where the top A designs rank in B. This probe preceded the final runs. The candidate list for step 2 is chosen from the probe, and the probe and the choice are both reported.
-2. **Rule** (seeds 2860–2869; round 2 on seeds 2872–2881 with a median test, at the selected setting: Section 17, 2 Nov 2026). For each candidate, run the full A search and B search (Section 3) and the U2 runs (Section 8).
+2. **Rule** (seeds 2860–2869; round 2 on seeds 2872–2881 with a median test, at the selected setting: original Section 17, 2 Nov 2026, omitted here). For each candidate, run the full A search and B search (Section 3) and the U2 runs (Section 8).
    - Choose the highest energy (the smallest change from the main B) where, averaged over the 10 seeds, the B winner beats the A winner by **at least 5 blobs** (twice U2's 2.5) on the U2 sets.
    - The B winner's U2 score must also average **at least 20**, so a well-suited design can still live there.
    - Exact arithmetic.
    - If no level qualifies, stop and record a protocol amendment.
    - The rule writes `configs/part2/arm4.yaml`.
+
+**Implementation note: adopted energy setting.** In `scripts/part2/b_redesign.py`, round 2 evaluates energy levels 30, 25, 20 and 15 on seeds 2872–2881. It selects the highest level with a median B-winner-minus-A-winner U2 gap of at least 5 blobs and a mean B-winner U2 score of at least 20. This replaces the first round's mean-gap criterion with a median-gap criterion. `configs/part2/arm4.yaml` records energy 25, round 2 and rule revision `e2619663f841c0b28cb60fefe127c28b2e01b0f7`; `RESULTS_part2.md` reports that setting for the final experiment. The associated result path is `results/part2/b_redesign/rule_round2.json`. This note describes the supplied implementation and selected configuration; the historical rule above is retained.
 
 **Analysis.** As arm 3:
 - its own B search, U2 runs and ORACLE_B (searched in arm 4's B);
@@ -421,7 +427,7 @@ Exploratory items run in arm 4's B too: ET_scratchB, the stage-1-only winners, t
 
 **Seeds.** The same run seeds as the main arm.
 
-**New pilot.** Before any final run, the pilot is repeated on new seeds 2910–2919 with arm 4 included. The 2900–2909 pilot stays reported. Its stop-and-ask rules apply to arm 4 too.
+**New pilot.** Before any final run, the pilot is repeated on new seeds 2910–2919 with arm 4 included. The 2900–2909 pilot stays reported. The same pilot decision rules apply to arm 4.
 
 ---
 
@@ -462,7 +468,7 @@ Arms 2 and 3 use the same streams as the main arm. Arm 3's B search and U2 runs 
 
 **Number of runs:** N per group per arm, with N = 100 or 200 by the rule in Section 18.2. Power is in Sections 6 and 18.2.
 
-**Pilot.** It runs after the amendment is adopted this document, on seeds 2900–2909, all groups. It covers:
+**Pilot.** It runs after adoption of the protocol amendment, on seeds 2900–2909, all groups. It covers:
 - the main arm;
 - arm 2's B reruns, plus the clone check from Section 9.1;
 - arm 3, after its map-size rule.
@@ -494,13 +500,13 @@ Pilot runs are not used in the final analysis. They are reported in an appendix.
 
 ## 11. Exclusions and failures (fixed)
 
-No run is excluded. Any change to the simulator after the final runs start is a dated deviation that the amendment is adopted. After such a change, **all** runs in every arm are rerun from one clean commit, and both the problem and the change are reported.
+No run is excluded. Any simulator change after final runs begin must be documented as a dated protocol amendment. After such a change, **all** runs in every arm are rerun from one clean commit, and both the problem and the change are reported.
 
 ---
 
 ## 18. Dated additions (1 Nov 2026, before any Part 2 run)
 
-The design decision was for the study to be as thorough, wide and deep as possible. Everything here was written before any Part 2 run.
+Everything here was written before any Part 2 run.
 
 ### 18.1 Two kinds of result: confirmatory and exploratory
 
@@ -629,11 +635,11 @@ The confirmatory result is for one or two versions of B. To see how far it reach
   - the longer B leaves generations 0–49 unchanged;
   - every random stream key is used for only one purpose.
 - **Provenance.** Every results file stores the config, its hash, the git commit, package versions and hardware. One command reruns Part 2, and every script has a `--quick` mode (plan rules).
-- **Runs.** This container stops background programs a few minutes after the session goes idle. So:
+- **Run integrity and restart behavior:**
   - Final runs are launched from a separate clean worktree at the launch commit, checked in the same command as the launch.
   - Each seed's results are written to a temporary file, then renamed into place, then marked done with a small file holding the commit and config hash. A stop mid-write can't leave a file that looks finished.
   - On restart, the runner loads every finished file and checks its commit and config hash, and only then skips that seed. Any mismatch stops the runner.
-  - While runs are live, the session waits in back-to-back checks of 9 minutes or less, and never ends a turn (Project rules R17 and R19). If the session is stopped anyway, the restart rule above resumes the work, and the stop is reported.
+  - Interrupted runs resume under the restart checks above, and interruptions are reported.
   - Times for Section 18.2 come from each seed's own process time, so that pauses don't count.
   - Every run, including failed ones, is reported.
 - **Report.** Every result sentence is generated from the data (Part 1 practice). Confirmatory results come first; exploratory ones are labeled.

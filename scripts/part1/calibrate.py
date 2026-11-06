@@ -1,4 +1,4 @@
-"""Part 1 calibration (PROJECT_PLAN.md Part 1 Step 4). Rules: calibration/targets.json.
+"""Part 1 calibration. Rules: calibration/targets.json.
 
   python scripts/part1/calibrate.py --stage 1a        # 288-setting grid
   python scripts/part1/calibrate.py --stage 1b        # refinement around the best 1a setting

@@ -1,23 +1,22 @@
 """Part 3 machine control: rent RunPod GPU machines for one stage, watch them, delete them.
 
-Rebuilt on 4 Nov 2026 after MISTAKES #74: the first controllers (rp0.py, rp1.py, rp2.py) were never
-saved to the repo and were lost. This one follows the recipe in docs/PRELAUNCH_part3_*.md:
+Each stage uses the following controls:
 - one network volume and one GPU pod per part, in a data center with stock, secure cloud only;
 - the pod runs scripts/part3/pod/start_job.sh, accepts one upload (the code package, checked
   against its sha256 by recv.py) and serves its logs and results read-only on port 8888;
-- results are copied off while the pod runs (R18); every pod is deleted when its part finishes, at
+- results are copied off while the pod runs; every pod is deleted when its part finishes, at
   its time limit, when this stage's own spend reaches cap_stop, or when the account balance falls
-  to balance_floor. No pod-side stop works (PRELAUNCH_part3_tune.md), so `watch` must keep running
-  while any pod is up (MISTAKES R16, R17).
+  to balance_floor. Pod-side deletion failed in the deployment test, so `watch` must keep running
+  while any pod is up to enforce these limits.
 
 Stage folder (env STAGE_DIR, outside the repo): plan.json, code.tgz, state.json (written here),
 results/<part>/ (copies). The key comes only from env RUNPOD_API_KEY; it is never written to disk
 by this script.
 
 Storage (plan "volume"): "network" (default) puts results on a network volume that outlives the pod;
-"none" keeps them on the pod's own disk at /workspace, lost when the pod is deleted (added 4 Nov 2026:
-RunPod refuses network volumes below a $5 balance). With "none", results are copied off every pass
-(R18) and finish() retries the last copy before it deletes the pod.
+"none" keeps them on the pod's own disk at /workspace, lost when the pod is deleted.
+With "none", results are copied off every pass, and finish() retries the last copy
+before it deletes the pod.
 
 plan.json example:
   {"stage": "explore_long", "cap": 7.0, "cap_stop": 6.5, "balance_floor": 0.75,
@@ -60,7 +59,7 @@ GRAPHQL = "https://api.runpod.io/graphql"
 REPO_URL = "https://github.com/Guntikiwritescode/evolving-ai-v2"
 POD_DIR = Path(__file__).resolve().parent
 UA = "evolving-ai-pod-control/2.0"
-VOLUME_PRICE_GB_MONTH = 0.07     # RunPod network volumes, $/GB/month (PRELAUNCH_part3_P1.md)
+VOLUME_PRICE_GB_MONTH = 0.07     # RunPod network volumes, $/GB/month
 HOURS_PER_MONTH = 730.0
 POLL_S = 90
 MAX_UPLOAD_TRIES = 5
@@ -273,7 +272,7 @@ def cmd_package(commit: str):
         run("git", "-C", str(code), "checkout", "-q", commit)
         full = run("git", "-C", str(code), "rev-parse", "HEAD").stdout.strip()
         out = d / "code.tgz"
-        run("tar", "-czf", str(out), "-C", str(code), ".")          # files at the top (MISTAKES #65)
+        run("tar", "-czf", str(out), "-C", str(code), ".")          # files at the top
         # check it the way the pod opens it: tar -xzf code.tgz -C /w/code
         chk = Path(t) / "w/code"
         chk.mkdir(parents=True)
@@ -390,8 +389,8 @@ def create_in(part: str, dc: str) -> bool:
     save_state(st)
     print(f"{now_utc()}  {part} pod {r['id']} at ${price:.3f}/h", flush=True)
     if price > plan["price_max"] + 1e-9:
-        print(f"{part}: price ${price} is above the approved ${plan['price_max']}; deleting", flush=True)
-        delete_pod(st, part, "price above the approved maximum")
+        print(f"{part}: price ${price} is above the configured ${plan['price_max']}; deleting", flush=True)
+        delete_pod(st, part, "price above the configured maximum")
         sys.exit(1)
     return True
 

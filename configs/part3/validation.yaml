@@ -1,5 +1,5 @@
-# Part 3 validation set (docs/SPEC_part3.md, Section 3.4). Used only for tuning and sanity checks.
-# Provisional until check-in 8.
+# Part 3 validation set (docs/SPEC_part3.md, Section 3.4). Used for tuning, sanity checks and validation learning curves.
+# Used for pilot and final runs.
 drawn:
   ranges: train            # the train ranges in train.yaml
   env_seeds: [4900, 4919]  # inclusive; one environment per seed ("env_params" stream)

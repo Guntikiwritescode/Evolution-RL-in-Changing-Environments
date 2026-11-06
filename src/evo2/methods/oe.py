@@ -7,9 +7,8 @@ moves to a new environment from `env_fn`; agents stay where they are (clipped
 into the arena) and food is laid out afresh. OE-fixed is the same with
 CHANGE_EVERY = 0 (the environment never changes).
 
-Population floor (provisional; a decision for AA at check-in 7). Quick tries
-on test seeds 3980-3984 (2 Nov 2026, no floor, train distribution) went
-extinct every time, after 113, 176, 297, 1,292 and 2,166 steps (0, 0, 3, 29
+Population floor. Preliminary runs on seeds 3980-3984 (2 Nov 2026, no floor,
+training distribution) went extinct every time, after 113, 176, 297, 1,292 and 2,166 steps (0, 0, 3, 29
 and 173 births before that). With MIN_POP > 0, whenever fewer than MIN_POP
 agents are alive after a step, the empty slots are filled up to MIN_POP with
 mutated copies of agents chosen uniformly at random (no fitness: each equally
@@ -36,7 +35,7 @@ DEFAULTS = {
     "CHANGE_EVERY": 2000,   # 0 = never (OE-fixed)
     "WEIGHT_SD": 0.02,
     "TRAIT_FRAC": 0.05,
-    "MIN_POP": 16,          # population floor; 0 = none (provisional)
+    "MIN_POP": 16,          # population floor; 0 = none
 }
 
 

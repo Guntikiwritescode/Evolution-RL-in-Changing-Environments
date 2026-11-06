@@ -4,7 +4,7 @@ For each of seeds 2800-2829 (deployment streams of that seed): ET runs
 through A once; from its end-of-A population it runs 50 generations in B
 with each candidate side (400, 500, 600, 800, 1000). The chosen side is the
 smallest where ET's mean P1 <= 20 and ET is extinct at the end of B in at
-most 3 of the 30 runs. If none qualifies: stop and ask AA.
+most 3 of the 30 runs. If none qualifies, stop without selecting a map size.
 
 Writes results/part2/maprule/ (maprule.json with every run's outcomes,
 raw logs in maprule.npz) and, if a side qualifies, configs/part2/arm3.yaml.
@@ -50,7 +50,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
     ap.add_argument("--round", type=int, default=1, choices=(1, 2),
-                    help="2 = sides 650/700/750 on seeds 2830-2859 (AA, 1 Nov 2026)")
+                    help="2 = sides 650/700/750 on seeds 2830-2859 (1 Nov 2026)")
     args = ap.parse_args()
     cfg = config.load(BASE)
     prov = config.provenance(cfg)
@@ -99,7 +99,7 @@ def main():
         print(f"side {k}: mean P1 {v['mean_P1']:.2f} (SD {v['sd_P1']:.2f}), extinct {v['extinct']}/{v['n']}"
               f"{'  <- qualifies' if v['qualifies'] else ''}")
     if chosen is None:
-        raise SystemExit("no candidate side qualifies: stop and ask AA (Section 9.2)")
+        raise SystemExit("no candidate side qualifies; no map size selected (Section 9.2)")
     print(f"chosen side: {chosen:g}")
     if not args.quick:
         path = os.path.join(ROOT, "configs", "part2", "arm3.yaml")

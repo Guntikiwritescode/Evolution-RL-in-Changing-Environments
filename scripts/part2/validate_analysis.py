@@ -5,8 +5,8 @@ Usage:
   python scripts/part2/validate_analysis.py --quick    # tiny version, for testing the script
   python scripts/part2/validate_analysis.py --only V2  # one check
 
-Writes results/part2/validation/<check>.json (one file per check, so a stopped
-session keeps what is done) and prints a pass/fail line per check.
+Writes results/part2/validation/<check>.json (one file per check, retained after
+a process interruption) and prints a pass/fail line per check.
 No simulator is used. Pass rules are the ones written in PREREG_part2.md 18.3.
 """
 import argparse

@@ -7,7 +7,7 @@ Excluded runs (technical failures, PREREG 9): none. Test environments left out o
 
 ## Hypotheses (PREREG Section 1) and their pre-set verdicts
 
-**Historical hypothesis wording:** the original H1 phrase 'adapts faster' is retained below for provenance. The measured endpoint is performance during adaptation, including starting competence, and does not isolate adaptation speed. Current interpretations and uncertainty qualifications are in ../manuscript/paper.pdf.
+**Outcome definition:** H1 uses adaptation AUC, which includes starting competence. The original phrase 'adapts faster' refers to this endpoint; it does not measure adaptation speed.
 
 | Hypothesis | Prediction | Test | Verdict |
 |---|---|---|---|
@@ -195,14 +195,13 @@ Probe observations for behavioral diversity come from the random policy playing 
 
 ## Figures
 
-- `figures/part3/learning_curves.png`: validation score of each training snapshot, mean and SD over the 10 runs per method.
-- `figures/part3/adaptation_curves.png`: normalized competence during adaptation, mean over runs and environments, per test set.
-- `figures/part3/iqm_primary.png`: IQM of the primary metric per method with its 95% whole-run bootstrap CI.
-- `figures/part3/performance_profiles.png`: performance profiles of the primary metric on T2 and T3.
-- `figures/part3/prob_improvement.png`: probability that a row method's run beats a column method's run on the primary metric (per-run means).
-- `figures/part3/ablation_variety.png`: the 2 × 2 of evolution/PPO × variable/fixed training on the primary metric's IQM.
-- `figures/part3/diversity_over_time.png`: OE and OE-fixed genotypic (weights) and behavioral diversity of 16 sampled agents at each snapshot.
-- `figures/part3/compute.png`: mean wall time per training run (all methods used the same agent-step budget).
+The supplied publication figures include the later ES-fixed comparison, marked where applicable. Regenerate them from retained records with `.venv-validation/bin/python scripts/report/prepare_publication.py` after data assembly.
 
-Baldwin plots belong to Q3 (OE+L), which is not part of the core runs.
+- [Primary performance](../figures/publication/fig02_primary.png): IQM of normalized adaptation AUC with nominal 95% whole-run bootstrap intervals.
+- [Fixed and varied training](../figures/publication/fig03_variation.png): adaptation and zero-shot comparisons for the separately tuned configurations.
+- [Training and adaptation curves](../figures/publication/fig04_curves.png): validation and test means, with pointwise 95% whole-run bootstrap intervals.
+- [Performance profiles and probability summaries](../figures/publication/fig05_profiles.png): T2/T3 AUC distributions and cross-run comparisons.
+- [Population diagnostics](../figures/publication/figS01_diagnostics.png): weight and behavioral diversity over training and extinction in the separate persistence assay.
+
+The compute tables above report wall times. Figure definitions, including sample counts and interval conventions, are in [FIGURE_GUIDE.md](FIGURE_GUIDE.md).
 

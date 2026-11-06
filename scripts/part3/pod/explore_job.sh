@@ -1,5 +1,5 @@
 #!/bin/bash
-# Exploratory longer-training check (docs/PRELAUNCH_part3_explore_long.md). Decided on 4 Nov 2026,
+# Exploratory longer-training check (docs/EXPLORE_part3_long.md). Decided on 4 Nov 2026,
 # after the final results were seen, so everything it produces is labeled exploratory.
 #
 # Each run trains to BUDGET agent-steps with the seed of a final run. The seed fixes the random keys

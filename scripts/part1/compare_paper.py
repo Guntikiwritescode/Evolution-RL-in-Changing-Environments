@@ -1,12 +1,10 @@
-"""Part 1: compare the final rebuild with every number the paper prints, then write
-docs/REPLICATION.md from docs/templates/REPLICATION_part1.md.
+"""Compare the reconstructed experiment with the original paper's numerical results.
 
-No result number in REPLICATION.md is typed by hand: every number in it is filled in
-here from the saved run files. Paper numbers come from docs/paper_numbers_part1.yaml
-(typed once from the PDF), results/part1/paper_heldout_digitized.json (held-out curves
-read after the final run) and calibration/digitized_paper_figures.json (ET curves).
+Reference values come from docs/paper_numbers_part1.yaml, the held-out curves in
+results/part1/paper_heldout_digitized.json and the calibration curves in
+calibration/digitized_paper_figures.json.
 
-Verdict rule (fixed before the run, docs/PRELAUNCH_part1_final.md R5), applied as written:
+Comparison rule fixed before the run:
 a number replicates if the rebuilt mean is within the paper's SD across seeds, or within 10%
 of the paper value where no SD is given. A printed SD of 0.00 is taken as 0, so the rule then
 asks for an exact match (differences below 1e-12, i.e. floating-point round-off, count as
@@ -17,7 +15,7 @@ paper's printed precision (+/- 0.005). That reading was chosen after seeing the 
 always labeled as such; it never replaces the verdict.
 
 Usage: python scripts/part1/compare_paper.py --name final
-Writes results/part1/<name>/comparison.json and docs/REPLICATION.md.
+Writes results/part1/<name>/comparison.json.
 """
 import argparse
 import csv
@@ -307,7 +305,7 @@ def main():
         ("Fig. 9 GS CV2, transfer", held["fig9_cv2_transfer"]["curves"]["gs"], gs_cv2, gs_cv2_n, TRAIN,
          "mean over runs with blobs alive"),
     ]
-    skip_fig2 = {0}  # Fig. 2 GS gen 0 reads 46.2 although it is 50 by design (steep edge; see REPLICATION.md)
+    skip_fig2 = {0}  # Fig. 2 GS gen 0 reads 46.2 although it is 50 by design (steep digitized edge)
     for label, pc, reb, n_al, offset, how_c in spec_c:
         # paper curves for transfer use transfer generation numbers 0-49; rebuilt series use 100-149
         shifted = {str(int(g) + offset): v for g, v in pc.items()}

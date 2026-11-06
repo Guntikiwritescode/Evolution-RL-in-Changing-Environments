@@ -303,7 +303,7 @@ def test_addendum_analysis_reruns_are_optional_and_flagged(tmp_path):
 
 
 def test_every_reading_is_quoted_from_the_preregistration():
-    """Every reading is made of fragments that appear word for word in PREREG 16.4 (MISTAKES #90)."""
+    """Every reading is made of fragments that appear word for word in PREREG 16.4."""
     from pathlib import Path
     pre = (Path(__file__).resolve().parents[1] / "docs/PREREG_part3.md").read_text()
     sec = pre[pre.index("### 16.4"):pre.index("### 16.5")]

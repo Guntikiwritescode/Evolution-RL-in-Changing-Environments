@@ -1,6 +1,6 @@
 # Neural experiment: scientific protocol and ES-fixed addendum
 
-Scientific excerpts from the dated study protocol. Operational checklists, private discussion and task lists are omitted. Original section numbers and decision rules are retained. These are edited archival excerpts, not a new registration. Original document SHA-256: `78f367f3fc19c01aaf744c77f28c1ee092895f255c6c0fe07373f4a08d706f41`.
+Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `78f367f3fc19c01aaf744c77f28c1ee092895f255c6c0fe07373f4a08d706f41`.
 
 ## 1. Questions and hypotheses
 
@@ -32,14 +32,14 @@ OE, OE-fixed (the fixed-world ablation), PPO-fixed, PPO-DR and ES-DR, as defined
 
 ## 3. Environment splits (locked)
 
-The splits are defined in `configs/part3/train.yaml`, `validation.yaml` and `test_split.yaml` (SPEC Section 3.4). They are locked when this pre-registration is final; until then they are provisional and change only with a dated entry in Section 15.
+The splits are defined in `configs/part3/train.yaml`, `validation.yaml` and `test_split.yaml` (SPEC Section 3.4). They are locked when this pre-registration is final; until then they are provisional and change only with a dated entry in original Section 15 (omitted from this excerpt).
 
 - **Train distribution:** L 40–80, F 20–60, layout uniform / clusters (k 2–5, σ 3–8) / patches (k 2–5, radius 4–10), ρ 0.01–0.05, no drift, no seasons.
 - **Canonical environment** (PPO-fixed, OE-fixed): L 60, F 40, uniform, ρ 0.03.
 - **Validation:** 20 environments drawn from the train distribution with seeds 4900–4919, plus 4 corner environments; evaluation episodes use seeds 4930–4999. Used only for tuning and sanity checks.
 - **Test:** T1 (train distribution, seeds 5900–5909), T2 (near shift: L 30–40, F 10–20, clusters k 2–3, σ 2–4, ρ 0.005–0.01; seeds 5910–5919), T3 (far shift: train ranges plus drift 0.05–0.3 and seasonal relocation every 100–300 steps; seeds 5920–5929). Evaluation episodes: environment j (0–29, in the order T1, T2, T3) uses episode seed 5930 + j, the same for every method.
 
-**The lock.** Only `src/evo2/env/splits.py` reads the test file, only with `final=True`, and only `scripts/part3/evaluate.py --split test --final` asks for that. With `--final`, `evaluate.py` accepts only finished runs whose purpose is "final", evaluates the whole test split (no partial looks), and appends every look to `results/part3/test_access_log.jsonl`, which is reported. Tests check this (SPEC Section 10). The pilot uses stand-in environments with the T2 and T3 ranges but new pilot seeds (`configs/part3/pilot_shift.yaml`), only to estimate variance for the power analysis, never to choose settings. The unit tests read the test file once to check that it parses and matches this section; no environment from it is run before the final evaluation.
+**The lock.** Only `src/evo2/env/splits.py` reads the test file, only with `final=True`, and only `scripts/part3/evaluate.py --split test --final` asks for that. With `--final`, `evaluate.py` accepts only finished runs whose purpose is "final", evaluates the whole test split (no partial looks), and appends every look to `results/part3/test_access_log.jsonl`, which is reported. Tests check this (original SPEC Section 10, omitted from the specification excerpt). The pilot uses stand-in environments with the T2 and T3 ranges but new pilot seeds (`configs/part3/pilot_shift.yaml`), only to estimate variance for the power analysis, never to choose settings. The unit tests read the test file once to check that it parses and matches this section; no environment from it is run before the final evaluation.
 
 ---
 

@@ -1,4 +1,4 @@
-"""World B redesign (AA, 1 Nov 2026, after the pilot): a B that calls for a different design.
+"""World B redesign (1 Nov 2026, after the pilot): a B that calls for a different design.
 
 The pilot showed that in every B tried, the best design found in A was about as
 good as the best design found in B (check U2 fired). The A winner is a small,
@@ -10,16 +10,14 @@ This script only runs clones (no group is compared), on seeds set aside for it.
 
 Step 1, probe (--probe): seeds 2870-2871. A stage-1 landscape and the B stage-1
   landscape for each energy level; reports where the top A designs rank in B.
-  This is the "quick sweep first" that MISTAKES #30 asks for.
 Step 2, rule (--rule): for each candidate energy, the full A search, the full
   B search and the U2 runs (Section 3, Section 8), on the main B's streams.
   Chosen: the highest energy (smallest change from the main B) where the B
   winner beats the A winner by at least 5 blobs on the U2 sets, and the B
-  winner's mean U2 score is at least 20. Exact arithmetic. If none: stop and
-  ask AA. Writes configs/part2/arm4.yaml.
+  winner's mean U2 score is at least 20. Exact arithmetic. If none qualifies, stop without selecting a setting. Writes configs/part2/arm4.yaml.
   - Round 1 (--round 1): seeds 2860-2869, levels 100-40, MEAN gap over seeds
     (Section 9.3). No level qualified.
-  - Round 2 (--round 2, AA's choice on 2 Nov 2026): seeds 2872-2881, levels
+  - Round 2 (--round 2, added on 2 Nov 2026): seeds 2872-2881, levels
     30, 25, 20, 15, MEDIAN gap over seeds (Section 17). Chose 25.
   Each round's levels are fixed here (ROUND_LEVELS) so a rerun can't use others.
 
@@ -72,7 +70,7 @@ def probe_one(args):
             "A_top1_B_percentile": float((ranks[out["A_top5"][0]] - 1) / (n - 1)),
             "tau_b": float(sps.kendalltau(a1["pop_score"], sb, variant="b").statistic),
             # Many designs tie at the best B score; the first 3 in grid order are NOT "B's preferred
-            # designs" (MISTAKES #32). The (speed, size) mix of every design within 0.5 of the best is.
+            # designs". The (speed, size) mix of every design within 0.5 of the best is.
             "B_first3_at_best_grid_order": [designs[int(i)] for i in np.argsort(-sb, kind="stable")[:3]],
             "B_near_best_speed_size_counts": sorted(
                 [[float(k[0]), float(k[1]), int(v)] for k, v in __import__("collections").Counter(
@@ -132,7 +130,7 @@ def main():
     ap.add_argument("--rule", action="store_true")
     ap.add_argument("--round", type=int, choices=(1, 2), default=1,
                     help="rule round: 1 = seeds 2860-2869, mean gap (Section 9.3); "
-                         "2 = seeds 2872-2881, median gap (AA, 2 Nov 2026, Section 17)")
+                         "2 = seeds 2872-2881, median gap (2 Nov 2026, Section 17)")
     ap.add_argument("--energies", default=None,
                     help="optional; must equal the round's recorded levels (ROUND_LEVELS)")
     ap.add_argument("--probe-energies", default=",".join(str(e) for e in PROBE_ENERGIES))
@@ -190,7 +188,7 @@ def main():
             gap = sum(gaps, Fraction(0)) / len(rows)
             med = median_fraction(gaps)
             bsc = sum((Fraction(r["b_winner_total"], r["count"]) for r in rows), Fraction(0)) / len(rows)
-            # Round 1: mean gap >= 5 (Section 9.3). Round 2: median gap >= 5 (AA, 2 Nov 2026).
+            # Round 1: mean gap >= 5 (Section 9.3). Round 2: median gap >= 5 (2 Nov 2026).
             # Both: mean B-winner U2 score >= 20.
             ok = (gap if args.round == 1 else med) >= 5 and bsc >= 20
             summary[str(e)] = {"mean_gap": float(gap), "median_gap": float(med),
@@ -208,7 +206,7 @@ def main():
             json.dump(doc, f, indent=1, default=float)
         os.replace(path + ".tmp", path)
         if chosen is None:
-            raise SystemExit("no energy level qualifies: stop and ask AA")
+            raise SystemExit("no energy level qualifies; no setting selected")
         print(f"chosen energy: {chosen}")
         if not args.quick:
             with open(os.path.join(ROOT, "configs", "part2", "arm4.yaml"), "w") as f:

@@ -40,7 +40,7 @@ def main():
         raise SystemExit(f"{a.method} runs need its tuned settings: --tuned-extra FILE (PREREG Section 16)")
     mcfg = load_methods_config(extra_tuned=a.tuned_extra) if a.tuned_extra else load_methods_config()
     if a.purpose == "final" and "tuned_from" not in mcfg:
-        raise SystemExit("final runs use the tuned settings: configs/part3/tuned.yaml is missing (check-in 9)")
+        raise SystemExit("final runs use the tuned settings: configs/part3/tuned.yaml is missing")
     if addendum and a.tuned_extra and "settings" not in mcfg.get(a.method, {}):
         raise SystemExit(f"{a.tuned_extra} has no settings for {a.method}")
     if a.quick:

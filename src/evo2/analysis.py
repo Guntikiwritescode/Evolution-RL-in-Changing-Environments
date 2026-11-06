@@ -280,8 +280,7 @@ RERUN_TOLERANCE = 0.01         # PREREG 16.3: a check rerun this far outside the
 
 def addendum_readings(a1_verdict: str, a3_result: str) -> dict:
     """The pre-set readings of PREREG 16.4: A3 answers Milano et al.'s claim, A1 our adaptation question.
-    Each reading is made only of fragments quoted word for word from PREREG 16.4 (a test checks this),
-    so the report cannot drop a pre-registered caveat (MISTAKES #90)."""
+    The returned text uses the interpretation rules recorded in PREREG 16.4."""
     milano = {"supported": ["in our world, score-based ES evolved in varied environments did better on new environments "
                             "from the training ranges, before any adaptation, as Milano et al. found",
                             "set against S2 and the exploratory OE result, their direction holds for score-based ES and "

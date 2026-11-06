@@ -1,7 +1,7 @@
-"""Offline, deterministic prewriting assets. No training or manuscript prose.
-Run from any directory: python scripts/report/prepare_publication.py
+"""Generate publication figures and numerical summaries.
+Run from the repository root: python scripts/report/prepare_publication.py
 Outputs: figures/publication (PDF/SVG/PNG), results/publication (plot data/tables),
-         paper/v2/numbers_supplement.tex, docs/FIGURE_GUIDE.md.
+         docs/FIGURE_GUIDE.md.
 Registered estimates are preserved. Newly drawn descriptive bands are explicitly
 pointwise whole-run percentile bootstrap intervals (20,000 resamples, seed 20261105).
 """
@@ -30,8 +30,6 @@ def mean_ci(a):
 def iqm(a):
  a=np.sort(np.ravel(a));k=len(a)//4;return float(a[k:len(a)-k].mean())
 def finish(fig,name,caption,data):
- if name in {'fig01_overview','fig02_primary','fig03_variation','fig04_curves'}:
-  caption += (' Normalized adaptation intervals' if name == 'fig04_curves' else ' Neural intervals') + ' use a frozen empirical scoring scale: nominal percentile coverage does not account for selected normalization anchors, fixed environments/episodes or tuning selection; formal conditional 95% coverage is not established.'
  fig.savefig(FIG/(name+'.pdf'),bbox_inches='tight',metadata={'CreationDate':None,'ModDate':None})
  fig.savefig(FIG/(name+'.svg'),bbox_inches='tight',metadata={'Date':None})
  image_bytes=io.BytesIO();fig.savefig(image_bytes,format='png',bbox_inches='tight',dpi=300)
@@ -58,20 +56,20 @@ for m in METHODS:
   byset.append(dict(method=m,set=st,n_runs=10,n_envs=10,zero_shot_mean=float(zero[m][:,sl].mean()),final_mean=float(curves[m][:,sl,-1].mean()),auc_mean=float(auc[m][:,sl].mean()),extinction_rate=float(ext[m][:,sl].mean())))
 pd.DataFrame(byset).to_csv(OUT/'study3_descriptives.csv',index=False)
 savejson('study3_primary_per_run.json',{m:{'seeds':list(range(5000,5010)),'auc_T2_T3':auc[m][:,10:].tolist()} for m in METHODS})
-contact=PdfPages(FIG/'figure_review.pdf',metadata={'Title':'Publication figure review - preparation only','CreationDate':None,'ModDate':None})
+contact=PdfPages(FIG/'figure_review.pdf',metadata={'Title':'Publication figures','CreationDate':None,'ModDate':None})
 # 1: compact overview, values read from verified sources
 fig,axs=plt.subplots(1,3,figsize=(10.4,3.4),layout='constrained')
 for ax in axs:ax.set_axis_off()
-texts=[('A  Trait experiment','200 seeds per primary group\n4 prespecified arms\n\nSearch-pipeline and mutation\ncomparisons\n\nP1: mean population\nP2: terminal extinction'),('B  Neural experiment',f"10 runs per method\n5 core methods + ES-fixed addendum\n\nOE - PPO-DR adaptation IQM:\n{C['h1']['D']:.3f} [{C['h1']['ci'][0]:.3f}, {C['h1']['ci'][1]:.3f}]\n\nZero-shot and adaptation tests"),('C  Inference scope','Separately tuned pipelines\nOne world and variation schedule\n\nMatched nominal agent steps\nWhole-run uncertainty\n\nHistorical reconstruction:\nseparate supporting evidence')]
+texts=[('A  Trait experiment','200 seeds per primary group\n4 prespecified arms\n\nSearch-pipeline and mutation\ncomparisons\n\nP1: mean population\nP2: terminal extinction'),('B  Neural experiment',f"10 runs per method\n5 core methods + ES-fixed addendum\n\nOE - PPO-DR adaptation IQM:\n{C['h1']['D']:.3f} [{C['h1']['ci'][0]:.3f}, {C['h1']['ci'][1]:.3f}]\n\nZero-shot and adaptation tests"),('C  Neural evaluation','30 fixed test environments\n10 environments per test suite\n\nFood acquisition before and\nduring adaptation\n\nPopulation persistence\nwithout replacement support')]
 for ax,(h,t) in zip(axs,texts):ax.text(0,1,h,va='top',weight='bold',fontsize=11);ax.text(0,.82,t,va='top',linespacing=1.6,fontsize=10)
-finish(fig,'fig01_overview','Overview of the new trait and neural experiments and their inference scope. Historical reconstruction is separate supporting material, not the evidence for the neural comparison. Counts refer to seeds or complete training runs as labeled. The displayed Study 3 contrast uses the registered 95% whole-run bootstrap CI (50,000 resamples). ES-fixed was added after core results. These studies do not isolate selection mechanism.',{'panels':texts})
+finish(fig,'fig01_overview','Overview of the trait and neural experiments. Counts denote seeds or complete training runs. The neural contrast uses adaptation AUC and a nominal 95% whole-run bootstrap interval (50,000 draws). ES-fixed is a later extension.',{'panels':texts})
 # 2 primary
 fig,ax=plt.subplots(figsize=(7.2,3.6),layout='constrained')
 for j,m in enumerate(METHODS):
  v,lo,hi=I[m];ax.errorbar(v,j,xerr=[[v-lo],[hi-v]],fmt='o',color=COLORS[m],capsize=4)
  ax.annotate(f'{v:.3f} [{lo:.3f}, {hi:.3f}]',(1.02,j),xycoords=('axes fraction','data'),fontsize=8,va='center')
 ax.set_yticks(range(6),[NAMES[m] for m in METHODS]);ax.invert_yaxis();ax.set_xlim(0,1);ax.set_xlabel('IQM of normalized adaptation AUC (T2 and T3)');ax.grid(axis='x');title(ax,'Primary performance during adaptation')
-finish(fig,'fig02_primary','Dots: IQM across run-environment adaptation AUCs on T2/T3; bars: registered 95% whole-run bootstrap CIs, 50,000 resamples, seed 4800. Ten independent training runs per method, 20 fixed test environments per run. Normalization uses the shared core random-to-best references; it is not absolute competence. *ES-fixed is the later addendum. OE as implemented here performs substantially worse than PPO-DR.',{m:I[m] for m in METHODS})
+finish(fig,'fig02_primary','Normalized adaptation AUC on T2/T3. Points show pooled IQMs across ten training runs and twenty environments; bars show nominal 95% whole-run bootstrap intervals (50,000 draws, seed 4800). Asterisk: ES-fixed extension.',{m:I[m] for m in METHODS})
 # 3 variation without implying paired experimental intervention
 fig,axs=plt.subplots(2,3,figsize=(9.5,6.4),sharey='row',layout='constrained');vdata={}
 for ax,(var,fix),name in zip(axs[0],[('oe','oe_fixed'),('es_dr','es_fixed'),('ppo_dr','ppo_fixed')],['A  OE','B  ES','C  PPO']):
@@ -92,7 +90,7 @@ axs[1,0].set_ylabel('Normalized zero-shot competence (T1)')
 a3=next(x for x in A['family'] if x['name']=='A3');vdata['A3']=a3
 fig.supxlabel(f"Registered A3 (ES, pooled IQM difference): {a3['iqm_difference']:+.4f} [{a3['ci'][0]:+.4f}, {a3['ci'][1]:+.4f}]",fontsize=9)
 
-finish(fig,'fig03_variation','Top: adaptation AUC on T2/T3; bottom: zero-shot competence on T1. Small circles: individual run means (10 per method), deterministic horizontal spacing for visibility. Top diamonds/bars: pooled IQMs and registered 95% whole-run bootstrap CIs (50,000 resamples). Bottom squares/bars: means with new descriptive 95% whole-run percentile bootstrap CIs (20,000 resamples, seed 20261105), computed with fixed environments and normalization. The OE/PPO T1 comparisons are descriptive, not new confirmatory tests. The A3 annotation reports the separate registered pooled-IQM contrast, not the difference between the bottom squares. The run mean and pooled IQM are different estimands. *ES-fixed was added after core results. The separately tuned varied ES scores modestly higher and varied OE scores lower than their fixed variants; the PPO contrast is not supported under its registered rule. Separately tuned hyperparameters also differ between fixed and varied variants; variation is not isolated as the sole cause.',vdata)
+finish(fig,'fig03_variation','Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). A3 labels the pooled-IQM contrast; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.',vdata)
 # 4 curves
 fig,axs=plt.subplots(2,3,figsize=(10,6.1),layout='constrained');d={}
 for j,st in enumerate(['T1','T2','T3']):
@@ -109,7 +107,7 @@ for ax,ms,label in zip(axs[0],[METHODS[:2],METHODS[2:4],METHODS[4:]],['A  Valida
   d[m+'_validation']={'mean':v.tolist(),'ci_low':l.tolist(),'ci_high':h.tolist()}
  ax.legend();ax.set_xlabel('Training steps (millions)');ax.set_ylim(0,30);ax.grid()
 axs[0,0].set_ylabel('Validation competence minus random');axs[1,0].set_ylabel('Normalized competence')
-finish(fig,'fig04_curves','Top: validation score across nominal training checkpoints; bottom: normalized adaptation competence, averaging the ten environments in each test set within each run. Curves are means over 10 runs; bands are new descriptive pointwise 95% whole-run percentile bootstrap CIs (20,000 resamples, seed 20261105), not simultaneous confidence bands. *ES-fixed is a later addendum. Training and adaptation axes are nominal living-agent-steps; actual checkpoint overshoots are recorded separately. Training observations begin at nominal 20 million steps and do not measure gains from initialization. Mean curves can conceal different individual-run changes. Adaptation scores include starting performance.',d)
+finish(fig,'fig04_curves','Top: validation competence above random during training. Bottom: normalized test competence during adaptation. Lines average ten runs; shading gives pointwise 95% whole-run percentile intervals (20,000 draws, seed 20261105). Axes use nominal living-agent steps; training observations begin at 20 million steps.',d)
 # 5 profiles and probability
 fig,axs=plt.subplots(1,2,figsize=(10.3,4.2),layout='constrained');tau=np.linspace(0,1,101);profiles={};pm=[]
 for m in METHODS:
@@ -123,7 +121,7 @@ axs[0].set_xlabel('Adaptation AUC threshold');axs[0].set_ylabel('Fraction of run
 im=axs[1].imshow(pm,vmin=0,vmax=1,cmap='cividis');axs[1].set_xticks(range(6),[NAMES[m] for m in METHODS],rotation=45,ha='right');axs[1].set_yticks(range(6),[NAMES[m] for m in METHODS]);title(axs[1],'B  Probability of improvement')
 for i in range(6):
  for j in range(6):axs[1].text(j,i,'—' if i==j else f'{pm[i][j]:.2f}',ha='center',va='center',color='white' if pm[i][j]<.45 else 'black',fontsize=8)
-finish(fig,'fig05_profiles','Descriptive plots. Left: empirical fraction above each threshold among 10 runs x 20 fixed T2/T3 environments, with no confidence bands; environment observations are not treated as independent runs. Right: fraction of all 100 cross-run comparisons in which the row method mean exceeds the column method mean, with ties counting one half; diagonal omitted. This is an effect summary, not a significance test. *ES-fixed is a later addendum. No confirmatory ES-DR versus PPO-DR superiority claim is made.',{'threshold':tau.tolist(),'profiles':profiles,'methods':METHODS,'probability':pm})
+finish(fig,'fig05_profiles','Left: fraction above each AUC threshold across ten runs and twenty T2/T3 environments. Right: fraction of 100 cross-run comparisons in which the row method mean exceeds the column method mean, with ties counting one half. Asterisk: ES-fixed extension.',{'threshold':tau.tolist(),'profiles':profiles,'methods':METHODS,'probability':pm})
 # 6 original transfer, direct raw count ratios
 held=read('results/part1/paper_heldout_digitized.json')['figures'];pop=[];food=[]
 for s in range(30):
@@ -137,7 +135,7 @@ for ax,vals,key,ylab in zip(axs,[food,pop],['fig6_fitness_transfer','fig7_popula
   pts=held[key]['curves'][c];xx=range(min(map(int,pts)),max(map(int,pts))+1);ax.plot(xx,[pts.get(str(i),float('nan')) for i in xx],ls='--' if c=='et' else ':',color=col,label='Original '+c.upper()+' (digitized)')
  ax.set_xlabel('Transfer generation');ax.set_ylabel(ylab);ax.legend(fontsize=7);ax.grid();d[key]={'rebuilt_mean':v.tolist(),'ci_low':l.tolist(),'ci_high':h.tolist(),'original_digitized':held[key]['curves']}
 title(axs[0],'A  Transfer food intake');title(axs[1],'B  Transfer population')
-finish(fig,'fig06_reconstruction','Earlier calibrated reconstruction under paper-described conditions; the recovered original implementation uses different conditions. Solid lines: means over 30 fresh ET trajectories; bands: descriptive pointwise 95% whole-run percentile bootstrap CIs (20,000 resamples, seed 20261105). Dashed/dotted curves are digitized original-paper curves with approximate values and no reconstructed uncertainty; gaps are preserved. No rebuilt GS transfer curve exists: all 30 GS runs became extinct during training. Original ET transfer population is not reproduced by this reconstruction; recovered original CSV outcomes are shown separately in figS02_original_archive.',d)
+finish(fig,'fig06_reconstruction','Calibrated reconstruction under the paper-described conditions. Solid lines show means over thirty ET trajectories; shading gives pointwise 95% whole-run percentile intervals (20,000 draws, seed 20261105). Dashed/dotted lines are approximate digitized curves from the original paper. All thirty reconstructed GS runs went extinct during training. The reconstruction uses different conditions from the recovered original implementation; its records are shown in figS02_original_archive.',d)
 # 7 study2 means and binomial intervals
 path='results/part2/final/analysis/outcomes.csv';sources.add(path);df=pd.read_csv(ROOT/path)
 groups=['ET','ET_freezeB','ET_cloneB','GS_food_frozen','GS_pop_frozen','GS_pop_mut','SV_frozen','ORACLE_B'];labels=['ET','ET freeze','ET clone','GS food','GS pop','GS pop mut','SV','Oracle'];table=[]
@@ -151,7 +149,7 @@ for j,w in enumerate(['main','arm2','arm3','arm4']):
  title(axs[0,j],['A  Main','B  Arm 2','C  Arm 3','D  Arm 4'][j])
  for ax in axs[:,j]:ax.set_xticks(range(8),labels,rotation=65,ha='right');ax.grid(axis='y')
 axs[0,0].set_ylabel('P1: mean population (blobs)');axs[1,0].set_ylabel('P2: extinction probability');axs[1,0].set_ylim(-.04,1.04)
-finish(fig,'fig07_trait_experiment','All eight primary groups across four prespecified arms; n=200 seeds per group. Top: mean P1 (population at generation start, averaged over B generations 40–49, including zero-population generations) and new descriptive whole-seed percentile bootstrap 95% CIs (20,000 resamples). Bottom: P2 extinction proportion (no agent would start B generation 50) and Wilson 95% CIs. These group intervals do not replace registered contrast tests, Holm corrections or equivalence rules. Shared seeds induce dependence across groups/arms. Ceiling behavior in the main arm limits interpretation. The search-pipeline comparison changes both objective and scoring horizon (population: generations 10-99; food: 10-29). Cloning changes realized traits as well as heterogeneity, and clone deficits also occur without a shift. Consult confirmatory tables for verdicts.',table)
+finish(fig,'fig07_trait_experiment','Eight groups across four arms, with 200 seeds per group. Top: mean late-B population (P1), including zero-population generations, with descriptive 95% whole-seed percentile intervals (20,000 draws). Bottom: terminal extinction proportion (P2), with Wilson 95% intervals. The contrast analyses use studentized P1 and Newcombe P2 intervals. Shared seeds couple groups and arms.',table)
 pd.DataFrame(table).to_csv(OUT/'study2_group_summary.csv',index=False)
 # 8 exploratory long training
 fig,ax=plt.subplots(figsize=(8,4.1),layout='constrained');d={}
@@ -161,7 +159,7 @@ for s,col in zip(range(5000,5003),['#D55E00','#0072B2','#009E73']):
  pts=read(f'results/part3/explore_long/oe_seed{s}/curves.json')['points'];xx=[p['agent_steps']/1e8 for p in pts];yy=[p['score'] for p in pts];gain=(yy[8]+yy[9]-yy[0]-yy[1])/2
  ax.plot(xx,yy,marker='o',ms=3,color=col,label=f'Seed {s}; gain {gain:+.2f}');d[str(s)]={'steps_1e8':xx,'score':yy,'gain':gain}
 ax.set_xlabel('Training living-agent-steps (hundreds of millions)');ax.set_ylabel('Validation competence minus random');ax.legend();ax.grid();title(ax,'Exploratory: five-times-longer OE training')
-finish(fig,'fig08_long_training','Exploratory, decided after the core results: three newly trained OE runs at 1 billion steps, alongside ten original 200-million-step runs (gray). Lines connect saved validation checkpoints; no uncertainty interval or significance test is assigned to these three runs. Gain is mean of checkpoints 9-10 minus mean of 1-2. None exceeds the prewritten descriptive 4.3-point rule; its noise estimate was later found unreliable, so it is not a calibrated statistical threshold. Same-seed runs are not continuations and need not match across hardware.',d)
+finish(fig,'fig08_long_training','Three exploratory OE runs trained to one billion steps, alongside the ten original 200-million-step runs (gray). Gain is the mean of checkpoints 9-10 minus the mean of checkpoints 1-2. None exceeds the planned 4.3-point threshold, which was based on an unreliable noise estimate. These are fresh runs, not continuations of the original runs.',d)
 # S1 diagnostics
 fig,axs=plt.subplots(1,3,figsize=(10.2,3.5),layout='constrained');diagnostic={}
 for m in ['oe','oe_fixed']:
@@ -170,7 +168,7 @@ for m in ['oe','oe_fixed']:
 for j,k in enumerate(['Weights diversity','Behavior diversity']):title(axs[j],k);axs[j].set_xlabel('Training steps (millions)');axs[j].legend();axs[j].grid()
 for j,m in enumerate(METHODS):axs[2].plot([0,1,2],[ext[m][:,i*10:(i+1)*10].mean() for i in range(3)],marker='o',ms=3,label=NAMES[m],color=COLORS[m],ls=STYLES[m])
 axs[2].set_xticks([0,1,2],['T1','T2','T3']);axs[2].set_ylim(0,1);title(axs[2],'Zero-shot extinction rate');axs[2].legend(fontsize=6)
-finish(fig,'figS01_diagnostics','Descriptive diagnostics. Left/middle: saved mean diversity among 16 sampled agents per training snapshot over ten runs, weight diversity is mean pairwise Euclidean parameter distance; behavior diversity is mean pairwise Euclidean action distance averaged over 256 fixed validation probes; no confidence bands. The companion diversity audit records checkpoint-level verification and its numerical tolerance; see results/audit/diversity_audit.json. Right: zero-shot persistence-test extinction fraction over ten runs x ten environments per set, distinct from training with a population floor; no intervals. *ES-fixed is the later addendum. Higher diversity alone does not establish a causal robustness mechanism.',diagnostic)
+finish(fig,'figS01_diagnostics','Left/middle: diversity among sixteen sampled agents per training snapshot, averaged over ten runs. Weight diversity is mean pairwise Euclidean parameter distance; behavior diversity is mean action distance on 256 fixed validation probes. Right: extinction frequencies in the separate persistence assay without floor support. Asterisk: ES-fixed extension.',diagnostic)
 # S2: recovered original archive; fixed run denominator, terminal extinction carried forward.
 fig,axs=plt.subplots(1,3,figsize=(10.4,3.6),layout='constrained');archive_data={}
 for group,color in [('et','#0072B2'),('gs','#D55E00')]:
@@ -188,7 +186,7 @@ for group,color in [('et','#0072B2'),('gs','#D55E00')]:
 for j,heading in enumerate(['A  Original training','B  Original transfer','C  Transfer persistence']):
  title(axs[j],heading);axs[j].set_xlabel('Generation (zero-based)');axs[j].legend();axs[j].grid()
 axs[0].set_ylabel('Living agents at generation end');axs[1].set_ylabel('Living agents at generation end');axs[2].set_ylabel('Fraction of original runs still alive');axs[2].set_ylim(-.03,1.03)
-finish(fig,'figS02_original_archive','Recovered historical CSVs, 30 runs per group (seeds 1000–1029); these are not additional independent experiments. Panels A/B show generation-end living agents, computed as population times survival rate. Terminal extinction is carried forward as zero to the common horizon, retaining all 30 runs. Bands: descriptive pointwise 95% whole-run percentile bootstrap intervals (20,000 resamples, seed 20261105). Panel C shows the empirical surviving-run fraction, without intervals. ET persists through all 50 transfer generations; every GS run is extinct by recorded generation 26. These are archived values: current runtime replay is not numerically exact. The code uses different transfer conditions from the report and disables predation through an inverted guard. This plot does not identify a causal effect of diversity.',archive_data)
+finish(fig,'figS02_original_archive','Historical CSV records for thirty runs per group (seeds 1000-1029). Panels A/B show generation-end living agents, carrying extinction forward as zero; shading gives pointwise 95% whole-run percentile intervals (20,000 draws, seed 20261105). Panel C shows the surviving-run fraction. ET persists through all fifty transfer generations; every GS run is extinct by generation 26. The original code uses different transfer conditions from the report and disables predation through an inverted guard.',archive_data)
 contact.close()
 # Tables preserving all registered comparisons
 rows=[]
@@ -196,6 +194,6 @@ for family,rr in [('core',C['secondary']),('addendum',A['family'])]:
  for row in rr:rows.append({'family':family,**{k:v for k,v in row.items() if not isinstance(v,(dict,list))},'ci_low':row['ci'][0],'ci_high':row['ci'][1]})
 pd.DataFrame(rows).to_csv(OUT/'registered_comparisons.csv',index=False)
 savejson('figures.json',manifest)
-(ROOT/'docs/FIGURE_GUIDE.md').write_text('# Publication figure guide\n\nFigure sources and captions. Rebuild: `python scripts/report/prepare_publication.py`. PDFs and SVGs are vector outputs; PNGs are 300 dpi. Shared style: `publication_style.py`. The manuscript uses seven of these ten figures.\n\n'+ '\n\n'.join('## '+x['id']+'\n\n'+x['caption']+'\n\nData: `'+x['data']+'`.' for x in manifest)+'\n')
+(ROOT/'docs/FIGURE_GUIDE.md').write_text('# Publication figure guide\n\nFigure sources and captions. Rebuild: `python scripts/report/prepare_publication.py`. PDFs and SVGs are vector outputs; PNGs are 300 dpi. Shared style: `publication_style.py`. The manuscript uses seven of these ten figures. Neural bootstrap intervals resample training runs with fixed environments and normalization anchors; they exclude tuning and environment-sampling uncertainty. See the manuscript for sensitivity analyses.\n\n'+ '\n\n'.join('## '+x['id']+'\n\n'+x['caption']+'\n\nData: `'+x['data']+'`.' for x in manifest)+'\n')
 savejson('source_manifest.json',{p:{'sha256':hashlib.sha256((ROOT/p).read_bytes()).hexdigest(),'bytes':(ROOT/p).stat().st_size} for p in sorted(sources)})
 print(f'Created {len(manifest)} figures, review PDF, data tables and source manifest.')

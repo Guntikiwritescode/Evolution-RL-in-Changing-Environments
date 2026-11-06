@@ -58,17 +58,17 @@ z
   </g>
   <g id="axes_3">
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start" x="506.4" y="15.558281" transform="rotate(-0 506.4 15.558281)">C  Inference scope</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start" x="506.4" y="15.558281" transform="rotate(-0 506.4 15.558281)">C  Neural evaluation</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 57.782351)">Separately tuned pipelines</text>
-    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 72.019539)">One world and variation schedule</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 57.782351)">30 fixed test environments</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 72.019539)">10 environments per test suite</text>
     <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 86.256726)"/>
-    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 100.493914)">Matched nominal agent steps</text>
-    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 114.731101)">Whole-run uncertainty</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 100.493914)">Food acquisition before and</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 114.731101)">during adaptation</text>
     <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 128.968289)"/>
-    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 143.205476)">Historical reconstruction:</text>
-    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 157.442664)">separate supporting evidence</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 143.205476)">Population persistence</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'" transform="translate(506.4 157.442664)">without replacement support</text>
    </g>
   </g>
  </g>

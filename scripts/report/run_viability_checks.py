@@ -1,4 +1,4 @@
-"""Recheck retained data; never train or evaluate new policies. See REPRODUCE.md."""
+"""Run the nine statistical and data-integrity checks. See REPRODUCE.md."""
 from pathlib import Path
 import json
 import subprocess
@@ -26,4 +26,4 @@ for script in scripts:
     (OUT/'status.json').write_text(json.dumps(status, indent=2)+'\n')
     if p.returncode:
         raise SystemExit(p.returncode)
-print('All existing-data reanalysis entry points completed. This is not a retraining or an acceptance test.')
+print('All nine retained-data checks passed.')

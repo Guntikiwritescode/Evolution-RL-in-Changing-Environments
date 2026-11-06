@@ -1,4 +1,4 @@
-"""Part 2 figures (PROJECT_PLAN.md Part 2 deliverables, PREREG_part2.md Section 18).
+"""Part 2 figures (PREREG_part2.md Section 18).
 
 Usage: python scripts/part2/make_figures_part2.py --run final
 Reads results/part2/<run>/analysis/{confirmatory,exploratory}.json and series.npz;

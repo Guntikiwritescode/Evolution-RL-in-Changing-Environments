@@ -1,5 +1,5 @@
 """The machine controller's stop rules, spend count, result copying and results check
-(scripts/part3/pod/control.py; rebuilt 4 Nov 2026 after MISTAKES #74). No network: copying is
+(scripts/part3/pod/control.py). No network: copying is
 tested against a local python http.server, the same server the pods run on port 8888."""
 from __future__ import annotations
 

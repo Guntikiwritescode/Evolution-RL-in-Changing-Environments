@@ -1,6 +1,8 @@
 # Trait simulator rules and calibration
 
-Scientific excerpts from the dated study protocol. Operational checklists, private discussion and task lists are omitted. Original section numbers and decision rules are retained. These are edited archival excerpts, not a new registration. Original document SHA-256: `3858484a1b2ddbefd10f665c68b57f477bf63e0268ff1ce05999fe1bb25f51ee`.
+Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `3858484a1b2ddbefd10f665c68b57f477bf63e0268ff1ce05999fe1bb25f51ee`.
+
+**Sources and tags.** ER denotes the source manuscript, Abhinav R. Guntaka's *Evolving Intelligence: What Biology Can Teach AI About Getting Smarter*, referred to in the historical records as the 2025 paper. S1 denotes Jasper Palfree's MinuteLabs.io Evolution Simulator, pinned at commit `55af956`; the Rust reference wrapper is in `reference/s1ref/`. `[PAPER]` identifies a paper statement, `[SOURCE]` an implementation rule, `[AUTHOR]` a study-design decision, `[GUESS]` a reconstruction assumption, and `[PLAN]` a requirement of the original study plan. Source paths in the rule tables refer to S1. Sections 11, 14 and 15 of the original protocol are omitted from this excerpt; their references below identify historical supporting material.
 
 ## 3. The world
 
@@ -33,7 +35,7 @@ Scientific excerpts from the dated study protocol. Operational checklists, priva
 | life span | 10⁴ | 0 | n/a | [SOURCE] `src/store/simulation.js:24`. Not used: the old-age rule is not switched on (`api/mod.rs:26-36`). |
 
 Notes:
-- **Mutation size is a standard deviation.** S1's interface labels it "σ²" (`src/components/creature-template-config.vue:46-48`), but the code passes it to `Normal::new(mean, std_dev)` (`creature/mutatable.rs:5-8`; R). So 0.5 means a standard deviation of 0.5.
+- **Mutation size is a standard deviation.** S1's interface labels it "σ²" (`src/components/creature-template-config.vue:46-48`), but the Rust code passes it to `Normal::new(mean, std_dev)` (`creature/mutatable.rs:5-8`). So 0.5 means a standard deviation of 0.5.
 - The mutation sizes themselves are passed to offspring unchanged; they do not evolve (`creature/mutatable.rs:17, 31, 45`).
 - The speed, size and sense mutation sizes start at S1's defaults (0.5). They were treated as **free calibration settings**. S1's 0.5 is one of the options.
 
@@ -104,7 +106,7 @@ The exception is when wander's point is outside the stage and wander falls back 
 | C3 | ORIENT: a predator that can see prey offers a goal to chase it. Going through pairs in list order, it only offers a new chase goal if that prey is slower (lower effective speed, B1) than the last one it offered. Urgency depends on food eaten: 0 → "vital want", 1 → "medium want", 2+ → "mild want". These goals compete with all others by the rules in 5.3, so between equally urgent goals the closer one wins. | [SOURCE] `cannibalism.rs:54-79`, `creature/mod.rs:241-262` |
 | C4 | ACT: if a predator can reach prey (B4), it eats it. The prey dies. **The meal counts as one food item for the predator.** There is **no fullness check**, so a predator can end up with more than 2 food. There is also no limit per tick: a predator can eat several prey in the same tick. | [SOURCE] `cannibalism.rs:84-93`, `creature/mod.rs:272-274` |
 | C5 | Identical clones (all GS runs, and ET at the very start) can never eat each other, because their sizes are equal. | Follows from C1 |
-| C6 | Is this rule on in the rebuild? **No** (your decision at design stage). It is on in S1's default setup, and the paper never mentions it. The code is kept behind the switch `world.cannibalism` and was checked against S1 (Section 15.1). | [AUTHOR]; S1 default: [SOURCE] `api/mod.rs:26-36, 52-55` |
+| C6 | Predation is disabled in the reconstruction (design-stage setting). It is on in S1's default setup, and the paper never mentions it. The code is kept behind the switch `world.cannibalism` and was checked against S1 (original Section 15.1, omitted here). | [AUTHOR]; S1 default: [SOURCE] `api/mod.rs:26-36, 52-55` |
 
 ### 5.5 End of a generation
 | # | Rule | Tag |
@@ -117,9 +119,7 @@ Under S1's rules, a generation ends only when every blob is asleep or dead. A bl
 
 On the proposed GS grid (GS3), 84 of the 512 designs have more than 10,000 ticks of energy. The cheapest (speed 2.5, size 2.5, sense 5) has about 450,000. At the other end, 176 designs have fewer than 5 ticks and die almost at once.
 
-This matters for two reasons:
-1. **Compute.** Under S1's rules, the cheap designs alone would make the grid search cost far more than the paper's 33.5 million steps (Section 10).
-2. **Your Section 0 item 4 asks for "length of a generation (time steps or seconds)".** That suggests the 2025 port may have had a fixed generation length, which S1 does not have.
+Under S1's rules, these designs would make the grid search exceed the paper's reported 33.5 million steps (Section 10). A fixed generation length is one possible explanation.
 
 | # | Rule | Tag |
 |---|---|---|
@@ -161,7 +161,8 @@ This matters for two reasons:
 | GS2 | Which 3 traits | speed, size, sense range. Reach fixed at 1.0. | [GUESS] These three are the traits S1's settings screen lets you change (`src/components/creature-template-config.vue:30-32`). The paper lists 4 traits for ET, so **ET evolves one trait (reach) that GS can't search**. The later trait experiment searches all four traits. |
 | GS3 | Grid values | Main choice: 8 steps spaced evenly on a log scale, from 0.25× to 4× each default. Speed and size: 2.5, 3.71, 5.52, 8.20, 12.19, 18.11, 26.92, 40.0. Sense: 5.0, 7.43, 11.04, 16.41, 24.38, 36.23, 53.84, 80.0. | [GUESS] Not stated. Other option: evenly spaced on a normal scale over the same range. GS numbers are held out, so this must be fixed before any GS run. Section 14, question 6. |
 | GS4 | How a design is scored | Mean food per blob (Section 8, M1) while running as 50 clones in Environment A. | [GUESS] The paper says the search found the "best-performing configuration" and that GS beat ET on "raw fitness" (ER p. 3–4). Grid-search scoring uses food per agent. |
-| GS5 | How long each design is run, and whether there is one search or one per seed | | GS6 | Deployment | The winning design as 50 identical clones, mutation size 0 for every trait, 100 generations in A, then transfer. Clones still live, die and reproduce by the same rules, so their number changes. | [PAPER] ER p. 3, Fig. 2 |
+| GS5 | How long each design is run, and whether there is one search or one per seed | **Implementation detail:** each design is evaluated for 30 generations in A; one search, seeded with 999, supplies the winner shared by all final runs. | `configs/part1/base.yaml` (`gs.eval_generations`, `gs.search`, `gs.search_seed`), inherited by `configs/part1/final.yaml`; `src/evosim/gridsearch.py`. This describes the supplied implementation, not recovered protocol wording. |
+| GS6 | Deployment | The winning design as 50 identical clones, mutation size 0 for every trait, 100 generations in A, then transfer. Clones still live, die and reproduce by the same rules, so their number changes. | [PAPER] ER p. 3, Fig. 2 |
 | GS7 | Starting spots | Random edge points, as in G1 | [SOURCE] |
 
 ### 7.3 Transfer to Environment B
@@ -191,7 +192,7 @@ Each metric is computed per run (per seed), then summarized across the 30 runs a
 | M8 | Transfer trend slope | Straight-line (least squares) slope of M1 against generation number over B generations 0–49, using only generations with population above 0 | [GUESS] The text and table disagree on which group is 0.02 (plan, "Known contradictions"). The reconstruction reports its own value. |
 | M9 | Trait diversity (CV²) | For each trait: (standard deviation ÷ mean)², summed over the traits | [GUESS] Options, chosen by calibration: (i) 4 traits (speed, size, sense, reach) or 3; (ii) population or sample standard deviation; (iii) last generation or average over training. **Note:** with speed, size and sense alone, a rough estimate gives about 0.1 or less, well under 0.41 (Section 11.6). CV² is also reported per trait. |
 | M10 | Shannon diversity (H) | −Σ p·ln p over "types" of blob in the generation, where p = share of blobs of that type | [GUESS] What counts as a "type" is not stated. Options, chosen by calibration: (i) exact trait values, (ii) traits rounded to 1 decimal, (iii) traits rounded to whole numbers. If every one of 48 blobs were unique, H would be ln 48 = 3.87. The paper's 3.77 means some blobs share a type, which points toward rounding. |
-| M11 | Energy efficiency | **Not defined in the source paper.** It was reconstructed during calibration. The paper's GS value is 0.00 ± 0.00, so the definition must give exactly 0 for clones that never change. Candidates, each computed per run on training generations: **E1** relative drop in mean energy cost per tick, generation 0 → 99; **E2** same, for cost per unit distance (cost ÷ effective speed); **E3** E2 averaged over all 100 training generations; **E4** spread (CV) of energy cost per tick across blobs at generation 99; **E5** same as E4 for cost per unit distance. Calibration picks the one closest to ET's 0.20 ± 0.18. | [AUTHOR] (include it) + [GUESS] (definition). The definition is a reconstruction. |
+| M11 | Energy efficiency | **Not defined in the source paper.** It was reconstructed during calibration. The paper's GS value is 0.00 ± 0.00, so the definition must give exactly 0 for clones that never change. Candidates, each computed per run on training generations: **E1** relative drop in mean energy cost per tick, generation 0 → 99; **E2** same, for cost per unit distance (cost ÷ effective speed); **E3** E2 averaged over all 100 training generations; **E4** spread (CV) of energy cost per tick across blobs at generation 99; **E5** same as E4 for cost per unit distance. Calibration picks the one closest to ET's 0.20 ± 0.18. | [AUTHOR] (metric inclusion) + [GUESS] (definition). The definition is a reconstruction. |
 | M12 | Traits over time | Mean of each trait across living blobs at the start of each generation | [PAPER] Fig. 3; definition [GUESS] |
 | M13 | Population over time in figures | Mean across runs, two ways: counting extinct runs as 0, and averaging only runs still alive. The paper's GS line in Figs. 6–7 stops at about B generation 26, which suggests the second way. | [GUESS] |
 | M14 | Recovery time (for Figs. 6–7 text) | Reported descriptively only | n/a |

@@ -1,18 +1,19 @@
-"""Write docs/REPLICATION.md from docs/templates/REPLICATION_part1.md and the comparison file.
+"""Legacy Part 1 report generator.
 
-Every number in the output comes from results/part1/<name>/comparison.json, the run files,
-or docs/paper_numbers_part1.yaml (the paper's printed numbers). The template holds only
-words and {{blank}} markers; a marker with no value stops the script with an error.
-Sentences whose content depends on the results (which numbers miss, in which direction,
-under which setting) are also built here from the data, not written into the template.
-
-Usage: python scripts/part1/write_replication.py --name final
+The original Markdown template is not included in this release. The current
+report is manuscript/paper.pdf. Numerical comparisons can be regenerated with
+scripts/part1/compare_paper.py.
 """
 import argparse
 import json
 import os
 import re
 import sys
+
+if __name__ == "__main__" and not os.path.isfile(os.path.join(
+        os.path.dirname(__file__), "..", "..", "docs", "templates", "REPLICATION_part1.md")):
+    raise SystemExit("Legacy report template is unavailable. Use manuscript/paper.pdf; "
+                     "regenerate numerical comparisons with scripts/part1/compare_paper.py.")
 
 import numpy as np
 import yaml
@@ -84,6 +85,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", default="final")
     args = ap.parse_args()
+    template_path = os.path.join(ROOT, "docs", "templates", "REPLICATION_part1.md")
+    if not os.path.isfile(template_path):
+        raise SystemExit("Legacy report template is unavailable. Use manuscript/paper.pdf; "
+                         "regenerate numerical comparisons with scripts/part1/compare_paper.py.")
     folder = os.path.join(ROOT, "results", "part1", args.name)
     c = json.load(open(os.path.join(folder, "comparison.json")))
     info = json.load(open(os.path.join(folder, "run_info.json")))
@@ -523,7 +528,7 @@ def main():
     v["n_r2_fired"] = sum(1 for r in r2 if r[2].startswith("**yes"))
     v["T_r2"] = md_table(["Useless if (fixed before the run)", "What happened", "Triggered?"], r2)
 
-    tmpl = open(os.path.join(ROOT, "docs", "templates", "REPLICATION_part1.md")).read()
+    tmpl = open(template_path).read()
     missing = sorted(set(re.findall(r"\{\{(\w+)\}\}", tmpl)) - set(v))
     if missing:
         raise KeyError(f"template blanks with no value: {missing}")

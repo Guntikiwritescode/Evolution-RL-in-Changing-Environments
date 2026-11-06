@@ -1,25 +1,24 @@
+\FloatBarrier
 \section{Discussion}
-The tested OE procedure scores below PPO-DR before and during adaptation, in both the training-range and shifted environments. Its populations also have poorer persistence in the separate assay without floor support.
+OE scores below PPO-DR before and during adaptation, and its populations have poorer persistence without floor support. The methods differ in several respects: OE selects an interacting population through survival and reproduction, whereas ES and PPO optimize episodic food acquisition and deploy copies of one actor. Separate tuning adds differences in hyperparameters. The experiment compares these configurations without isolating the contribution of each component.
 
-OE selects an interacting population through energy and reproduction and supplies replacement agents when the population falls below its floor. ES and PPO optimize an episodic food score and deploy copies of one actor. Each configuration was tuned separately on zero-shot validation performance. Selection objective, population structure, replacement support and tuning could each contribute to the performance difference. Separating their effects would require experiments that change one component at a time.
+Varied training has different outcomes across methods. The positive ES zero-shot contrast on T1 agrees in direction with \citet{milano2019moderate}; its adaptation contrast on the shifted suites is smaller. Varied OE scores below OE-fixed. We did not sweep the rate of environmental change, so the comparison does not test the moderate-rate optimum found in their study.
 
-The ES zero-shot result on T1 (A3) is consistent with the benefit of varied training reported by \citet{milano2019moderate} in a different task. The ES adaptation contrast (A1) is smaller and concerns the shifted suites. Both results come from one variation schedule and separately tuned configurations. Our experiment cannot test the moderate-rate optimum found in their rate sweep, or attribute the contrasting OE result to selection type.
+In resource-scarce T2, even policies with high normalized food scores frequently go extinct. Relative food acquisition and population survival measure different outcomes: survival requires enough intake to cover energy costs. Floor replacements supply additional energy during OE training and adaptation and account for over 99\% of births in T2. This dependence makes the population floor a central part of the tested OE procedure.
 
-In T2, where food is scarce and regrowth is slow, extinction is frequent even among policies with relatively high normalized food scores. Those scores express performance relative to an empirical reference; survival requires sufficient food to cover the population's energy costs. Floor replacements supply additional energy during OE training and adaptation, whereas the persistence assay removes that support.
-
-There are ten training runs per configuration and thirty fixed test environments. The bootstrap holds the empirical normalization anchors fixed and excludes variation from tuning and test-environment sampling. The primary contrast persists under alternative resampling and step-count calculations, but these checks use the same observations. Generalization to other environments and tuning searches remains untested. Training records begin near 20 million steps, so they do not establish improvement from initialization. The three exploratory longer-training runs provide little evidence about performance at the larger budget.
+The results cover one foraging world and thirty fixed test environments. Tests in other environments and comparisons with matched hyperparameters, objectives and population structure would help determine which aspects of the procedures account for the observed differences.
 
 \section{Conclusion}
-Under the tested configurations and nominal agent-step budgets, floor-supported ecological neuroevolution performs below PPO-DR during adaptation and has poorer persistence without floor support. The varied OE configuration scores below OE-fixed, while ES-DR scores slightly above ES-fixed. The predicted advantage of PPO-DR over PPO-fixed is unsupported under its prespecified rule. These findings compare separately tuned procedures in one foraging world; they do not identify the causes of the performance differences.
+In this foraging task, ecological neuroevolution performs below PPO-DR during adaptation and has poorer persistence without replacement support. Varied training scores below fixed training for OE, slightly above it for ES, and gives no supported advantage for PPO under the prespecified test.
 
 \section*{Data and code availability}
-The manuscript, implementation, configurations, analysis scripts and data are available at \url{https://github.com/Guntikiwritescode/ecological-neuroevolution}. Appendix~\ref{app:reproduction} describes the archived records and source revisions.
+Code, data and manuscript source are available at \url{https://github.com/Guntikiwritescode/ecological-neuroevolution}. Reproduction instructions are in \texttt{REPRODUCE.md}.
 
 \section*{Author contributions}
 Abhinav Guntaka designed the study, implemented the software, ran the experiments, analyzed the results and wrote the manuscript.
 
 \section*{Funding and competing interests}
-The author funded this work. Total project expenditure was US\$87. The author declares no competing interests.
+The author funded this work at a total cost of US\$87 and declares no competing interests.
 
-\section*{Use of AI tools}
-Claude Code and Cursor Agents assisted with the research. ChatGPT/Codex assisted with code inspection, statistical reanalysis, manuscript drafting and editing. The author is responsible for the scientific content and conclusions.
+\section*{Acknowledgements}
+Claude Code, Cursor Agents and ChatGPT/Codex assisted with coding, analysis and manuscript preparation.

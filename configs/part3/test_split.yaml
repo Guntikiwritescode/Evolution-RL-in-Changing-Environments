@@ -1,7 +1,6 @@
 # LOCKED Part 3 test set (docs/SPEC_part3.md, Section 3.4).
 # Only evo2.env.splits.load_test_split(final=True) may read this file, and only
-# scripts/part3/evaluate.py with --final calls it. Provisional until check-in 8;
-# after that it changes only with AA's approval, dated in the pre-registration.
+# scripts/part3/evaluate.py with --final calls it. Changes are dated in the protocol.
 T1:   # in distribution
   ranges:
     L: [40.0, 80.0]

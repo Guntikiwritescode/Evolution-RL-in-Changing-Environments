@@ -1,30 +1,30 @@
 \section{Results}
 \label{sec:results}
 \subsection{OE scores below PPO-DR during adaptation}
-OE performs below PPO-DR, contrary to the primary prediction. Across T2 and T3, OE has a pooled AUC IQM of $0.2905$, compared with $0.8497$ for PPO-DR. Their difference is $-0.5592$ with a nominal 95\% interval of $[-0.6088,-0.5196]$, entirely below the negative margin. OE also scores below ES-DR in the prespecified S1 comparison: the IQM difference is $-0.5871$ and the Holm-adjusted rank-test $p$ value is $0.00110$. Figure~\ref{fig:primary} shows estimates for all six procedures. The prespecified comparisons are reported in Appendix~\ref{app:inference}.
+OE performs below PPO-DR, contrary to the primary prediction. Across T2 and T3, OE has a pooled AUC IQM of $0.2905$, compared with $0.8497$ for PPO-DR. Their difference is $-0.5592$ with a nominal 95\% interval of $[-0.6088,-0.5196]$, entirely below the negative margin. OE also scores below ES-DR in the prespecified S1 comparison: the IQM difference is $-0.5871$ and the Holm-adjusted rank-test $p$ value is $0.00110$. Figure~\ref{fig:primary} shows estimates for all six procedures.
 
 \begin{figure}[tb]
 \centering
 \includegraphics[width=0.92\linewidth]{figures/fig02_primary.pdf}
-\caption{\textbf{Performance during adaptation on T2 and T3.} Points show pooled IQMs of normalized AUC; bars are nominal 95\% whole-run percentile bootstrap intervals from 50,000 draws. Each procedure has ten training runs evaluated on twenty fixed environments. The empirical normalization anchors remain fixed during resampling (Section~\ref{sec:statistics}). ES-fixed, marked with an asterisk, is the later extension.}
+\caption{\textbf{Performance during adaptation on T2 and T3.} Points show pooled IQMs of normalized AUC; bars are nominal 95\% whole-run percentile bootstrap intervals from 50,000 draws. Each procedure has ten training runs evaluated on twenty fixed environments. Asterisk: ES-fixed was added after the core experiment.}
 \label{fig:primary}
 \end{figure}
 
-OE is already below PPO-DR before adaptation. The zero-shot IQM difference on T2/T3 is $-0.4648$; at the final checkpoint it is $-0.6035$ (S4 and S5, both Holm-adjusted $p=0.00110$). The corresponding mean trajectories separate the initial level from subsequent change (Figure~\ref{fig:curves}). In T2, OE's mean normalized competence declines from $0.4383$ to $0.2338$, while PPO-DR changes from $0.7244$ to $0.7478$. T3 shows a smaller decline for OE, from $0.2966$ to $0.2655$. These mean trajectories summarize changes from different initial policies.
+OE is already below PPO-DR before adaptation. The zero-shot IQM difference on T2/T3 is $-0.4648$; at the final checkpoint it is $-0.6035$ (S4 and S5, both Holm-adjusted $p=0.00110$). Figure~\ref{fig:curves} shows the mean trajectories. In T2, OE's mean normalized competence declines from $0.4383$ to $0.2338$, while PPO-DR changes from $0.7244$ to $0.7478$. T3 shows a smaller decline for OE, from $0.2966$ to $0.2655$.
 
-The deficit is also present on the in-range T1 suite. S6 compares T1 adaptation AUC and gives an OE--PPO-DR IQM difference of $-0.5371$ with interval $[-0.5951,-0.4799]$. 
+On the in-range T1 suite, the OE--PPO-DR difference in adaptation AUC is $-0.5371$ (nominal 95\% interval $[-0.5951,-0.4799]$; S6). 
 
-\subsection{Fixed and varied training show different patterns across procedures}
-The separately tuned varied OE procedure scores below OE-fixed on T2/T3 AUC: difference $-0.1210$, interval $[-0.1799,-0.0680]$ (S2; Holm-adjusted $p=0.00440$). For PPO, the corresponding difference is $0.0099$, interval $[-0.0004,0.0201]$. Its predicted direction is unsupported under the prespecified rank-test rule (S3; adjusted $p=0.6232$). The analysis provides no evidence of equivalence.
+\subsection{Fixed and varied training}
+The separately tuned varied OE procedure scores below OE-fixed on T2/T3 AUC: difference $-0.1210$, interval $[-0.1799,-0.0680]$ (S2; Holm-adjusted $p=0.00440$). For PPO, the corresponding difference is $0.0099$, interval $[-0.0004,0.0201]$. Its predicted direction is unsupported under the prespecified rank-test rule (S3; adjusted $p=0.6232$).
 
-The later ES-fixed extension gives an ES-DR--ES-fixed AUC difference of $0.0286$, interval $[0.0203,0.0384]$. The interval lies above zero and below the $0.05$ margin, yielding a small positive contrast under the A1 rule. A2, the rank-test summary of the same contrast, has adjusted $p=0.000365$. ES-DR also has higher zero-shot competence on T1: A3 gives $0.0645$, interval $[0.0499,0.0788]$, with adjusted $p=0.000365$. That interval is not wholly above $0.05$. A1 and A3 use different environment sets as well as different endpoints.
+In the later ES-fixed extension, ES-DR has higher T2/T3 adaptation AUC by $0.0286$ (nominal 95\% interval $[0.0203,0.0384]$), below the $0.05$ margin. The corresponding rank test gives adjusted $p=0.000365$. ES-DR also has higher T1 zero-shot competence by $0.0645$ (interval $[0.0499,0.0788]$; adjusted $p=0.000365$).
 
-The fixed/varied comparisons in Figure~\ref{fig:variation} also differ in selected hyperparameters. For example, OE's mutation standard deviation is $0.03412$ under varied training and $0.00507$ under fixed training. The contrast consequently includes the effects of both training regime and hyperparameter selection.
+Selected hyperparameters also differ between fixed and varied configurations. For OE, the mutation standard deviation is $0.03412$ under varied training and $0.00507$ under fixed training.
 
 \begin{figure}[tb]
 \centering
 \includegraphics[width=\linewidth]{figures/fig03_variation.pdf}
-\caption{\textbf{Fixed and varied configurations.} Upper panels: T2/T3 AUC, with individual run means (circles), pooled IQMs (diamonds) and nominal prespecified 95\% whole-run intervals. Lower panels: T1 zero-shot run means and their mean (squares), with descriptive 95\% whole-run intervals from 20,000 draws. The A3 annotation is a pooled-IQM contrast, not the difference between the mean squares. All resampling freezes environments and empirical anchors. Lower OE/PPO panels are descriptive. The endpoints differ in environment set, and all fixed/varied pairs were separately tuned. Asterisk: later ES-fixed extension.}
+\caption{\textbf{Fixed and varied configurations.} Upper panels: T2/T3 AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95\% whole-run intervals. Lower panels: T1 zero-shot run means and their mean (squares), with descriptive 95\% intervals from 20,000 whole-run bootstrap draws. A3 denotes the pooled-IQM contrast; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.}
 \label{fig:variation}
 \end{figure}
 
@@ -33,25 +33,18 @@ OE has higher extinction in the separate persistence assay than PPO-DR. Across T
 
 \input{tables/persistence}
 
-The population floor makes a substantial contribution during OE training and adaptation. The mean run-level share of training births supplied by the floor is approximately $58\%$ for OE and $59\%$ for OE-fixed. During T2 adaptation, the pooled shares rise to $99.53\%$ and $99.60\%$, respectively (Table~\ref{tab:floor}). The population is therefore almost entirely replenished through floor births in T2. The persistence assay evaluates these populations after that support is removed.
+The population floor makes a substantial contribution during OE training and adaptation. The mean run-level share of training births supplied by the floor is approximately $58\%$ for OE and $59\%$ for OE-fixed. During T2 adaptation, the pooled shares rise to $99.53\%$ and $99.60\%$, respectively (Table~\ref{tab:floor}).
 
 \input{tables/floor}
 
-\subsection{Recorded learning and sensitivity checks}
-Training-validation records begin near 20 million steps. Between that observation and 200 million steps, OE's mean validation score above random changes from $9.4818$ to $10.6102$; six of ten runs increase. No initialization measurement is available. Figure~\ref{fig:curves} shows the full saved training and adaptation trajectories. A later exploratory extension trained three fresh OE runs to one billion steps (Appendix~\ref{app:diagnostics}).
+\subsection{Learning curves}
+Between the first validation checkpoint near 20 million steps and the end of training at 200 million steps, OE's mean score above random increases from $9.4818$ to $10.6102$; six of ten runs improve (Figure~\ref{fig:curves}). Three additional exploratory runs extend OE training to one billion steps (Appendix~\ref{app:diagnostics}).
 
-\begin{figure}[tb]
+\begin{figure}[!t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig04_curves.pdf}
-\caption{\textbf{Training observations and adaptation trajectories.} Upper panels show validation competence above the random reference at saved training checkpoints. Lower panels show mean normalized test competence during adaptation. Lines average ten runs; shading gives descriptive, pointwise 95\% whole-run percentile intervals from 20,000 draws, not simultaneous bands. Axes use nominal living-agent steps. The first training observation is near 20 million steps; no initialization score is available. For normalized adaptation scores, resampling freezes the selected anchors and test environments. ES-fixed is the later extension.}
+\caption{\textbf{Training and adaptation.} Upper panels: validation competence above the random reference. Lower panels: normalized test competence during adaptation. Lines average ten runs; shading gives pointwise 95\% whole-run percentile intervals from 20,000 draws. Axes use nominal living-agent steps. Training measurements begin near 20 million steps.}
 \label{fig:curves}
 \end{figure}
 
-The primary contrast is stable across the sensitivity analyses. Re-estimating the core best anchors within each bootstrap draw gives an H1 interval of $[-0.6105,-0.5215]$; resampling corresponding seeds together gives $[-0.6101,-0.5185]$. Integrating piecewise-linear saved curves against actual steps, truncated at the common 20-million-step endpoint, changes the H1 estimate to $-0.559203$. The analogous ES AUC estimate is $0.028921$, interval $[0.020572,0.038833]$, still below the margin. The intervals remain approximate at this sample size.
-
-One sensitivity changes the interpretation of the weak PPO contrast: the paired IQM interval for S3 is $[0.0020,0.0177]$, above zero. The prespecified decision remains unsupported under its rank test on run means. The paired IQM interval uses both a different outcome summary and a different treatment of cross-method dependence. 
-
-\subsection{Separate supporting trait experiment}
-A trait-only experiment preceded the neural comparison and examined food-versus-population search, mutation and cloning under related foraging shifts. It used four environmental arms and 200 seeds per group per arm to compare evolving populations, frozen search-selected designs, populations with standing variation, mutation freezes and cloning. The model and its complete 31-pair result record are reported in Appendix~\ref{app:trait}; its agents use inherited traits and fixed behavioral rules.
-
-In its main arm, a frozen population-search design reaches the population ceiling, while the evolving population is close to it. Their mean population difference is $0.6375$ against a $2.5$-agent margin, and neither group becomes extinct. The population-search procedure also substantially outperforms the food-search procedure, but it uses both a different objective and a longer scoring horizon. Cloning reduces population relative to the frozen diverse population after the move, and a larger deficit appears in a no-move control. The changes in scoring horizon and the no-move clone deficit limit explanations based solely on objective or environmental shift.
+The OE--PPO-DR contrast remains negative under paired-seed resampling, re-estimation of normalization anchors and integration over actual step counts. The weaker PPO fixed/varied comparison depends on the summary and resampling method (Appendix~\ref{app:diagnostics}).

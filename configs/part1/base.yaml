@@ -1,13 +1,13 @@
 # Part 1 base configuration. Every setting is tagged as in docs/SPEC_part1.md:
 # [SOURCE] = MinuteLabs simulator (commit 55af956), [PAPER] = 2025 paper,
-# [AUTHOR] = author decision, [GUESS] = my choice, [PLAN] = PROJECT_PLAN.md.
+# [AUTHOR] = author decision, [GUESS] = implementation assumption, [PLAN] = experiment design.
 # Settings marked "calibrated" are free during calibration and frozen afterwards.
 
 experiment: part1
 
 world:
   energy_per_generation: 500.0   # [SOURCE] B6, src/store/simulation.js:25
-  cannibalism: false             # [AUTHOR] check-in 1 (S1 default is on, api/mod.rs:30)
+  cannibalism: false             # Author-selected setting (upstream default is on, api/mod.rs:30)
   cannibalism_size_ratio: 0.8    # [SOURCE] C1, api/mod.rs:30
   tick_cap: 0                    # 0 = no limit [SOURCE] L1; > 0 = limit L2 [GUESS], calibrated
 
@@ -33,9 +33,9 @@ blob_default:                    # ET starting blob
   flee: 1.0e12                   # [SOURCE] :23
 
 mutation_sd:                     # standard deviations (S1 passes them to Normal::new as std_dev)
-  speed: 0.5                     # [SOURCE] :19, calibrated ([AUTHOR] check-in 1: may change)
-  size: 0.5                      # [SOURCE] :20, calibrated ([AUTHOR] check-in 1: may change)
-  sense: 0.5                     # [SOURCE] :21, calibrated ([AUTHOR] check-in 1: may change)
+  speed: 0.5                     # [SOURCE] :19, calibrated
+  size: 0.5                      # [SOURCE] :20, calibrated
+  sense: 0.5                     # [SOURCE] :21, calibrated
   reach: 0.25                    # [GUESS] S1 default 0 cannot produce Fig. 3; calibrated
 
 et:

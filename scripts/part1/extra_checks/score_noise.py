@@ -1,4 +1,4 @@
-"""R2 check for calibration (calibration/PRELAUNCH.md, stage 1b): how much does the
+"""Calibration score-noise check: how much does the
 calibration score move with the seed set? Reruns a few top settings on two extra
 seed sets. Report only: selection stays on seeds 1000-1029 as written in targets.json."""
 import json

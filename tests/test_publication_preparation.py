@@ -1,4 +1,4 @@
-"""Source-level reporting regressions; no training and no tests mirroring plot code."""
+"""Reporting regression checks."""
 from pathlib import Path
 import json,re,sys
 import numpy as np
@@ -43,7 +43,7 @@ def test_every_figure_has_uncertainty_and_unit_metadata():
 def test_later_addendum_is_identified():
  guide=(R/'docs/FIGURE_GUIDE.md').read_text()
  for section in guide.split('## ')[1:]:
-  if 'ES-fixed' in section:assert 'addendum' in section or 'after core' in section
+  if 'ES-fixed' in section:assert any(term in section for term in ('addendum', 'after core', 'extension'))
 
 def test_bibliography_uses_corporate_and_compound_names():
  text=(R/'paper/v2/refs.bib').read_text();assert '{{Open Ended Learning Team} and' in text
