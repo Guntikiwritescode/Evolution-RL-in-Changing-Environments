@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If using this research package, cite the accompanying manuscript and identify the package version."
+message: "Please cite the paper when using this code."
 type: software
 title: "Evolution and Reinforcement Learning in Changing Environments: Research Package"
 authors:

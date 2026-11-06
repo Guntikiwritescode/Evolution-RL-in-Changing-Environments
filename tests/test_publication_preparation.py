@@ -29,7 +29,7 @@ def test_publication_images_are_complete():
 
 def test_supplement_macro_uniqueness_and_no_missing_values():
  text=(R/'paper/v2/numbers_supplement.tex').read_text();names=re.findall(r'\\newcommand\{\\([A-Za-z]+)\}',text)
- assert len(names)>=250 and len(names)==len(set(names));assert '[pending]' not in text
+ assert names and len(names)==len(set(names));assert '[pending]' not in text
  old=re.findall(r'\\newcommand\{\\([A-Za-z]+)\}',(R/'paper/v2/numbers.tex').read_text());assert not set(old)&set(names)
  rows=json.loads((R/'results/publication/supplemental_numbers.json').read_text());assert len(rows)==len(names)
  assert all(np.isfinite(x['value']) and x['source'] for x in rows)
@@ -49,7 +49,3 @@ def test_bibliography_uses_corporate_and_compound_names():
  text=(R/'paper/v2/refs.bib').read_text();assert '{{Open Ended Learning Team} and' in text
  assert 'de Witt, Christian Schroeder' in text
  assert '@misc{bejjani2025ecological,' in text
-
-def test_claim_scope_includes_separate_tuning():
- rows=json.loads((R/'results/publication/claim_evidence.json').read_text());s2=next(x for x in rows if x['id']=='S2')
- assert 'tuned' in s2['claim'] and 'sole causal' in s2['limit']

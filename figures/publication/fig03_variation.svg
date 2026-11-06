@@ -1562,7 +1562,7 @@ L 685.19952 431.578415
    </g>
   </g>
   <g id="text_37">
-   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="346.19976" y="460.127801" transform="rotate(-0 346.19976 460.127801)">Registered A3 (ES, pooled IQM difference): +0.0645 [+0.0499, +0.0788]</text>
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="346.19976" y="460.127801" transform="rotate(-0 346.19976 460.127801)">ES zero-shot competence (pooled IQM difference): +0.0645 [+0.0499, +0.0788]</text>
   </g>
  </g>
  <defs>

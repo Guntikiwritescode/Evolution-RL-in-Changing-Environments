@@ -11,7 +11,7 @@
   },
   {
     "id": "fig03_variation",
-    "caption": "Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). A3 labels the pooled-IQM contrast; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.",
+    "caption": "Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). The ES zero-shot contrast uses pooled IQMs; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.",
     "data": "results/publication/fig03_variation.json"
   },
   {

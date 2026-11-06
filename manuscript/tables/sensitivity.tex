@@ -1,0 +1,14 @@
+\begin{table}[tb]
+\centering\small
+\caption{Post hoc sensitivity of pooled-IQM contrasts. Entries are nominal 95\% bootstrap intervals. Anchor re-estimation recomputes the maximum within each draw; paired resampling keeps corresponding run seeds together across methods.}\label{tab:sensitivity}
+\begin{tabularx}{\linewidth}{P{3.4cm}P{2.0cm}P{4.1cm}P{4.1cm}}
+\toprule
+Comparison & Outcome & Re-estimated anchors & Paired seeds\\\midrule
+OE minus PPO-DR & T2/T3 AUC & $[-0.6104,-0.5215]$ & $[-0.6101,-0.5185]$\\
+OE minus OE-fixed & T2/T3 AUC & $[-0.1800,-0.0678]$ & $[-0.1810,-0.0692]$\\
+PPO-DR minus PPO-fixed & T2/T3 AUC & $[-0.0006,0.0196]$ & $[0.0020,0.0177]$\\
+ES-DR minus ES-fixed & T2/T3 AUC & $[0.0204,0.0385]$ & $[0.0204,0.0396]$\\
+ES-DR minus ES-fixed & T1 zero-shot & $[0.0496,0.0790]$ & $[0.0523,0.0764]$\\
+\bottomrule
+\end{tabularx}
+\end{table}

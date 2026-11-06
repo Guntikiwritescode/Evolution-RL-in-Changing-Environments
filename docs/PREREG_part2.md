@@ -1,10 +1,10 @@
-# Trait experiment: scientific protocol
+# Trait experiment protocol
 
-Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `71a125c9ebb937d103fb86033cd9f4229d6b433865ee6c533100ab0f06b0d842`.
+Protocol excerpts; original section numbers are retained.
 
-Sections 0 and 12–17 of the original protocol are omitted. References to those sections identify historical material rather than sections in this excerpt. The implementation notes in Sections 9.2 and 9.3 describe the supplied code and selected configurations where the amendment text is unavailable.
+Sections 0 and 12–17 are omitted. Implementation notes in Sections 9.2 and 9.3 give the final settings.
 
-## 1. The question, and what this design can and cannot answer
+## 1. Research question
 
 **Question:** In this trait-only blob world, when a population moves to a new environment, does it matter whether it can still change? If being able to change helps, where does the help come from?
 - the starting point;
@@ -12,9 +12,9 @@ Sections 0 and 12–17 of the original protocol are omitted. References to those
 - variety built up during training;
 - new mutations after the move.
 
-**Can answer** (for this world only): how each group does after the move, what it costs in compute, and which of the sources above explain any difference. This only works if B actually separates groups; Section 6 says how that is checked.
+The comparisons measure population size, extinction and compute requirements after transfer. Section 6 defines the positive control for differences among groups.
 
-**What the main arm can and cannot show.** Part 1 shows that ET nearly fills B: it is at 24.27 of a possible 25, and it never died out (Section 0, point 4). So in the main arm:
+**Population ceiling in the main arm.** Part 1 shows that ET nearly fills B: it is at 24.27 of a possible 25, and it never died out. So in the main arm:
 - any group can do at most about 0.7 blobs better than ET on P1, which is below the 2.5-blob threshold;
 - on P2, a group can only be 10 points better than ET if ET dies out in at least 10% of runs, and it died out in 0% in Part 1.
 
@@ -23,8 +23,6 @@ So in the main arm, rows 1–5 of the guide (Section 7) can only come out as "ET
 - On P2, it comes from ET's Part 1 record: 0 of 30 runs died out. With 30 runs, the true rate could still be up to about 12% (exact 95% upper bound 11.6%), so this limit is likely but not certain.
 
 Arm 3 (Section 9.2) is a harder B where P1 results can go either way. P2 will probably stay one-sided there too, because the arm 3 rule allows ET at most 3 extinctions in 30.
-
-**Cannot answer:** anything about neural-network agents, learning within a lifetime, or other worlds. That is Part 3.
 
 ---
 
@@ -77,12 +75,12 @@ ORACLE_B uses the B-phase streams.
 - **Food score:** scored on generations 10–29, the same window as stage 1. Designs only on the food list run for 30 generations, since later generations don't count. A design on both lists runs once, for 100 generations; its first 30 generations are the same as a 30-generation run on the same streams.
 - Each score is averaged over the 8 runs. The stage-1 run is not included, so stage-1 luck can't carry into the stage-2 score.
 
-**How 2025-style GS_food_frozen still is.** It keeps the 2025 goal (food per blob, with extinct generations scoring 0) and the 30-generation horizon. It differs from the Part 1 search in these ways:
+**Relation to the 2025 grid search.** It keeps the 2025 goal (food per blob, with extinct generations scoring 0) and the 30-generation horizon. It differs from the Part 1 search in these ways:
 - the grid has a reach axis (0.25 to 4; Part 1 fixed reach at 1);
 - there are 1,472 merged designs instead of 512;
-- there is a burn-in (the plan asks for one);
+- there is a burn-in;
 - there is a top-32 screen re-scored on 8 streams, with tie rules;
-- there is one search per run seed (the plan asks for this), instead of one search shared by all runs.
+- there is one search per run seed, instead of one search shared by all runs.
 
 **Tie rules** (applied at the stage-1 cut for the top 32, and when picking the winner):
 1. The higher score.
@@ -142,9 +140,9 @@ For each, mean population over the last 10 of those generations is reported. The
 
 ## 5. Outcomes (fixed)
 
-**Primary** (from the plan):
+**Primary outcomes:**
 - **P1, population in B:** mean population over B generations 40–49. A generation with no blobs counts as 0, and so does every B generation of a run that died out in A.
-- **P2, extinct at the end of B:** yes if no blob would start B generation 50, meaning survivors plus births in B generation 49 add up to 0. A run that died out in A counts as yes. (Part 1's `extinct_end` used the population at the start of B generation 49; see Section 15, C16.)
+- **P2, extinct at the end of B:** yes if no blob would start B generation 50, meaning survivors plus births in B generation 49 add up to 0. A run that died out in A counts as yes. (Part 1's `extinct_end` used the population at the start of B generation 49.)
 
 **Secondary:**
 - **S2, survival curves in B:** the share of runs with blobs, by B generation.
@@ -154,7 +152,7 @@ For each, mean population over the last 10 of those generations is reported. The
 - **S6, population over B:** mean population over B generations 1–49. Generation 0 is left out because it reflects A.
 
 **Descriptive only (no tests):**
-- S1, the first B generation, counting from generation 1, with 23 or more blobs. Part 1 suggests this sits at its floor (Section 0, point 4).
+- S1, the first B generation, counting from generation 1, with 23 or more blobs. Part 1 suggests this sits at its floor.
 - Trait variety over time (CV² and Shannon H, using the frozen Part 1 definitions on the raw traits).
 - ET's mean traits over time.
 - Search checks: tie-set sizes; search score vs deployed performance; and the B stage-1 score of every design tied for best in A. That last one shows whether being best in A predicts doing well in B; it costs nothing extra, because the B search scores every design.
@@ -165,16 +163,16 @@ For each, mean population over the last 10 of those generations is reported. The
 
 **Planned comparisons.** Each pair is tested on P1 and P2. Differences are always the first group minus the second.
 
-| # | Comparison (first − second) | Why |
-|---|---|---|
-| 1 | GS_food_frozen − ET | plan |
-| 2 | GS_pop_frozen − ET | plan |
-| 3 | GS_pop_mut − ET | plan |
-| 4 | SV_frozen − ET | plan |
-| 5 | ET_freezeB − ET | new: do new mutations matter? |
-| 6 | ET_cloneB − ET_freezeB | new: does variety built up in A matter? |
-| 7 | GS_pop_frozen − GS_food_frozen | the plan's interpretation guide uses it |
-| 8 | GS_pop_mut − GS_pop_frozen | the plan's guide needs it; same design, only mutation differs |
+| # | Comparison (first − second) |
+| --- | --- |
+| 1 | GS_food_frozen − ET |
+| 2 | GS_pop_frozen − ET |
+| 3 | GS_pop_mut − ET |
+| 4 | SV_frozen − ET |
+| 5 | ET_freezeB − ET |
+| 6 | ET_cloneB − ET_freezeB |
+| 7 | GS_pop_frozen − GS_food_frozen |
+| 8 | GS_pop_mut − GS_pop_frozen |
 
 ORACLE_B is reference only: no test.
 
@@ -200,9 +198,9 @@ Below, k is the family size.
     With partial crashes instead of zeros, the studentized method was 0% at 100 runs and 0.13% at 200. The target is at most 0.31%.
 
     When two groups truly don't differ, the studentized method still calls them equivalent nearly as often as the others: 35% vs 44% at 100 runs, and 92% vs 94% at 200, with 5% zeros in both groups. Section 18.3 checks this again on the final code.
-  - The plan's Mann-Whitney U and Cliff's delta are also reported, but they don't decide verdicts (Section 15, C12).
+  - Mann-Whitney U and Cliff's delta are secondary summaries and do not determine decisions.
 - **P2.** Two-sided Fisher's exact test. Effect: the difference in the share of runs extinct, with a Newcombe (hybrid score) CI.
-- **CI levels.** Every effect is reported with a 95% CI, as the plan asks. Equivalence decisions use a second CI at level 1 − 2 × 0.05 ÷ k (99.375% for k = 16; 99.29% for k = 14).
+- **CI levels.** Every effect is reported with a 95% CI. Equivalence decisions use a second CI at level 1 − 2 × 0.05 ÷ k (99.375% for k = 16; 99.29% for k = 14).
 - **Holm correction** across each arm's family.
 - If both groups have the same constant value on an outcome, the p-value is 1. Both tests give this anyway; the code sets it so nothing breaks.
 - Every permutation and bootstrap uses its own stream, split from seed 2999 by arm, comparison and outcome.
@@ -241,7 +239,7 @@ Below, k is the family size.
 - **The same:** equivalent on both outcomes. It carries the P1 label if there is one: **"the same (at the ceiling)"**, **"the same (capped on one side)"** or **"the same (at the floor)"**.
 - **Inconclusive:** anything else.
 
-**A-phase label.** If any run reached B in one group but not in the other (S5 differs at all), the overall verdict is labeled **"includes A-phase losses"**. The report gives the two counts of runs that reached B, and how many of each group's P2 extinctions happened in A. P1 and P2 count runs that died out in A, as the plan's outcomes do.
+**A-phase label.** If any run reached B in one group but not in the other (S5 differs at all), the overall verdict is labeled **"includes A-phase losses"**. The report gives the two counts of runs that reached B, and how many of each group's P2 extinctions happened in A. P1 and P2 count runs that died out in A.
 
 **When the difference is all from A.** A verdict of "first group better", "second group better" or "mixed" that carries the A-phase label is checked against the runs-that-reached-B analysis (below). The row's conclusion gets the ending "but the difference arose in A, before the move" if either of these holds:
 - fewer than 30 run seeds have both groups reaching B;
@@ -281,7 +279,7 @@ With 50 runs per group, all four would be 0.33 or lower. "Equivalent" on P2 woul
 
 ## 7. Interpretation guide (per arm)
 
-**The plan's guide, copied unchanged:**
+**Interpretation rules:**
 - ET > GS_pop_mut: evolving from a simple start beats starting at the optimum and evolving.
 - ET ≈ GS_pop_mut, and both > frozen groups: the advantage comes from being able to change, not from evolution vs. search.
 - SV_frozen ≈ ET: starting variety alone is enough, and new mutations aren't needed.
@@ -314,19 +312,19 @@ With 50 runs per group, all four would be 0.33 or lower. "Equivalent" on P2 woul
 | 7 GS_pop_frozen − GS_food_frozen | Aiming at population beats aiming at food per blob: part of the 2025 result came from the wrong goal | Aiming at food per blob does better | The search's goal doesn't matter |
 | 8 GS_pop_mut − GS_pop_frozen | Being able to change helps a good fixed design | Being able to change hurts | Being able to change doesn't matter for this design (needs U2 not fired) |
 
-**The plan's combined rows:**
+**Combined comparisons:**
 - "ET ≈ GS_pop_mut, and both > frozen groups" holds if all of these hold:
   - rows 2 and 4 are "second group better" (ET better);
   - row 8 is "first group better";
   - row 3 is "the same", "the same (at the ceiling)" or "the same (capped on one side)".
 
-  If row 3 is "the same (at the ceiling)", the conclusion carries that label: "both groups that can change did as well as this B allows, and the frozen groups did worse". (Rows 2, 4 and 8 already show that this B separates groups.) "The same (capped on one side)" is accepted the same way, with that label. Accepting these labels here departs from the plan's plain "ET ≈ GS_pop_mut"; the departure was recorded before the final runs.
-- This is narrower than the plan's wording: GS_pop_mut is not tested against SV_frozen or GS_food_frozen (Section 15, C14).
+  If row 3 is "the same (at the ceiling)", the conclusion carries that label: "both groups that can change did as well as this B allows, and the frozen groups did worse". (Rows 2, 4 and 8 already show that this B separates groups.) "The same (capped on one side)" is accepted the same way, with that label. These ceiling qualifications were added before the final runs.
+- GS_pop_mut is not compared with SV_frozen or GS_food_frozen.
 - "SV_frozen ≈ ET" is row 4 "the same".
 
 ---
 
-## 8. Checks that would make results useless, fixed now
+## 8. Prespecified diagnostic checks
 
 These are prespecified diagnostic checks. Each is run on the pilot and on the final data, per arm, and every result is reported.
 
@@ -393,7 +391,7 @@ Only ET is used, and no other group is run on these seeds. The final seeds are s
 
 **Seeds.** The same run seeds as the main arm, so A phases are identical and only B differs.
 
-**Implementation note: adopted map setting.** The supplied `configs/part2/base.yaml` and `scripts/part2/maprule.py --round 2` define a second candidate set of 650, 700 and 750, evaluated on seeds 2830–2859 with the same mean-P1 and extinction criteria above. `configs/part2/arm3.yaml` records side 750 and rule revision `e5423a8ec25b0368a06f318bf617aba04042d4c0`; `RESULTS_part2.md` reports that setting for the final experiment. The associated result path is `results/part2/maprule_round2/maprule.json`. These are implementation and result-record details, not a reconstruction of the omitted amendment's wording.
+**Implementation note: adopted map setting.** The supplied `configs/part2/base.yaml` and `scripts/part2/maprule.py --round 2` define a second candidate set of 650, 700 and 750, evaluated on seeds 2830–2859 with the same mean-P1 and extinction criteria above. `configs/part2/arm3.yaml` records side 750 and rule revision `e5423a8ec25b0368a06f318bf617aba04042d4c0`; `RESULTS_part2.md` reports that setting for the final experiment. The associated result path is `results/part2/maprule_round2/maprule.json`.
 
 ### 9.3 Arm 4: a B that calls for a different design (added after the pilot, at the design amendment, 1 Nov 2026)
 
@@ -408,14 +406,14 @@ B was redesigned before any final run.
 
 **How the energy level is set (clones only; no compared group is used):**
 1. **Probe** (seeds 2870–2871). For energy 500, 400, 300, 250, 200, 150 and 100, compare the stage-1 landscapes of A and B, and see where the top A designs rank in B. This probe preceded the final runs. The candidate list for step 2 is chosen from the probe, and the probe and the choice are both reported.
-2. **Rule** (seeds 2860–2869; round 2 on seeds 2872–2881 with a median test, at the selected setting: original Section 17, 2 Nov 2026, omitted here). For each candidate, run the full A search and B search (Section 3) and the U2 runs (Section 8).
+2. **Rule** (seeds 2860–2869; round 2 on seeds 2872–2881 with a median test at the selected setting, 2 Nov 2026). For each candidate, run the full A search and B search (Section 3) and the U2 runs (Section 8).
    - Choose the highest energy (the smallest change from the main B) where, averaged over the 10 seeds, the B winner beats the A winner by **at least 5 blobs** (twice U2's 2.5) on the U2 sets.
    - The B winner's U2 score must also average **at least 20**, so a well-suited design can still live there.
    - Exact arithmetic.
    - If no level qualifies, stop and record a protocol amendment.
    - The rule writes `configs/part2/arm4.yaml`.
 
-**Implementation note: adopted energy setting.** In `scripts/part2/b_redesign.py`, round 2 evaluates energy levels 30, 25, 20 and 15 on seeds 2872–2881. It selects the highest level with a median B-winner-minus-A-winner U2 gap of at least 5 blobs and a mean B-winner U2 score of at least 20. This replaces the first round's mean-gap criterion with a median-gap criterion. `configs/part2/arm4.yaml` records energy 25, round 2 and rule revision `e2619663f841c0b28cb60fefe127c28b2e01b0f7`; `RESULTS_part2.md` reports that setting for the final experiment. The associated result path is `results/part2/b_redesign/rule_round2.json`. This note describes the supplied implementation and selected configuration; the historical rule above is retained.
+**Implementation note: adopted energy setting.** In `scripts/part2/b_redesign.py`, round 2 evaluates energy levels 30, 25, 20 and 15 on seeds 2872–2881. It selects the highest level with a median B-winner-minus-A-winner U2 gap of at least 5 blobs and a mean B-winner U2 score of at least 20. This replaces the first round's mean-gap criterion with a median-gap criterion. `configs/part2/arm4.yaml` records energy 25, round 2 and rule revision `e2619663f841c0b28cb60fefe127c28b2e01b0f7`; `RESULTS_part2.md` reports that setting for the final experiment. The associated result path is `results/part2/b_redesign/rule_round2.json`.
 
 **Analysis.** As arm 3:
 - its own B search, U2 runs and ORACLE_B (searched in arm 4's B);
@@ -441,7 +439,7 @@ Exploratory items run in arm 4's B too: ET_scratchB, the stage-1-only winners, t
 | Analysis-code check on made-up data (Section 18.3) | 2950 |
 | Arm 3 map-size rule | 2800–2829; round 2: 2830–2859 (dated pre-final amendment) |
 | Pilot | 2900–2909; second pilot with arm 4: 2910–2919 (Section 9.3) |
-| Arm 4 energy rule: probe; rule; rule round 2 (Section 9.3; round 2: Section 17, 2 Nov) | 2870–2871; 2860–2869; 2872–2881 |
+| Arm 4 energy rule: probe; rule; rule round 2 (Section 9.3; round 2: 2 Nov) | 2870–2871; 2860–2869; 2872–2881 |
 | Smoke tests | 2990–2998 |
 | Bootstrap and permutation | 2999 |
 
@@ -527,7 +525,7 @@ After the pilot, the number of confirmatory runs per group, N, is the larger of 
 **Why 200 is better** (computed before any run, exact Fisher at 0.05 ÷ 16):
 - The chance of a "meaningfully different" P2 verdict rises from 0.94 to 0.985 at 0% vs 15%, and from 0.55 to 0.94 at 5% vs 20%.
 - P2 can be "equivalent" with up to about 15% extinctions in both groups, instead of at most 4%.
-- The CI for 0 vs 0 extinctions shrinks from ± 0.070 to ± 0.036 (Newcombe at 99.375%). An earlier draft of this line said ± 0.05; that used a wrong formula.
+- The CI for 0 vs 0 extinctions shrinks from ± 0.070 to ± 0.036 (Newcombe at 99.375%).
 
 ### 18.3 Testing the analysis code on made-up data, before the final runs
 
@@ -634,7 +632,7 @@ The confirmatory result is for one or two versions of B. To see how far it reach
   - tie rules;
   - the longer B leaves generations 0–49 unchanged;
   - every random stream key is used for only one purpose.
-- **Provenance.** Every results file stores the config, its hash, the git commit, package versions and hardware. One command reruns Part 2, and every script has a `--quick` mode (plan rules).
+- **Provenance.** Every results file stores the config, its hash, the git commit, package versions and hardware. One command reruns Part 2, and every script has a `--quick` mode.
 - **Run integrity and restart behavior:**
   - Final runs are launched from a separate clean worktree at the launch commit, checked in the same command as the launch.
   - Each seed's results are written to a temporary file, then renamed into place, then marked done with a small file holding the commit and config hash. A stop mid-write can't leave a file that looks finished.
@@ -642,29 +640,3 @@ The confirmatory result is for one or two versions of B. To see how far it reach
   - Interrupted runs resume under the restart checks above, and interruptions are reported.
   - Times for Section 18.2 come from each seed's own process time, so that pauses don't count.
   - Every run, including failed ones, is reported.
-- **Report.** Every result sentence is generated from the data (Part 1 practice). Confirmatory results come first; exploratory ones are labeled.
-
-### 18.9 Extra predictions (written before any run; no part in the analysis)
-
-| # | Prediction | Probability |
-|---|---|---|
-| 17 | In the difficulty curve, ET's lead over GS_pop_frozen on P1 grows with map size | 0.5 |
-| 18 | The A–B landscape rank correlation is lower in arm 3's B than in the main B | 0.6 |
-| 19 | ET_scratchB does worse than ET in the main B (training in A helps) | 0.7 |
-| 20 | The stage-1-only population winner dies out in A more often than the two-stage winner | 0.6 |
-| 21 | In B generations 0–9, ET's selection gradient on size has the opposite sign to A generations 90–99 | 0.3 |
-
-### 18.10 Time
-
-Section 18 adds, per run seed:
-- the suite's B reruns: up to 10 variants × 7 groups × at most about 255,000 steps (up to 402,000 in the food-40 variant, 58% more), so at most about 20 million;
-- the sensitivity reruns, including the stage-1-only winners: at most about 15 million;
-- the longer B: at most about 20 million;
-- ET_scratchB: about half a million.
-
-That is at most about 1 minute per seed, including the start-up cost of about 100 extra short runs.
-
-The landscape check is 100 B stage-1 searches (10 variants × 10 seeds): at most about 23 billion steps (about 2.5 hours). It is likely about 3 billion steps, going by the main B's typical cost. That could take 20–40 minutes, because short runs in Part 1 ran up to 2× slower per step.
-
-The pilot measures all of this, and Section 18.2 uses the measured times.
-

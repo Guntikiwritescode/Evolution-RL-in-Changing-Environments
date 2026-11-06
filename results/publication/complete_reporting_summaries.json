@@ -1717,21 +1717,6 @@
         }
       ]
     },
-    "excluded_es_fixed": [],
-    "readings": {
-      "adaptation": "a real but small effect, under 5% of the random-to-best range; reported as \"a small advantage, below the pre-set margin\", not as a meaningful difference, and it does not by itself support Milano et al.'s direction",
-      "fragments": {
-        "adaptation": [
-          "a real but small effect, under 5% of the random-to-best range",
-          "reported as \"a small advantage, below the pre-set margin\", not as a meaningful difference, and it does not by itself support Milano et al.'s direction"
-        ],
-        "milano_claim": [
-          "in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found",
-          "set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason",
-          "which part of it is not tested"
-        ]
-      },
-      "milano_claim": "in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found; set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason; which part of it is not tested"
-    }
+    "excluded_es_fixed": []
   }
 }

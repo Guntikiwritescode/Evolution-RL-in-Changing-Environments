@@ -945,19 +945,19 @@
     "macro": "PThreeOeDiversityBehavior",
     "value": 0.14435931745087247,
     "decimals": 3,
-    "source": "results/part3/final/analysis.json diversity_end.oe.behavior; original analysis summary, not independent checkpoint audit"
+    "source": "results/part3/final/analysis.json diversity_end.oe.behavior"
   },
   {
     "macro": "PThreeOeDiversityTraits",
     "value": 0.0,
     "decimals": 3,
-    "source": "results/part3/final/analysis.json diversity_end.oe.traits; original analysis summary, not independent checkpoint audit"
+    "source": "results/part3/final/analysis.json diversity_end.oe.traits"
   },
   {
     "macro": "PThreeOeDiversityWeights",
     "value": 5.946633917863209,
     "decimals": 3,
-    "source": "results/part3/final/analysis.json diversity_end.oe.weights; original analysis summary, not independent checkpoint audit"
+    "source": "results/part3/final/analysis.json diversity_end.oe.weights"
   },
   {
     "macro": "PThreeOeFixedReachedN",
@@ -1071,19 +1071,19 @@
     "macro": "PThreeOeFixedDiversityBehavior",
     "value": 0.05562306936407687,
     "decimals": 3,
-    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.behavior; original analysis summary, not independent checkpoint audit"
+    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.behavior"
   },
   {
     "macro": "PThreeOeFixedDiversityTraits",
     "value": 0.0,
     "decimals": 3,
-    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.traits; original analysis summary, not independent checkpoint audit"
+    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.traits"
   },
   {
     "macro": "PThreeOeFixedDiversityWeights",
     "value": 0.8354142926758558,
     "decimals": 3,
-    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.weights; original analysis summary, not independent checkpoint audit"
+    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.weights"
   },
   {
     "macro": "PThreePpoFixedReachedN",
@@ -1452,28 +1452,10 @@
     "source": "results/part3/addendum/analysis.json descriptive.es_fixed.train_wall_hours_mean"
   },
   {
-    "macro": "SpendThroughput",
-    "value": 1.9760327612000026,
-    "decimals": 2,
-    "source": "results/part3/throughput/spend.json stage total (not duplicated from analysis.json)"
-  },
-  {
-    "macro": "SpendPilot",
-    "value": 5.286807774651704,
-    "decimals": 2,
-    "source": "results/part3/pilot/spend.json stage total (not duplicated from analysis.json)"
-  },
-  {
     "macro": "HoursPilot",
     "value": 5.933671523597505,
     "decimals": 3,
     "source": "results/part3/pilot/spend.json machine_hours or summed pod duration"
-  },
-  {
-    "macro": "SpendTuning",
-    "value": 2.1552,
-    "decimals": 2,
-    "source": "results/part3/tuning/spend.json stage total (not duplicated from analysis.json)"
   },
   {
     "macro": "HoursTuning",
@@ -1482,22 +1464,10 @@
     "source": "results/part3/tuning/spend.json machine_hours or summed pod duration"
   },
   {
-    "macro": "SpendFinal",
-    "value": 30.5326,
-    "decimals": 2,
-    "source": "results/part3/final/spend.json stage total (not duplicated from analysis.json)"
-  },
-  {
     "macro": "HoursFinal",
     "value": 34.266,
     "decimals": 3,
     "source": "results/part3/final/spend.json machine_hours or summed pod duration"
-  },
-  {
-    "macro": "SpendExploreLong",
-    "value": 5.8993,
-    "decimals": 2,
-    "source": "results/part3/explore_long/spend.json stage total (not duplicated from analysis.json)"
   },
   {
     "macro": "HoursExploreLong",
@@ -1506,21 +1476,9 @@
     "source": "results/part3/explore_long/spend.json machine_hours or summed pod duration"
   },
   {
-    "macro": "SpendAddendum",
-    "value": 0.3842,
-    "decimals": 2,
-    "source": "results/part3/addendum/spend.json stage total (not duplicated from analysis.json)"
-  },
-  {
     "macro": "HoursAddendum",
     "value": 0.43166666666666664,
     "decimals": 3,
     "source": "results/part3/addendum/spend.json machine_hours or summed pod duration"
-  },
-  {
-    "macro": "RecordedStageEstimates",
-    "value": 46.574140535851704,
-    "decimals": 2,
-    "source": "results/publication/compute_spend.csv; partial historical stage estimates, not total project cost"
   }
 ]

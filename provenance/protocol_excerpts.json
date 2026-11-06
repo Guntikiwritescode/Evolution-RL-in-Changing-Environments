@@ -17,7 +17,7 @@
       18
     ],
     "distribution": "scientific excerpts; private operational sections omitted",
-    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+    "editorial_changes": "Operational planning and unused predictions omitted; statistical rules and design choices retained."
   },
   {
     "document": "docs/PREREG_part3.md",
@@ -36,7 +36,7 @@
       16
     ],
     "distribution": "scientific excerpts; private operational sections omitted",
-    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+    "editorial_changes": "Operational planning and unused predictions omitted; statistical rules and design choices retained."
   },
   {
     "document": "docs/SPEC_part3.md",
@@ -51,7 +51,7 @@
       9
     ],
     "distribution": "scientific excerpts; private operational sections omitted",
-    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+    "editorial_changes": "Final implementation settings replace provisional designs; unused options omitted."
   },
   {
     "document": "docs/SPEC_part1.md",
@@ -69,6 +69,6 @@
       13
     ],
     "distribution": "scientific excerpts; private operational sections omitted",
-    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+    "editorial_changes": "Selected reconstruction settings and metric definitions replace provisional choices; source rules remain attributed."
   }
 ]

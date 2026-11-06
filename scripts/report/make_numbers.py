@@ -129,9 +129,7 @@ def study3_core(m: Macros):
         tag = METHOD[k]
         m.add("TrainWallMin" + tag, num(c["train_wall_hours_mean"] * 60, 1), f"{src} compute.{k}.train_wall_hours_mean x60")
         m.add("AdaptWallMin" + tag, num(c["adapt_wall_hours_mean"] * 60, 1), f"{src} compute.{k}.adapt_wall_hours_mean x60")
-    m.add("CoreCost", num(d["cost"]["total"], 2), f"{src} cost.total")
     m.add("CoreMachineHours", num(d["cost"]["machine_hours"], 1), f"{src} cost.machine_hours")
-    m.add("GpuPricePerHour", num(d["cost"]["price_per_hour"], 2), f"{src} cost.price_per_hour")
 
 
 def study3_addendum(m: Macros, require: bool):
@@ -141,7 +139,7 @@ def study3_addendum(m: Macros, require: bool):
              "AFourVarietyEs", "AFourVarietyEsLo", "AFourVarietyEsHi",
              "AFourVarietyOe", "AFourVarietyOeLo", "AFourVarietyOeHi",
              "AFourInteraction", "AFourInteractionLo", "AFourInteractionHi", "AFourVerdict",
-             "AddRerunFlag", "AddSpend"]
+             "AddRerunFlag"]
     for i in (2, 3):
         names += [f"Add{word(i)}{x}" for x in ("Diff", "DiffLo", "DiffHi", "PXgtY", "P", "PHolm", "Result")]
     if not ADD.exists():
@@ -165,8 +163,6 @@ def study3_addendum(m: Macros, require: bool):
         ci3(m, "AFour" + nm, a4[k]["value"], a4[k]["ci"], f"{src} a4.{k}")
     m.add("AFourVerdict", esc(a4["verdict"]), f"{src} a4.verdict")
     m.add("AddRerunFlag", "yes" if d["es_dr_check"]["flag"] else "no", f"{src} es_dr_check.flag")
-    spend = d.get("spend") or {}
-    m.add("AddSpend", num(spend["total"], 2) if "total" in spend else PENDING, f"{src} spend.total")
 
 
 def study3_long(m: Macros):
@@ -177,8 +173,6 @@ def study3_long(m: Macros):
         m.add("LongGain" + word(L.SEEDS.index(s) + 1), num(g, 2, sign=True), f"{src} seed {s}")
     m.add("LongReading", esc(L.reading(gains)), f"{src} reading")
     m.add("LongGainClear", num(L.GAIN_CLEAR, 1), "scripts/part3/explore_long_report.py GAIN_CLEAR")
-    sp = json.loads((LONG / "spend.json").read_text())
-    m.add("LongSpend", num(sp["total"], 2), "results/part3/explore_long/spend.json total")
 
 
 def study2(m: Macros):

@@ -2,8 +2,6 @@
 Run from the repository root: python scripts/report/prepare_publication.py
 Outputs: figures/publication (PDF/SVG/PNG), results/publication (plot data/tables),
          docs/FIGURE_GUIDE.md.
-Registered estimates are preserved. Newly drawn descriptive bands are explicitly
-pointwise whole-run percentile bootstrap intervals (20,000 resamples, seed 20261105).
 """
 from pathlib import Path
 import csv,hashlib,json,sys,io
@@ -88,9 +86,9 @@ for ax,(var,fix),name in zip(axs[1],[('oe','oe_fixed'),('es_dr','es_fixed'),('pp
  ax.set_xticks([0,1],['Fixed*' if fix=='es_fixed' else 'Fixed','Varied']);ax.set_xlim(-.4,1.5);ax.grid(axis='y');title(ax,name)
 axs[1,0].set_ylabel('Normalized zero-shot competence (T1)')
 a3=next(x for x in A['family'] if x['name']=='A3');vdata['A3']=a3
-fig.supxlabel(f"Registered A3 (ES, pooled IQM difference): {a3['iqm_difference']:+.4f} [{a3['ci'][0]:+.4f}, {a3['ci'][1]:+.4f}]",fontsize=9)
+fig.supxlabel(f"ES zero-shot competence (pooled IQM difference): {a3['iqm_difference']:+.4f} [{a3['ci'][0]:+.4f}, {a3['ci'][1]:+.4f}]",fontsize=9)
 
-finish(fig,'fig03_variation','Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). A3 labels the pooled-IQM contrast; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.',vdata)
+finish(fig,'fig03_variation','Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). The ES zero-shot contrast uses pooled IQMs; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.',vdata)
 # 4 curves
 fig,axs=plt.subplots(2,3,figsize=(10,6.1),layout='constrained');d={}
 for j,st in enumerate(['T1','T2','T3']):
@@ -138,7 +136,7 @@ title(axs[0],'A  Transfer food intake');title(axs[1],'B  Transfer population')
 finish(fig,'fig06_reconstruction','Calibrated reconstruction under the paper-described conditions. Solid lines show means over thirty ET trajectories; shading gives pointwise 95% whole-run percentile intervals (20,000 draws, seed 20261105). Dashed/dotted lines are approximate digitized curves from the original paper. All thirty reconstructed GS runs went extinct during training. The reconstruction uses different conditions from the recovered original implementation; its records are shown in figS02_original_archive.',d)
 # 7 study2 means and binomial intervals
 path='results/part2/final/analysis/outcomes.csv';sources.add(path);df=pd.read_csv(ROOT/path)
-groups=['ET','ET_freezeB','ET_cloneB','GS_food_frozen','GS_pop_frozen','GS_pop_mut','SV_frozen','ORACLE_B'];labels=['ET','ET freeze','ET clone','GS food','GS pop','GS pop mut','SV','Oracle'];table=[]
+groups=['ET','ET_freezeB','ET_cloneB','GS_food_frozen','GS_pop_frozen','GS_pop_mut','SV_frozen','ORACLE_B'];labels=['ET','ET-freeze','ET-clone','F-food','F-pop','M-pop','SV','Oracle-B'];table=[]
 fig,axs=plt.subplots(2,4,figsize=(11.5,6.2),sharey='row',layout='constrained')
 for j,w in enumerate(['main','arm2','arm3','arm4']):
  for i,g in enumerate(groups):
@@ -146,9 +144,9 @@ for j,w in enumerate(['main','arm2','arm3','arm4']):
   v,l,h=mean_ci(a.P1.to_numpy());p=float(a.P2.mean());z=norm.ppf(.975);den=1+z*z/200;center=(p+z*z/400)/den;half=z*np.sqrt(p*(1-p)/200+z*z/(4*200**2))/den
   axs[0,j].errorbar(i,v,yerr=[[v-l],[h-v]],fmt='o',color='#0072B2',capsize=2,ms=4);axs[1,j].errorbar(i,p,yerr=[[max(0,p-(center-half))],[max(0,(center+half)-p)]],fmt='o',color='#0072B2',capsize=2,ms=4)
   table.append(dict(arm=w,group=g,n=200,P1_mean=float(v),P1_sd=float(a.P1.std(ddof=1)),P1_ci_low=float(l),P1_ci_high=float(h),P2_rate=p,P2_ci_low=center-half,P2_ci_high=center+half))
- title(axs[0,j],['A  Main','B  Arm 2','C  Arm 3','D  Arm 4'][j])
+ title(axs[0,j],['A  Main','B  Consumption','C  Larger map','D  Reduced energy'][j])
  for ax in axs[:,j]:ax.set_xticks(range(8),labels,rotation=65,ha='right');ax.grid(axis='y')
-axs[0,0].set_ylabel('P1: mean population (blobs)');axs[1,0].set_ylabel('P2: extinction probability');axs[1,0].set_ylim(-.04,1.04)
+axs[0,0].set_ylabel('Mean late-transfer population');axs[1,0].set_ylabel('Terminal extinction probability');axs[1,0].set_ylim(-.04,1.04)
 finish(fig,'fig07_trait_experiment','Eight groups across four arms, with 200 seeds per group. Top: mean late-B population (P1), including zero-population generations, with descriptive 95% whole-seed percentile intervals (20,000 draws). Bottom: terminal extinction proportion (P2), with Wilson 95% intervals. The contrast analyses use studentized P1 and Newcombe P2 intervals. Shared seeds couple groups and arms.',table)
 pd.DataFrame(table).to_csv(OUT/'study2_group_summary.csv',index=False)
 # 8 exploratory long training
@@ -194,6 +192,6 @@ for family,rr in [('core',C['secondary']),('addendum',A['family'])]:
  for row in rr:rows.append({'family':family,**{k:v for k,v in row.items() if not isinstance(v,(dict,list))},'ci_low':row['ci'][0],'ci_high':row['ci'][1]})
 pd.DataFrame(rows).to_csv(OUT/'registered_comparisons.csv',index=False)
 savejson('figures.json',manifest)
-(ROOT/'docs/FIGURE_GUIDE.md').write_text('# Publication figure guide\n\nFigure sources and captions. Rebuild: `python scripts/report/prepare_publication.py`. PDFs and SVGs are vector outputs; PNGs are 300 dpi. Shared style: `publication_style.py`. The manuscript uses seven of these ten figures. Neural bootstrap intervals resample training runs with fixed environments and normalization anchors; they exclude tuning and environment-sampling uncertainty. See the manuscript for sensitivity analyses.\n\n'+ '\n\n'.join('## '+x['id']+'\n\n'+x['caption']+'\n\nData: `'+x['data']+'`.' for x in manifest)+'\n')
+(ROOT/'docs/FIGURE_GUIDE.md').write_text('# Publication figure guide\n\nGenerate PDF, SVG and PNG figures with `python scripts/report/prepare_publication.py`. Neural bootstrap intervals resample training runs with fixed test environments and normalization anchors; tuning and environment-sampling uncertainty are excluded.\n\n'+ '\n\n'.join('## '+x['id']+'\n\n'+x['caption']+'\n\nData: `'+x['data']+'`.' for x in manifest)+'\n')
 savejson('source_manifest.json',{p:{'sha256':hashlib.sha256((ROOT/p).read_bytes()).hexdigest(),'bytes':(ROOT/p).stat().st_size} for p in sorted(sources)})
 print(f'Created {len(manifest)} figures, review PDF, data tables and source manifest.')

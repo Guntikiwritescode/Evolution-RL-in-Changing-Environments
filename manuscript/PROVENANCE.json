@@ -9,11 +9,8 @@
   "evosax_version": "0.3.2",
   "minutelabs_rule_source_revision": "55af956",
   "source_package_scope": "Manuscript, figures and retained analysis summaries. Full research package supplies scientific implementation and data companions.",
-  "raw_records_modified_during_writing": false,
-  "new_experimental_runs_during_writing": 0,
   "input_sha256": {
-    "data/complete_reporting_summaries.json": "f2479518ccc41023066a199bd062e9229d19e71c41e27627da742ed60bd74bed",
-    "data/compute_spend.csv": "6e7070fe403e02887a13b54689724588a7afff887103dd50d7ef270e2d693072",
+    "data/complete_reporting_summaries.json": "fc90eba6886e3c434b2e3a8c77bcfbef6d4c41bf5070640c94ea92bfffdc15e3",
     "data/floor_checks.json": "a1f36d84f515cc20ec78f1963ed5ac2b1f20528ffb74b77ec127e2b11b6bc08c",
     "data/independent_statistics.json": "97198230fb12580e235eb1cb32d69890b0eabefa782dd9259a0c00fb1c09cc73",
     "data/neural_addendum.json": "ba39bf0c43b5275dc69841d6296c99d7ccd2b6486ee6ddd9c3362b541acbb032",
@@ -26,10 +23,10 @@
     "data/trait_exploratory.json": "ee6ca5e0bcfae990576a81928ab53a8fef5522f8dbde2f3e5e5d3e8be5f7bd0a",
     "data/tuned_settings.csv": "9ad99a0063a774098e11ca7010c1b91b30ac684cdc36bc02abe0fc12e194502b",
     "figures/fig02_primary.pdf": "3e6fbcf828d1f3319637851e74a32e0abd77a5400e68827c661a6ca5a6e16e84",
-    "figures/fig03_variation.pdf": "dc9a17010d78d3327e05b68f373c95cebccfa7cea6cb2d261263a1c01454e521",
+    "figures/fig03_variation.pdf": "7ddba1a4021e88d31641a2c30a648e49a6edb644c2c061c74eecc43cca8f4c36",
     "figures/fig04_curves.pdf": "25b68a169df1682fec6dedb317469fd5c6dd87181fbc955764a2d825917ebcfc",
     "figures/fig05_profiles.pdf": "d50622711de6c9c5f9c94a4fb66ece5098a25653719938b23f2e4f931a784d31",
-    "figures/fig07_trait_experiment.pdf": "1539fefc1cae87dc07a74953e80ba24765911c029b1cb26b6aac4993c59b5eb6",
+    "figures/fig07_trait_experiment.pdf": "e2eccbbf58cbe8ad4357cc158ce83b6b0f0dce0d9326fc44320e2ba8740efc60",
     "figures/fig08_long_training.pdf": "34b0771ba60c6292c59462a76a19b91c3b7b93ff19cb8aaf165eab7e579deb96",
     "figures/figS01_diagnostics.pdf": "c33cad681be6aefe213419e243fb49983487d848b00d553d6a20102aa00da2e9",
     "figure_data/fig02_primary.json": "8d80e80d29f3f2147e725ea457bbe2ca8c2acea73899fcdb822bf40b40f5aa0c",
@@ -42,8 +39,5 @@
   },
   "author": "Abhinav Guntaka",
   "edition": "1.0.0",
-  "funding": "Personally funded",
-  "competing_interests": "None declared",
-  "cited_references": 13,
-  "total_project_cost_usd": 87
+  "cited_references": 13
 }

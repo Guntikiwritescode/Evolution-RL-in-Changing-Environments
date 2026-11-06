@@ -37,18 +37,17 @@ def arm_section(arm, r, u1, n, ctx):
     """One arm's confirmatory results. ctx: counts from checks.csv, the A-checks, and the
     arm's secondary results (for runs that reached B and, in arm 2, blobs eaten)."""
     L = [f"### {ARM_NAME[arm]}", ""]
-    L.append(f"- Positive control (\"this B separates groups\"): **{'holds' if r['positive_control'] else 'does not hold'}**.")
-    L.append(f"- U2 (\"B doesn't call for a different design\"): **{'fired' if r['u2_fires'] else 'did not fire'}** "
+    L.append(f"- Positive control: **{'holds' if r['positive_control'] else 'does not hold'}**.")
+    L.append(f"- U2 (B-specific search advantage below 2.5): **{'fired' if r['u2_fires'] else 'did not fire'}** "
              f"(B winner ahead by less than 2.5 blobs in {sum(1 for d in r['u2_diff'] if d < 2.5)} of {len(r['u2_diff'])} runs).")
     cnt = ctx["single_design"]
     L.append(f"- Runs with a single design left at B generation 0: SV_frozen {cnt['sv']} of {n}, "
              f"GS_pop_mut {cnt['gs_pop_mut']} of {n}, ET {cnt['et']} of {n}."
-             + (" Because this is most runs for SV_frozen, row 4 is reworded (Section 7)." if r["sv_single_design_majority"] else ""))
+             + (" SV_frozen therefore usually entered B as a single design." if r["sv_single_design_majority"] else ""))
     if arm == "arm2":
-        L.append("- **Section 9.1 note, for every affected comparison.** In arm 2 a blob can only eat a blob at most 80% "
-                 "of its size, so clone groups never can. Clone vs varied: comparisons 1, 2, 6 and 8; there, arm 2 "
-                 "differences partly come from one group's access to this extra food. Varied vs varied: comparisons 3, 4 "
-                 "and 5; how much each group can eat depends on how spread out its sizes are.")
+        L.append("- Predation requires prey no larger than 80% of the predator. Clone populations cannot use this food "
+                 "source; access in varied populations depends on the size distribution. Comparisons 1, 2, 6 and 8 "
+                 "therefore combine variation with access to predation.")
         be = ctx["sec"].get("blobs_eaten_per_group", {})
         if be:
             L.append("- Blobs eaten per run in B generations 0–49 (mean over runs; divide by 50 for per generation): "
@@ -57,7 +56,7 @@ def arm_section(arm, r, u1, n, ctx):
                 L.append(f"  In the {cnt['sv']} runs where SV_frozen is a single design at B generation 0, it is a clone "
                          "group, so row 4 is then also clone vs varied.")
     L.append("")
-    L.append("| # | Comparison (first − second) | P1 difference [95% CI] | P2 difference [95% CI] | Holm p (P1, P2) | Verdicts (P1; P2) | Overall | Conclusion (Section 7) |")
+    L.append("| # | Comparison (first − second) | P1 difference [95% CI] | P2 difference [95% CI] | Holm p (P1, P2) | Verdicts (P1; P2) | Overall | Interpretation |")
     L.append("|---|---|---|---|---|---|---|---|")
     for c, d in r["decided"].items():
         raw = r["raw"][c]
@@ -75,67 +74,40 @@ def arm_section(arm, r, u1, n, ctx):
         L.append("- **Verdicts that rest on one outcome** (the other is inconclusive): " + "; ".join(
             f"row {c} on {'P2 (dying out)' if r['decided'][c]['verdict']['P1'] == 'inconclusive' else 'P1 (population)'}"
             for c in one) + ".")
-    eq2 = [c for c, d in r["decided"].items() if d["verdict"]["P2"].startswith("equivalent")]
-    if eq2:
-        parts = []
-        for c in eq2:
-            p2 = r["raw"][c]["P2"]
-            lo = min(p2["count_x"] / p2["n_x"], p2["count_y"] / p2["n_y"])
-            parts.append(f"row {c}: {p2['count_x']} vs {p2['count_y']} of {p2['n_x']} died out"
-                         + ("; the group with fewer has under 10%, so the other can't be 10 points better" if lo < 0.10 else ""))
-        L.append("- **P2 \"equivalent\": the facts Section 6 asks for** (equivalence on P2 needs low extinction in both "
-                 "groups; with 200 runs it is possible up to about 15% in both): " + "; ".join(parts) + ".")
     ap = [c for c, d in r["decided"].items() if d.get("a_phase")]
     for c in ap:
         rb = ctx["sec"].get("reached_B_ci", {}).get(c)
         if rb:
-            L.append(f"- Row {c} includes A-phase losses. Over the {rb['n_both']} runs where both groups reached B "
-                     f"(can be biased; Section 6): P1 {f2(rb['P1_diff'])} {ci(rb['P1_ci95'])}, "
+            L.append(f"- Row {c} includes A-phase losses. Over the {rb['n_both']} runs where both groups reached B"
+                     f": P1 {f2(rb['P1_diff'])} {ci(rb['P1_ci95'])}, "
                      f"P2 {f2(rb['P2_diff'])} {ci(rb['P2_ci95'])}.")
     a = ctx.get("achecks")
-    if a:
-        L.append(f"- **Rows 5 and 6 next to their A-checks** (Section 4; no move, 50 more generations in A from ET's "
-                 f"end-of-A population; n = {a['n']} runs; descriptive). Mean population over the last 10: with mutation "
-                 f"{a['means']['mut']:.2f}, without {a['means']['frozen']:.2f}, clones {a['means']['clone']:.2f}. "
-                 f"Row 5 in A (without − with mutation) {f2(a['row5_frozen_minus_mut']['diff'])} "
-                 f"{ci(a['row5_frozen_minus_mut']['ci95'])}; row 6 in A (clones − without mutation) "
+    if a and arm == "main":
+        L.append(f"- **No-shift controls:** ET's end-of-A populations continued for 50 generations in A "
+                 f"({a['n']} runs). Mean population over the last 10 generations: with mutation "
+                 f"{a['means']['mut']:.2f}, without mutation {a['means']['frozen']:.2f}, clones {a['means']['clone']:.2f}. "
+                 f"Without − with mutation: {f2(a['row5_frozen_minus_mut']['diff'])} "
+                 f"{ci(a['row5_frozen_minus_mut']['ci95'])}; clones − without mutation: "
                  f"{f2(a['row6_clone_minus_frozen']['diff'])} {ci(a['row6_clone_minus_frozen']['ci95'])}. "
-                 "A difference that also appears here is not special to the move.")
-        for c, key in (("5", "row5_frozen_minus_mut"), ("6", "row6_clone_minus_frozen")):
-            if c not in r["raw"]:
-                continue
-            db, cib = r["raw"][c]["P1"]["diff"], r["raw"][c]["P1"]["ci95"]
-            da, cia = a[key]["diff"], a[key]["ci95"]
-            b_dir = 1 if cib[0] > 0 else (-1 if cib[1] < 0 else 0)
-            a_dir = 1 if cia[0] > 0 else (-1 if cia[1] < 0 else 0)
-            share = lambda d, cap: f"{100 * abs(d) / cap:.0f}% of the cap of {cap}"
-            if b_dir != 0 and a_dir == b_dir:
-                L.append(f"  - Row {c}: a difference in the same direction also appears in A with no move "
-                         f"({f2(da)}, {share(da, 50)}; here in B {f2(db)}, {share(db, 25)}), so at least part of it is not "
-                         "special to the move.")
-            elif b_dir != 0 and a_dir == 0:
-                L.append(f"  - Row {c}: B difference {f2(db)}. No difference was detected in the no-move A check "
-                         "(its 95% CI includes 0). This is not a formal B-versus-A interaction test.")
-            elif b_dir != 0:
-                L.append(f"  - Row {c}: in A with no move the difference goes the other way ({f2(da)}).")
+                 "These controls describe the same interventions without an environmental shift.")
     L.append("")
     cmb = r["combined"]
-    L.append(f"- Plan's combined row \"ET ≈ GS_pop_mut, and both > frozen groups\": "
+    L.append(f"- Combined criterion \"ET ≈ GS_pop_mut, and both > frozen groups\": "
              f"**{'met' + (' (' + cmb['label'] + ')' if cmb.get('label') else '') if cmb['ET ≈ GS_pop_mut, and both > frozen groups'] else 'not met'}**.")
     if cmb["SV_frozen ≈ ET"] and r["sv_single_design_majority"]:
-        L.append(f"- Plan's row \"SV_frozen ≈ ET\": **met by the rule**, but row 4 is reworded (SV_frozen had one "
-                 f"design left in {cnt['sv']} of {n} runs), so this does not show that starting variety alone is enough.")
+        L.append(f"- Criterion \"SV_frozen ≈ ET\": **met by the rule**. SV_frozen entered B as a single "
+                 f"design in {cnt['sv']} of {n} runs.")
     else:
-        L.append(f"- Plan's row \"SV_frozen ≈ ET\": **{'met' if cmb['SV_frozen ≈ ET'] else 'not met'}**.")
+        L.append(f"- Criterion \"SV_frozen ≈ ET\": **{'met' if cmb['SV_frozen ≈ ET'] else 'not met'}**.")
     L.append("")
-    L.append("Mann-Whitney U and Cliff's delta for P1 (reported, never decide verdicts; Section 6):")
+    L.append("Mann-Whitney U and Cliff's delta for P1 (descriptive):")
     L.append("")
     L.append("| # | " + " | ".join(r["raw"]) + " |")
     L.append("|---" * (len(r["raw"]) + 1) + "|")
     L.append("| Mann-Whitney p | " + " | ".join(f"{r['raw'][c]['P1']['mwu_p']:.3g}" for c in r["raw"]) + " |")
     L.append("| Cliff's delta | " + " | ".join(f"{r['raw'][c]['P1']['cliffs_delta']:+.2f}" for c in r["raw"]) + " |")
     L.append("")
-    L.append("Group summary (n = " + str(n) + " runs each; U1 shares):")
+    L.append("Group summary (n = " + str(n) + " runs each):")
     L.append("")
     L.append("| Group | Mean P1 | SD | Extinct at end of B | Died out in A | Share with P1 ≥ 22.5 | Share with P1 ≤ 2.5 |")
     L.append("|---|---|---|---|---|---|---|")
@@ -244,40 +216,33 @@ def main():
     run = load(os.path.join(ROOT, "results", "part2", args.run, "run.json"))
     seeds = conf["provenance"]["seeds"]
     n = len(seeds)
-    L = ["# Trait experiment: results", "",
-         "Generated by `scripts/part2/write_report_part2.py` from saved results. Do not edit by hand.", "",
-         f"- Runs: {n} run seeds ({seeds[0]}–{seeds[-1]}) per group per arm; code commit "
-         f"`{run['provenance']['git']['commit'][:7]}`; config `{run['config_path']}` "
-         f"(hash `{run['provenance']['config_hash'][:12]}`).",
-         f"- Arm 3's map side: {run['provenance']['config']['part2'].get('arm3_side')} (Section 9.2, round 2).",
-         "- Pre-registration: `docs/PREREG_part2.md` (specified 1 Nov 2026; amendments preceded the corresponding final runs).",
-         "- Exploratory analyses do not change confirmatory decision labels.", ""]
     p2c = run['provenance']['config']['part2']
+    L = ["# Trait experiment: results", "",
+         f"We compared trait-search and evolving populations across four transfer environments, using {n} runs per "
+         f"group and arm. Arm 3 used a map side of {p2c.get('arm3_side')}."]
     if p2c.get("arm4_energy") is not None:
-        L.insert(-3, f"- Arm 4's energy per generation in B: {p2c['arm4_energy']:g} (A and the main B: "
-                     f"{run['provenance']['config']['world']['energy_per_generation']:g}; Section 9.3, "
-                     f"rule round {p2c.get('arm4_rule_round')}).")
+        L.append(f"Arm 4 supplied {p2c['arm4_energy']:g} energy per generation in B, compared with "
+                 f"{run['provenance']['config']['world']['energy_per_generation']:g} in A and the main B.")
+    L += ["", "Population search scored generations 10–99 in stage two; food search scored generations 10–29. "
+          "The comparison therefore includes both objective and scoring horizon.", ""]
     with open(os.path.join(adir, "checks.csv")) as f:
         ck = list(csv.DictReader(f))
     single = {"sv": sum(int(x["sv_distinct_B0"]) == 1 for x in ck),
               "gs_pop_mut": sum(int(x["gs_pop_mut_distinct_B0"]) == 1 for x in ck),
               "et": sum(int(x["et_distinct_B0"]) == 1 for x in ck)}
     L += ["## Confirmatory results", "",
-          "**How to read the registered labels.** ‘Meaningfully different’ is the pre-registered "
-          "decision rule: Holm-adjusted p < 0.05 and an absolute point estimate at least as large "
-          "as the practical threshold. It does not require the confidence interval to exclude "
-          "smaller effects. The estimate and interval together indicate the effect's size and uncertainty; "
-          "this label alone does not establish that the true effect exceeds the threshold. "
-          "Intervals shown are per-comparison 95% intervals, not simultaneous "
-          "family-wide intervals.", ""]
+          "P1 is mean population in B generations 40–49; P2 is extinction by the end of B. "
+          "The registered label ‘meaningfully different’ requires Holm-adjusted p < 0.05 and a point estimate "
+          "at least as large as the practical threshold (2.5 agents for P1; 0.10 for P2). "
+          "Displayed intervals are nominal per-comparison 95% intervals. "
+          "Analyses restricted to runs reaching B condition on survival and may be affected by selection bias.", ""]
     for arm in ("main", "arm2", "arm3", "arm4"):
         if arm in conf:
             ctx = {"single_design": single, "achecks": ex.get("achecks"), "sec": ex["secondary"].get(arm, {})}
             L += arm_section(arm, conf[arm], conf["U1_U4"][arm], n, ctx)
-    L += ["### Do the verdicts hold across arms? (Section 9.1, fixed per-test level)", "",
-          "This check recomputes every verdict at one fixed level (p < 0.05 ÷ 16, 99.375% equivalence intervals) "
-          "instead of Holm, so a verdict can't change between arms only because other tests changed. Its categories "
-          "can therefore differ from the tables above.", ""]
+    L += ["### Comparison across arms", "",
+          "Cross-arm comparisons use p < 0.05 ÷ 16 and 99.375% equivalence intervals. "
+          "This fixed threshold avoids changes caused by the other tests in a Holm family.", ""]
     for arm, rows in conf.get("holds_changes", {}).items():
         L.append(f"- {ARM_NAME[arm]} vs main: " + "; ".join(
             f"{c}: {v['result']}" + (f" ({v['main']} → {v[arm]})" if v.get("result") == "changes" else "")
@@ -299,9 +264,9 @@ def main():
         for row in csv.DictReader(f):
             if row.get("S4_n") not in (None, ""):
                 s4n.setdefault((row["world"], row["group"]), []).append(int(row["S4_n"]))
-    L += ["## Secondary results (pre-registered, not deciding verdicts)", "",
+    L += ["## Secondary results", "",
           "S4 measures food per agent and can rise as a population shrinks; it is reported alongside population counts.", "",
-          f"Diagnostic figures can be generated with `.venv-validation/bin/python scripts/part2/make_figures_part2.py --run {args.run}` after data assembly.", ""]
+          ""]
     for arm, r in ex["secondary"].items():
         L.append(f"**{ARM_NAME[arm]}.** Paired by run seed (sign-flip test for P1, McNemar for P2):")
         L.append("")
@@ -313,7 +278,7 @@ def main():
                    if rb else "–")
             L.append(f"| {c} | {f2(p['P1_mean_diff'])} {ci(p['P1_ci95'])} | {p['signflip_p']:.3g} | {p['mcnemar_p']:.3g} | {rbt} |")
         L.append("")
-        L.append("Secondary outcomes (Section 5):")
+        L.append("Secondary outcomes:")
         L.append("")
         L.append("| Group | S6: mean population, B gens 1–49 | S4: food per blob, B gens 40–49 (runs with a value; mean gens with blobs) | S1: first B gen with 23+ blobs, median (runs never) |")
         L.append("|---|---|---|---|")
@@ -331,7 +296,7 @@ def main():
             L.append(f"- ET's mean P1 with blob-eating on: {r['ET_mean_P1']:.2f} "
                      f"({'above' if r['ET_mean_P1_above_25'] else 'not above'} 25; the paper reports about 29).")
             L.append("")
-    L += ["### Search checks (Section 5, descriptive)", ""]
+    L += ["### Search performance", ""]
     def rng_txt(key):
         v = [int(x[key]) for x in ck]
         return f"mean {sum(v) / len(v):.1f}, range {min(v)}–{max(v)}"
@@ -347,19 +312,18 @@ def main():
                              f"share with B score ≥ 22.5: {v['mean_share_of_A_tied_with_B_score_ge_22_5']:.2f}"
                              for w, v in at.items()) + f" ({next(iter(at.values()))['n_seeds']} seeds).")
     L.append("")
-    L += ["### Compute cost (creature-steps per run, search included; guess K1)", ""]
+    L += ["### Compute (creature-steps per run, including search)", ""]
     for arm, rows in ex["compute_cost"].items():
         L.append(f"- {ARM_NAME[arm]}: " + "; ".join(f"{g} {v['mean']:,.0f}" for g, v in rows.items()))
     L.append("")
-    L += ["## Exploratory results (Section 18)", "",
+    L += ["## Exploratory results", "",
           "Exploratory items use the 100 exploratory seeds (2000–2099) unless stated, so their numbers can differ "
           "slightly from the 200-seed tables above.", ""]
     su = ex.get("suite", {})
     if su:
-        L.append("**Robustness suite** (Section 18.4). For each comparison: in how many B variants the 95% CI excludes 0, "
-                 "by direction, and how many reach the variant's threshold (runs where both groups reached B). The "
-                 "main-arm direction is from an unpaired 95% interval on the same 100 seeds. When it is 0, only the "
-                 "counts by direction are given, as Section 18.4 says.")
+        L.append("**Robustness suite.** Counts of B variants whose 95% interval excludes zero, by direction, and whose "
+                 "point estimate reaches the practical threshold. Comparisons use runs where both groups reached B. "
+                 "The main-arm direction uses the same 100 seeds; zero denotes an interval containing zero.")
         L.append("")
         L.append("| # | Main-arm direction | Variants | Positive | Negative | Reach threshold |")
         L.append("|---|---|---|---|---|---|")
@@ -387,7 +351,7 @@ def main():
                  f"{f2(vr['comparisons'][c]['P2_diff'])} {ci(vr['comparisons'][c].get('P2_ci95'))}; "
                  f"{vr['comparisons'][c]['n_both_reached_B']}") if c in vr["comparisons"] else "–" for c in COMPS) + " |")
         L.append("")
-        L.append(f"The legacy difficulty curve is generated at `figures/part2/{args.run}/difficulty_curve.png` by the figure command above. The [publication figure](../figures/publication/fig07_trait_experiment.png) summarizes the four primary arms.")
+        L.append("The [trait-experiment figure](../figures/publication/fig07_trait_experiment.png) summarizes the four primary arms.")
         L.append("")
     if ex.get("landscape"):
         L.append("**Landscape check** (Kendall tau-b between A and B stage-1 population scores; the A winner's rank in B). "
@@ -400,10 +364,10 @@ def main():
         L.append("")
     ms = ex.get("mutation_sensitivity", {})
     if ms:
-        L += ["**Mutation size × 0.5 and × 2** (Section 18.5; P1 and P2 differences, first − second, with 95% CIs, on "
+        L += ["**Mutation size × 0.5 and × 2** (P1 and P2 differences, first − second, with 95% CIs, on "
               "the 100 exploratory seeds; the ×1 rows are the frozen setting on the same seeds, for a like-for-like "
               "comparison). \\* = both groups had 3 or fewer runs with any population in B generations 40–49, so the "
-              "interval means little.", "",
+              "interval is poorly resolved.", "",
               "| Setting | " + " | ".join(f"#{c}" for c in COMPS) + " |", "|---" * (len(COMPS) + 1) + "|"]
         order = sorted(ms, key=lambda k: (k.split("_", 1)[1], float(k.split("_")[0][1:])))
         for k in order:
@@ -415,13 +379,13 @@ def main():
         L.append("")
     sb = ex.get("scratch_B", {})
     if sb:
-        L.append("**ET_scratchB minus ET** (Section 18.6; 50 default blobs started directly in B, vs ET trained in A): "
+        L.append("**ET_scratchB minus ET** (50 default blobs started directly in B, vs ET trained in A): "
                  + "; ".join(f"{ARM_NAME.get(w, w)}: P1 {f2(v['P1_diff'])} {ci(v['P1_ci95'])}, P2 {f2(v['P2_diff'])} {ci(v['P2_ci95'])}"
                              for w, v in sb.items()) + ".")
         L.append("")
     lb = ex.get("longer_B", {})
     if lb:
-        L += ["**Longer B** (Section 18.5; B phase continued to B generation 199; P1 at B generations 40–49 "
+        L += ["**Longer B** (B phase continued to B generation 199; P1 at B generations 40–49 "
               "→ the same measure at 190–199, and the share extinct at the end of B generation 199):", "",
               "| World | " + " | ".join(GROUPS_ORDER) + " |", "|---" * (len(GROUPS_ORDER) + 1) + "|"]
         for w, rows in lb.items():
@@ -432,7 +396,7 @@ def main():
     s1 = ex.get("stage1_winners", {})
     if s1:
         same = s1.get("same_as_two_stage", {})
-        L.append("**What the second search stage bought** (Section 18.5; stage-1-only winners deployed as frozen clones). "
+        L.append("**Effect of the second search stage** (stage-1-only winners deployed as frozen clones). "
                  f"The stage-1 winner was the same design as the two-stage winner in {same.get('pop')} of {same.get('n')} runs "
                  f"(population score) and {same.get('food')} of {same.get('n')} (food score).")
         L.append("")
@@ -444,12 +408,12 @@ def main():
         L.append("")
     th = ex.get("threshold_sensitivity", {})
     if th:
-        L.append("**Threshold sensitivity** (Section 18.5; rows whose verdict changes with half / double thresholds, all "
+        L.append("**Threshold sensitivity** (rows whose verdict changes with half / double thresholds, all "
                  "200 seeds): " + "; ".join(f"{k}: {v['changed'] or 'none'}" for k, v in th.items()) + ".")
         L.append("")
     g = ex.get("gradients", {})
     if g:
-        L.append("**Selection gradients** (Section 18.7; main B only, B generations 0–9; A generations 90–99 for the A "
+        L.append("**Selection gradients** (main B only, B generations 0–9; A generations 90–99 for the A "
                  "rows, 0–9 for SV_frozen in A; mean over runs that give one; 95% CI):")
         L.append("")
         for k, v in g.items():
@@ -461,7 +425,7 @@ def main():
         L.append("")
     fd = ex.get("first_gen_deaths", {})
     if fd:
-        L.append("**First-generation deaths in B** (Section 18.7; main B, all 200 seeds): share of blobs that die in B "
+        L.append("**First-generation deaths in B** (main B, all 200 seeds): share of blobs that die in B "
                  "generation 0, and mean traits (speed, size, sense, reach) of survivors vs those that die:")
         L.append("")
         L.append("| Group | Share dying | Survivors | Died |")
@@ -478,29 +442,14 @@ def main():
         L.append("")
     eu = ex.get("energy_use", {})
     if eu:
-        L.append("**Energy use** (Section 18.7; main B, B generations 0–49, all 200 seeds): mean energy cost per move, and "
+        L.append("**Energy use** (main B, B generations 0–49, all 200 seeds): mean energy cost per move, and "
                  "ticks used per generation, over generations that had blobs: "
                  + "; ".join(f"{gname} {v['energy_per_move']:.2f} per move, {v['ticks_per_generation_with_blobs']:.0f} ticks"
                              for gname, v in eu.items() if v.get("energy_per_move") is not None) + ".")
         L.append("")
-    L += predictions_section(conf, ex, ck)
-    L += ["## Every run", "",
-          f"- Per-seed outcomes for every group and world: `results/part2/{args.run}/analysis/outcomes.csv`; "
-          f"search and check values per seed: `checks.csv`; raw logs: `results/part2/{args.run}/seed*.npz`.",
-          f"- A-checks for seeds whose run skipped them: `results/part2/{args.run}/achecks/`.",
-          f"- Where each seed ran: `results/part2/{args.run}/run.json` (original CPU environment) and `run_pod.json` (RunPod); "
-          "the 3-seed check that both machines give identical results: `results/part2/repro_pod/`.",
-          "- Arm 3 map-size rule, rounds 1 and 2: `results/part2/maprule/`, `results/part2/maprule_round2/`.",
-          "- Arm 4 energy rule: probes 1-4 and rule rounds 1 and 2 (with per-seed files): `results/part2/b_redesign/`.",
-          "- Pilots (not used in the analysis): `results/part2/pilot/` (first, seeds 2900–2909) and "
-          "`results/part2/pilot2/` (second, with arm 4, seeds 2910–2919).",
-          "- Smoke tests: `results/part2/smoke/` (seeds 2990–2991) and `results/part2/smoke_arm4/` (2993–2994).",
-          "- Analysis-code checks on made-up data: `results/part2/validation/` (current) and `results/part2/validation_old/` "
-          "(first run, older code).", ""]
-    op = os.path.join(ROOT, "docs", "templates", "RESULTS_part2_opinion.md")
-    if os.path.exists(op):
-        with open(op) as f:
-            L += ["## Opinion, not tested", "", f.read().strip(), ""]
+    L += ["## Data", "",
+          f"Per-run outcomes and search diagnostics are in `results/part2/{args.run}/analysis/`. "
+          "Environment selection and decision rules are described in [PREREG_part2.md](PREREG_part2.md).", ""]
     text = "\n".join(L) + "\n"
     # Update interpretive prose only. Preserve saved statistical results, decision
     # labels and the historical protocol/guide in confirmatory.json.
@@ -514,17 +463,25 @@ def main():
         "Variety built up in A helps after the move":
             "The frozen population outperformed the cloned population",
         "Starting at the A optimum and evolving beats starting simple":
-            "Starting from the selected population-search design and evolving outperformed this ET initialization in this arm",
+            "Mutating population-search initialization outperformed ET",
         "Conclusion (Section 7)": "Interpretation",
         "Being able to change hurts":
-            "The tested mutating population-search pipeline had higher extinction than its frozen variant in this arm; P1 was inconclusive",
+            "The mutating population-search group underperformed its frozen counterpart",
+        "Both groups did about as well as this B allows; this B can't show whether one is better":
+            "Both groups were near the population ceiling",
+        "The design that selection in A picked from 50 random starts does as well as evolution":
+            "SV_frozen and ET met the equivalence criterion",
+        "Evolution beats the design that selection in A picked from 50 random starts":
+            "ET outperformed SV_frozen",
+        "New mutations after the move help":
+            "ET outperformed ET_freezeB",
+        "No conclusion (B doesn't call for a different design)":
+            "The U2 criterion limits interpretation",
+        "(part of this difference happened before the move)":
+            "(including losses in A)",
     }
     for old, new in corrections.items():
         text = text.replace(old, new)
-    note = ("**Search objectives.** In stage two, population search scores generations 10-99; food search scores generations 10-29. "
-            "The comparison therefore includes both objective and scoring horizon. "
-            "Clone deficits also occur without an environmental shift.\n\n")
-    text = text.replace("## Confirmatory results\n", note + "## Confirmatory results\n", 1)
     with open(args.out, "w") as f:
         f.write(text)
     print("wrote", os.path.relpath(args.out, ROOT))

@@ -12,6 +12,8 @@
 \captionsetup{font=small,labelfont=bf}
 \setlength{\parskip}{0.25em}
 \setlength{\emergencystretch}{2em}
+\widowpenalty=10000
+\clubpenalty=10000
 \renewcommand{\arraystretch}{1.12}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
@@ -24,7 +26,7 @@
 \maketitle
 \vspace{-2em}
 \begin{abstract}
-We compare ecological neuroevolution (OE), evolution strategies (ES) and proximal policy optimization (PPO) in a simulated foraging world. Fixed- and varied-environment configurations are tuned separately and trained for the same nominal agent-step budget, with ten runs per configuration. We evaluate food acquisition before and during adaptation to thirty test environments, and population persistence in a separate assay. On the twenty shifted environments, OE scores below PPO with domain randomization: the difference in interquartile mean of normalized adaptation area under the curve is $-0.5592$ (nominal 95\% bootstrap interval $[-0.6088,-0.5196]$). Varied OE also scores below OE-fixed. ES-DR scores slightly above ES-fixed, while the PPO comparison does not support the predicted benefit of varied training. OE depends heavily on replacement agents supplied by a population floor; these account for over 99\% of births during resource-scarce adaptation. Without floor support, OE has poorer population persistence than PPO-DR. The comparisons include differences in selected hyperparameters, objectives and population structure.
+We compare ecological neuroevolution (OE), evolution strategies (ES) and proximal policy optimization (PPO) in a simulated foraging world. Six separately tuned fixed- and varied-environment configurations train for the same nominal agent-step budget, with ten runs each. We measure food acquisition before and during adaptation to thirty test environments and population persistence without replacement support. Across twenty shifted environments, OE performs below PPO with domain randomization (PPO-DR): the difference in interquartile mean of normalized adaptation area under the curve is $-0.5592$ (nominal 95\% bootstrap interval $[-0.6088,-0.5196]$). Varied OE also performs below OE-fixed. ES-DR slightly exceeds ES-fixed, whereas PPO-DR's small advantage over PPO-fixed is nonsignificant in the prespecified rank test. OE has poorer population persistence than PPO-DR and depends heavily on its population floor: externally supplied replacements account for over 99\% of births during resource-scarce adaptation.
 \end{abstract}
 \input{sections/introduction}
 \input{sections/methods}

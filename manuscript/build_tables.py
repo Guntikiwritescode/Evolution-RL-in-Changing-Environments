@@ -31,24 +31,30 @@ table('procedures','Training and transfer procedures. Each row has fixed and var
 table('persistence','Extinction frequencies in the 5,000-step persistence assay without floor support. Each cell pools ten training runs evaluated in ten environments. Asterisk: ES-fixed extension.','tab:persistence','lXXX',['Procedure','T1','T2','T3'],[[N[m]]+[f"{float(next(r for r in desc if r['method']==m and r['set']==st)['extinction_rate']):.2f}" for st in ['T1','T2','T3']] for m in methods])
 F=rd('floor_checks.json')['oe_adaptation_floor']
 table('floor','Share of new agents supplied by population-floor replacements during adaptation. Fractions pool event counts over ten runs and ten environments per suite.','tab:floor','lXX',['Suite','OE','OE-fixed'],[[st]+[f"{100*F[m+'/'+st]['floor_share']:.2f}\\%" for m in ['oe','oe_fixed']] for st in ['T1','T2','T3']])
-# All neural confirmatory contrasts; the p-values test run summaries, not the IQM.
+# Neural comparisons: one row per contrast, combining interval and rank-test summaries.
 sets={'S1':'T2/T3 AUC','S2':'T2/T3 AUC','S3':'T2/T3 AUC','S4':'T2/T3 zero-shot','S5':'T2/T3 final','S6':'T1 AUC','S7':'T2/T3 extinction','A2':'T2/T3 AUC','A3':'T1 zero-shot'}
-rows=[]
+rows=[['OE minus PPO-DR','T2/T3 AUC',ci({'iqm_difference':C['h1']['D'],'ci':C['h1']['ci']}),'--']]
 for x in C['secondary']+A['family']:
- rows.append([x['name'],N[x['x']]+' minus '+N[x['y']],sets[x['name']],ci(x),pv(x['p_holm'])])
-table('neural_tests','Complete core S1--S7 and later A2--A3 families. Differences are pooled IQMs except S7, which uses IQMs of per-run extinction fractions. Intervals are nominal 95\\% whole-run intervals. Holm correction is separate for the two families. The rank-test $p$ values apply to per-run summaries, not directly to the IQM effects.','tab:tests','lp{2.6cm}p{2.2cm}p{4.0cm}r',['ID','Comparison','Outcome','Difference [interval]','Adjusted $p$'],rows,long=True)
-table('primary_rules','Interval-rule comparisons with a margin of 0.05 on the normalized scale. A1 uses the same ES contrast as A2.','tab:primaryrules','lXXX',['ID','Comparison','Difference [interval]','Decision'],[
-['H1','OE minus PPO-DR',ci({'iqm_difference':C['h1']['D'],'ci':C['h1']['ci']}),'Against predicted superiority'],['A1','ES-DR minus ES-fixed',ci({'iqm_difference':A['a1']['D'],'ci':A['a1']['ci']}),'Positive, below margin']])
+ rows.append([N[x['x']].replace('*','')+' minus '+N[x['y']].replace('*',''),sets[x['name']],ci(x),pv(x['p_holm'])])
+table('neural_tests','Neural comparisons. Differences are pooled IQMs; extinction uses IQMs of per-run extinction fractions. Intervals are nominal 95\\% whole-run intervals. Adjusted $p$ values compare per-run summaries, with separate Holm correction for the seven initial secondary comparisons and the two ES comparisons. The primary OE--PPO-DR AUC comparison uses the interval rule alone. It places OE below PPO-DR by more than 0.05; ES-DR exceeds ES-fixed by less than 0.05.','tab:tests','p{3.3cm}p{2.0cm}p{4.8cm}r',['Comparison','Outcome','Difference [95\\% interval]','Adjusted $p$'],rows,long=True)
 rows=[]
 contrast_labels={'delta':r'$\Delta=|V|-|M|$','interaction':r'$I$','method':r'$M$','variety':r'$V$','variety_es':'ES-DR minus ES-fixed','variety_oe':'OE minus OE-fixed'}
-for lab,d in [('H2b',C['h2b']),('A4',A['a4'])]:
+for lab,d in [('OE/PPO',C['h2b']),('OE/ES',A['a4'])]:
  for key,x in d.items():
-  if isinstance(x,dict) and 'value'in x:rows.append([lab,contrast_labels[key],f"{x['value']:+.6f}",f"[{x['ci'][0]:.6f}, {x['ci'][1]:.6f}]"])
-table('four_method','Four-method contrasts. H2b covers the core configurations; A4 adds ES-fixed after the OE comparison was known.','tab:four','lP{4.5cm}rX',['Analysis','Quantity','Estimate','Nominal 95\\% interval'],rows)
+  if isinstance(x,dict) and 'value'in x:rows.append([lab,contrast_labels[key],f"{x['value']:+.4f}",f"[{x['ci'][0]:.4f}, {x['ci'][1]:.4f}]"])
+table('four_method','Fixed--varied contrasts for OE/PPO and OE/ES. The OE/ES interaction is the ES varied-minus-fixed difference minus the OE difference.','tab:four','lP{4.5cm}rX',['Methods','Quantity','Estimate','Nominal 95\\% interval'],rows)
+# Sensitivity intervals read from the existing reanalysis, without recomputation.
+comparisons=rd('independent_statistics.json')['comparisons']
+rows=[]
+for key,comparison,outcome in [('H1','OE minus PPO-DR','T2/T3 AUC'),('S2','OE minus OE-fixed','T2/T3 AUC'),('S3','PPO-DR minus PPO-fixed','T2/T3 AUC'),('A1','ES-DR minus ES-fixed','T2/T3 AUC'),('A3','ES-DR minus ES-fixed','T1 zero-shot')]:
+ x=comparisons[key]
+ interval=lambda bounds:f"$[{bounds[0]:.4f},{bounds[1]:.4f}]$"
+ rows.append([comparison,outcome,interval(x['reestimated_anchor_bootstrap_sensitivity_ci']),interval(x['paired_bootstrap']['ci'])])
+table('sensitivity','Post hoc sensitivity of pooled-IQM contrasts. Entries are nominal 95\\% bootstrap intervals. Anchor re-estimation recomputes the maximum within each draw; paired resampling keeps corresponding run seeds together across methods.','tab:sensitivity','p{3.4cm}p{2.0cm}p{4.1cm}p{4.1cm}',['Comparison','Outcome','Re-estimated anchors','Paired seeds'],rows)
 rows=[]
 for r in desc:rows.append([N[r['method']],r['set']]+[f(float(r[k])) for k in ['zero_shot_mean','final_mean','auc_mean']])
 table('descriptives','Mean normalized performance, averaging environments within runs and then runs. Asterisk: ES-fixed extension.','tab:descriptives','llrrr',['Procedure','Suite','Zero-shot','Final','AUC'],rows,long=True)
-# Selected hyperparameters copied from frozen tuning outputs.
+# Selected hyperparameters.
 settings=csvread('tuned_settings.csv')
 rows=[]
 for m in methods:
@@ -63,6 +69,7 @@ table('settings','Selected hyperparameters, rounded to six significant digits. E
 # Trait complete family.
 G={'1':('GS_food_frozen','ET'),'2':('GS_pop_frozen','ET'),'3':('GS_pop_mut','ET'),'4':('SV_frozen','ET'),'5':('ET_freezeB','ET'),'6':('ET_cloneB','ET_freezeB'),'7':('GS_pop_frozen','GS_food_frozen'),'8':('GS_pop_mut','GS_pop_frozen')}
 short={'GS_food_frozen':'F-food','GS_pop_frozen':'F-pop','GS_pop_mut':'M-pop','SV_frozen':'SV','ET':'ET','ET_freezeB':'ET-freeze','ET_cloneB':'ET-clone','ORACLE_B':'Oracle-B'}
+arm_names={'main':'Main','arm2':'Consumption','arm3':'Larger map','arm4':'Reduced energy'}
 rows=[];csvrows=[]
 for arm in ['main','arm2','arm3','arm4']:
  for k,raw in P[arm]['raw'].items():
@@ -71,16 +78,14 @@ for arm in ['main','arm2','arm3','arm4']:
   for outcome in ['P1','P2']:
    v=dec['verdict'][outcome];codes.append('MD' if v.startswith('meaningfully') else 'EQ' if v.startswith('equivalent') else 'DU' if v.startswith('different') else 'IN')
   effect=lambda o:f"${raw[o]['diff']:+.2f}$ $[{raw[o]['ci95'][0]:.2f},{raw[o]['ci95'][1]:.2f}]$"
-  rows.append([arm.replace('arm','A')+'-'+k,short[a]+' / '+short[b],effect('P1'),effect('P2'),pv(dec['p_adj']['P1'])+' / '+pv(dec['p_adj']['P2']),'/'.join(codes)])
+  rows.append([arm_names[arm],short[a]+' / '+short[b],effect('P1'),effect('P2'),pv(dec['p_adj']['P1'])+' / '+pv(dec['p_adj']['P2']),'/'.join(codes)])
   csvrows.append({'arm':arm,'comparison':k,'x':a,'y':b,**{f'{o}_{f}':raw[o][f] for o in ['P1','P2'] for f in ['diff','p']},'P1_CI':raw['P1']['ci95'],'P2_CI':raw['P2']['ci95'],'P1_adjusted_p':dec['p_adj']['P1'],'P2_adjusted_p':dec['p_adj']['P2'],'P1_verdict':dec['verdict']['P1'],'P2_verdict':dec['verdict']['P2'],'P1_boundary_label':dec['p1_label'],'overall':dec['overall_label'],'includes_A_losses':dec['a_phase']})
 assert len(rows)==31
-table('trait_contrasts','All 31 trait-study comparison pairs; all differences are X minus Y, with comparisons written X / Y. P1 is mean late-B population and P2 is terminal extinction probability. Entries are differences with 95\\% intervals. MD: significant with point estimate at or beyond the margin; EQ: equivalence under the specified interval rule; DU: detected difference with size unresolved; IN: inconclusive. Boundary qualifications are in Table~\\ref{tab:traitgroups}; full labels are retained in the accompanying CSV.','tab:traitcontrasts','lp{2.7cm}p{3cm}p{2.8cm}p{2.5cm}l',['Arm-row','X / Y','P1 difference [CI]','P2 difference [CI]','Adj. $p_1$ / $p_2$','P1/P2'],rows,long=True)
-# Correct caption's subtraction direction unambiguously.
-p=T/'trait_contrasts.tex';s=p.read_text().replace('the first group is subtracted from the second only in the sense X minus Y shown by the slash (X / Y)','all differences are X minus Y, with comparisons written X / Y');p.write_text(s)
+table('trait_contrasts','Trait experiment comparisons. Differences are X minus Y, with pairs written X / Y. P1 is mean late-B population and P2 is terminal extinction probability. Entries are differences with 95\\% intervals. MD: significant with point estimate at or beyond the margin; EQ: equivalence under the specified interval rule; DU: detected difference with size unresolved; IN: inconclusive. Ceiling and floor diagnostics are in Table~\\ref{tab:traitgroups}; full decision labels are in the accompanying CSV.','tab:traitcontrasts','p{2.1cm}p{2.1cm}p{2.75cm}p{2.65cm}p{2.4cm}p{1.4cm}',['Arm','X / Y','P1 difference [CI]','P2 difference [CI]','Adjusted $p$ (P1 / P2)','P1/P2'],rows,long=True)
 with (D/'trait_complete_contrasts.csv').open('w') as fobj:
  w=csv.DictWriter(fobj,fieldnames=list(csvrows[0]));w.writeheader();w.writerows(csvrows)
 rows=[]
 for arm,groups in P['U1_U4'].items():
- for g,v in groups.items():rows.append([arm.replace('arm','A'),short[g],f(v['mean_P1'],2),str(v['extinct'])+'/'+str(v['n']),str(v['died_in_A']),f(v['share_P1_ge_cap_minus_2.5'],2),f(v['share_P1_le_2.5'],2)])
-table('trait_groups','Trait-study group outcomes and boundary diagnostics. All groups have 200 seeds. High/low are fractions with P1 at least 22.5 / at most 2.5. In arm 2, 25 is not a hard population ceiling. A-dead identifies losses preceding the environmental shift.','tab:traitgroups','llrrrrr',['Arm','Group','Mean P1','Extinct','A-dead','High','Low'],rows,long=True)
-print('Generated',len(list(T.glob('*.tex'))),'tables; all31 trait pairs retained.')
+ for g,v in groups.items():rows.append([arm_names[arm],short[g],f(v['mean_P1'],2),str(v['extinct'])+'/'+str(v['n']),str(v['died_in_A']),f(v['share_P1_ge_cap_minus_2.5'],2),f(v['share_P1_le_2.5'],2)])
+table('trait_groups','Trait-study group outcomes and boundary diagnostics. All groups have 200 seeds. High/low are fractions with P1 at least 22.5 / at most 2.5. In the consumption arm, 25 is not a hard population ceiling. A-dead identifies losses preceding the environmental shift.','tab:traitgroups','llrrrrr',['Arm','Group','Mean P1','Extinct','A-dead','High','Low'],rows,long=True)
+print('Generated',len(list(T.glob('*.tex'))),'tables.')

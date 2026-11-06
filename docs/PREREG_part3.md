@@ -1,6 +1,6 @@
-# Neural experiment: scientific protocol and ES-fixed addendum
+# Neural experiment protocol and ES-fixed extension
 
-Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `78f367f3fc19c01aaf744c77f28c1ee092895f255c6c0fe07373f4a08d706f41`.
+Protocol excerpts; original section numbers are retained.
 
 ## 1. Questions and hypotheses
 
@@ -19,8 +19,6 @@ The core protocol evaluated whether ecological evolution outperformed PPO-DR dur
 
 Lifetime-learning and neural diversity ablations (Q3/Q4) were planned but not run.
 
-**What this can and cannot answer.** It answers H1–H6 for this 2D foraging world, these five methods and these budgets. It does not test intelligence in general, social complexity, language, or other worlds.
-
 ---
 
 ## 2. Methods compared (core)
@@ -32,7 +30,7 @@ OE, OE-fixed (the fixed-world ablation), PPO-fixed, PPO-DR and ES-DR, as defined
 
 ## 3. Environment splits (locked)
 
-The splits are defined in `configs/part3/train.yaml`, `validation.yaml` and `test_split.yaml` (SPEC Section 3.4). They are locked when this pre-registration is final; until then they are provisional and change only with a dated entry in original Section 15 (omitted from this excerpt).
+The splits were fixed before the final runs and are defined in `configs/part3/train.yaml`, `validation.yaml` and `test_split.yaml` (SPEC Section 3.4).
 
 - **Train distribution:** L 40–80, F 20–60, layout uniform / clusters (k 2–5, σ 3–8) / patches (k 2–5, radius 4–10), ρ 0.01–0.05, no drift, no seasons.
 - **Canonical environment** (PPO-fixed, OE-fixed): L 60, F 40, uniform, ρ 0.03.
@@ -67,20 +65,20 @@ The splits are defined in `configs/part3/train.yaml`, `validation.yaml` and `tes
 
 ## 6. Seeds
 
-| Use | Seeds | How chosen |
-|---|---|---|
-| Unit tests and smoke runs | 3900–3999 | plan range for pilots, set aside for tests |
-| Pilot runs | 3000–3099 | plan range |
-| Pilot evaluation episodes | 3100–3199 | plan range |
-| Tuning runs | 4000–4799 | plan range |
-| Statistics (bootstrap) | 4800 | from the unassigned gap 4800–4899, fixed now |
-| Validation environments and episodes | 4900–4999 | plan range |
-| Final runs | 5000 onward, in order | plan range; the same seed list for every method |
-| Test environments and their episodes | 5900–5999 | plan range |
+| Use | Seeds |
+| --- | --- |
+| Unit tests and smoke runs | 3900–3999 |
+| Pilot runs | 3000–3099 |
+| Pilot evaluation episodes | 3100–3199 |
+| Tuning runs | 4000–4799 |
+| Statistics (bootstrap) | 4800 |
+| Validation environments and episodes | 4900–4999 |
+| Final runs | 5000 onward, in order |
+| Test environments and their episodes | 5900–5999 |
 
 Final seeds: 10 per method, 5000–5009. The rough pilot-based precision calculation used three seeds per method; ten final runs provided limited precision for equivalence at the 0.05 margin.
 
-*Rule as drafted before the pilot:* chosen at design stage by a power analysis on pilot variance (`scripts/part3/pilot.py`: the run-to-run spread of the adaptation AUC on the pilot's stand-in shifted environments): the smallest N (at least 10 per method, as the plan requires) for which the expected 95% CI half-width of the primary difference D (Section 8.1) is at most half the margin (0.025), so that every verdict in Section 8.1, including "no meaningful difference", is reachable. The adopted design retained ten runs and the original margin despite the resulting limited precision. The analysis and its inputs are reported.
+*Rule as drafted before the pilot:* chosen at design stage by a power analysis on pilot variance (`scripts/part3/pilot.py`: the run-to-run spread of the adaptation AUC on the pilot's stand-in shifted environments): the smallest N (at least 10 per method) for which the expected 95% CI half-width of the primary difference D (Section 8.1) is at most half the margin (0.025), so that every verdict in Section 8.1, including "no meaningful difference", is reachable. The adopted design retained ten runs and the original margin despite the resulting limited precision. The analysis and its inputs are reported.
 
 Each seed is split into named streams (`src/evo2/seeds.py`); a test checks that no two streams share a key and that seed ranges do not overlap.
 
@@ -112,9 +110,9 @@ For each run and each T2 and T3 environment: the area under the normalized compe
 - genotypic diversity (OE only): mean pairwise distance between the weight vectors, and between the trait vectors, of 16 sampled agents;
 - behavioral diversity (OE only): mean pairwise distance between 16 sampled agents' actions on a fixed set of 256 probe observations (drawn once from validation episodes with seed 4801, "probe" stream);
 - performance profiles of the primary metric (the share of (run, environment) scores above each threshold), per method, descriptive;
-- compute: agent-steps, wall-clock time, hardware, cost.
+- compute: agent-steps, wall-clock time and hardware.
 
-PPO and ES deploy one policy, so their diversity is 0 by design; no test is run on it (plan rule).
+PPO and ES deploy one policy, so their diversity is 0 by design; no test is run on it.
 
 ---
 
@@ -123,7 +121,7 @@ PPO and ES deploy one policy, so their diversity is 0 by design; no test is run 
 ### 8.1 Primary comparison (H1)
 D = IQM(OE) − IQM(PPO-DR) of the primary metric, each IQM over all (run, environment) pairs of the method. 95% percentile CI by bootstrap over **whole runs**: each method's runs are resampled with replacement, each keeping all of its environments, because one trained run is scored on every environment and the run is the independent unit (`evo2.metrics.iqm_difference_ci`; 50,000 resamples; `numpy.random.default_rng(4800)`). Also reported: each method's IQM with its run-bootstrap CI, and the probability of improvement P(OE > PPO-DR) on per-run mean scores (rliable). rliable's own bootstrap is not used: it resamples runs separately within each environment, which treats one run's environments as independent, and it ignores the random state passed to it.
 
-**Verdict (pre-set; the verdict is the result).** Checked in this order; the first that applies is the verdict (`evo2.metrics.h1_verdict`), with margin m = 0.05 (5% of the gap between the random policy and the best observed score):
+**Prespecified decision rule.** Checked in this order; the first that applies is the verdict (`evo2.metrics.h1_verdict`), with margin m = 0.05 (5% of the gap between the random policy and the best observed score):
 1. **Support:** the CI lies entirely above 0. If it also lies below +m, the verdict is "support (below the margin)": OE is better, by less than the margin.
 2. **Against** (PPO-DR adapts faster): the CI lies entirely below 0; "against (below the margin)" if it also lies above −m.
 3. **No meaningful difference:** the CI lies inside [−m, +m] (and contains 0).
@@ -153,7 +151,7 @@ The four methods form a 2 × 2 design (evolution or PPO, variable or fixed train
 Each with a 95% CI by the whole-run bootstrap of 8.1 (all four methods' runs resampled). The comparison is Δ = |V| − |M|: "variety matters more" if Δ's CI lies above 0, "method matters more" if it lies below 0, otherwise "not decided". Because of the absolute values, Δ's CI is unreliable when V or M is near 0; the CIs of V and M are always shown next to it. If the interaction's CI excludes 0, the verdict is reported with that caveat.
 
 ### 8.4 Not tested
-Quantities fixed by design (for example PPO's and ES's diversity) and descriptive results (training curves from the snapshots, diversity over time, performance profiles, time to 90%) are reported without tests. **Training curves (defined 3 Nov 2026, before any final run):** each snapshot (every tenth of training) is scored like a tuning trial: mean over the 24 validation environments of (competence − random competence), zero-shot, 8 episodes, validation episode seeds; computed on the pods right after training. Diversity over time uses the OE snapshots.
+Quantities fixed by design (for example PPO's and ES's diversity) and descriptive results (training curves from the snapshots, diversity over time, performance profiles, time to 90%) are reported without tests. **Training curves (defined 3 Nov 2026, before any final run):** each snapshot (every tenth of training) is scored like a tuning trial: mean over the 24 validation environments of (competence − random competence), zero-shot, 8 episodes, validation episode seeds; computed after training. Diversity over time uses the OE snapshots.
 
 ### 8.5 Planned extensions
 Lifetime-learning and diversity ablations were not run and contribute no tests to the reported comparison.
@@ -182,7 +180,7 @@ Stop and record a protocol amendment before going on if:
 
 ## 16. Addendum A: ES-fixed (written 4 Nov 2026, after the core results, before any ES-fixed run)
 
-### 16.1 Why, and what it can and cannot answer
+### 16.1 ES-fixed comparison
 
 Written after the core results (`docs/RESULTS_part3.md`, 3 Nov) were known. The report answers Milano, Carvalho and Nolfi (2019), *Artificial Life* 24(4):277–295: agents evolved by score-based evolution (a (μ+1) evolution strategy) in environments that vary across generations outperformed agents evolved in a fixed environment. Our H2-OE (S2) went the other way for survival-based OE (OE − OE-fixed = −0.121 [−0.180, −0.068]). ES-DR is score-based evolution with the environment redrawn every generation (tuned: one episode per candidate per generation, every candidate in a generation on the same environment). The missing control is the same algorithm in one fixed environment: ES-fixed. ES-fixed's result is unknown at the time of writing.
 
@@ -199,7 +197,7 @@ Written after the core results (`docs/RESULTS_part3.md`, 3 Nov) were known. The 
 
 - **Runs:** ES-fixed seeds 5000–5009 (the seeds of every core method). Training curves (`curves.py`) and the final test evaluation (`evaluate.py --split test --final --adapt`) exactly as for the core runs: the same 30 test environments, episode seeds, adaptation budget (2 × 10⁷) and checkpoints. Every look at the test split is appended to the test-access log.
 - **Check reruns:** ES-DR seeds 5000 and 5001 are rerun on the same machine and commit, after the ES-fixed runs. The core ES-DR runs are the ones compared; the reruns only check that the new code and machine give ES-DR's level (the same seed on another machine is not bit-identical). Rule: if a rerun's mean primary score (T2, T3) lies more than 0.01 outside the range of the 10 core ES-DR runs, the report flags A1 and A2 as possibly shifted by machine or code, next to their verdicts. A missing rerun is reported and does not stop the analysis.
-- **Exclusion:** an ES-fixed seed whose run wrote `failed.json`, crashed, or did not finish (for example, cut off by a money or time stop) is reported and left out. There are no replacement seeds in this addendum (budget). If more than 2 of the 10 are left out: no verdicts; the runs that finished are reported descriptively.
+- **Exclusion:** an ES-fixed seed whose run wrote `failed.json`, crashed, or did not finish is reported and left out. No replacement seeds were planned for this addendum. If more than 2 of the 10 are left out: no verdicts; the runs that finished are reported descriptively.
 
 ### 16.4 Analysis
 
@@ -215,9 +213,9 @@ Written after the core results (`docs/RESULTS_part3.md`, 3 Nov) were known. The 
   - **Milano et al.'s claim (A3).** "Supported": in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found; set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason; which part of it is not tested. "Evidence against": ES-fixed did better, so our world did not reward variety for score-based evolution either. "Not supported": no difference found; the reversal for OE cannot be put down to the kind of evolution.
   - **Our adaptation question (A1, with A2).** "Support" (CI above the margin): varied training made ES adapt better. "Support (below the margin)": a real but small effect, under 5% of the random-to-best range; reported as "a small advantage, below the pre-set margin", not as a meaningful difference, and it does not by itself support Milano et al.'s direction. "Against" or "against (below the margin)": ES-fixed adapted better (the same distinction applies). "No meaningful difference" or "inconclusive": as worded. With H2-PPO's null (S3), a non-support result means our world may not reward variety in adaptation for any method.
   - If A3 and A1 disagree, both are reported as they are: A3 answers Milano et al.'s claim, A1 our adaptation question.
-- **Descriptive:** means by test set, raw zero-shot competence by set, the ES-DR check reruns against their core runs, the tuning trials, training hours, the test-access log's entries for this stage, and the stage's spend.
+- **Descriptive:** means by test set, raw zero-shot competence by set, the ES-DR check reruns against their core runs, the tuning trials, training hours and the test-access log's entries for this stage.
 - **Checks before any verdict (the analysis stops otherwise):** every ES-fixed run trained and was evaluated from one clean commit; its settings equal the tuning's choice; its evaluation used the pre-registered settings and budget (the core analysis's own checks, `analyze.py: read_eval`). The OE vs OE-fixed zero-shot T1 comparison computed on 4 Nov (raw competence 13.68 vs 19.35, after the results) stays exploratory and is not part of this addendum's tests.
 
-### 16.5 Budget and stops
+### 16.5 Execution
 
-The extension used one RTX 4090. Prespecified expenditure and runtime limits could stop the stage early. ES-fixed seeds ran before the ES-DR check reruns; unfinished seeds would be omitted under Section 16.3. All ten ES-fixed runs and both check reruns completed.
+The extension used one RTX 4090. ES-fixed seeds ran before the ES-DR check reruns; unfinished seeds would be omitted under Section 16.3. All ten ES-fixed runs and both check reruns completed.

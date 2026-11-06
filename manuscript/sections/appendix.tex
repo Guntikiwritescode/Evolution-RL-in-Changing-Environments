@@ -1,53 +1,52 @@
 \section{Implementation and selected settings}
 \label{app:implementation}
-The actor has dimensions $30\rightarrow32\rightarrow32\rightarrow2$, with tanh hidden activations and 2,114 parameters. Initial weights are orthogonal, with gain $\sqrt{2}$ in hidden layers and $0.01$ in the action layer; biases start at zero. The world maps the outputs through tanh to a turn bounded by $\pi/4$ per step and a speed between zero and the body's maximum. Evaluation actions are deterministic. The observation includes clipped energy divided by birth energy and scaled body traits, even though the latter remain fixed.
+The actor has 2,114 parameters. Initial weights are orthogonal, with gain $\sqrt{2}$ in hidden layers and $0.01$ in the action layer; biases start at zero. The world maps the outputs through tanh to a turn bounded by $\pi/4$ per step and a speed between zero and the body's maximum. Observations include clipped energy divided by birth energy and scaled body traits.
 
-The per-step energy cost is $0.5+s^3v^2+0.05r$, where $s$ is size, $v$ is commanded speed after action squashing but before position clipping at a wall, and $r$ is sensing range. With the default body it is $1+v^2$. Food supplies 40 energy units. Ecological reproduction requires energy at least 200, costs the parent 120 and supplies the offspring with 100. Maximum age is 1,000 steps and the offspring placement offset is 1. The ecological capacity is 128; competence evaluation has 16 agent slots. The floor rule described in Section~\ref{sec:procedures} adds energy from outside this budget and is logged separately.
+The per-step energy cost is $0.5+s^3v^2+0.05r$, where $s$ is size, $v$ is commanded speed after action squashing but before position clipping at a wall, and $r$ is sensing range. With the default body it is $1+v^2$. Ecological reproduction requires energy at least 200, costs the parent 120 and supplies the offspring with 100. Maximum age is 1,000 steps and the offspring placement offset is 1.
 
 Within a step, agents move, consume reachable food, pay costs, die and reproduce; food dynamics then update. Random priority resolves contested food. Births require free slots, with eligible parents processed in random order, at most one child per parent per step, and payment only for successful births. At a varied-OE environment change, positions are clipped to the new arena as needed, while energy, age and genomes persist. Food is reinitialized under the new parameters.
 
-For PPO, the common settings are 64 parallel worlds, 32 minibatches, GAE parameter 0.95, clipping parameter 0.2, value-loss coefficient 0.5, maximum gradient norm 0.5, initial log standard deviation zero and no learning-rate annealing. The separately selected values are in Table~\ref{tab:settings}. PPO's actor parameters, critic parameters, log standard deviation and reward-normalization state are carried into adaptation; its return accumulator, optimizer, environment state, counters and random stream are reset. OE carries controller genomes and the alive mask, while resetting positions, headings, energy, age, actions and counters. ES carries its mean solution while restarting its optimizer/strategy and generation counter.
+Both PPO variants use 32 minibatches, GAE parameter 0.95, clipping parameter 0.2, value-loss coefficient 0.5, maximum gradient norm 0.5, initial log standard deviation zero and no learning-rate annealing. Table~\ref{tab:settings} gives the selected hyperparameters. Adaptation retains PPO's actor parameters, critic parameters, log standard deviation and reward-normalization state, while resetting its return accumulator, optimizer, environment state, counters and random stream. OE retains controller genomes and the alive mask, while resetting positions, headings, energy, age, actions and counters. ES retains its mean solution while restarting its optimizer, strategy and generation counter.
 
-The PPO critic has the same two hidden layers as the actor and a scalar output. Action exploration is Gaussian with learned, state-independent log standard deviation. The adapted implementation starts from PureJaxRL commit \texttt{31756b1}; ES uses evosax version 0.3.2.
+The PPO critic has the same two hidden layers as the actor and a scalar output. Exploration uses Gaussian actions with learned, state-independent log standard deviation. We use PureJaxRL commit \texttt{31756b1} and evosax version 0.3.2.
 
 \input{tables/settings}
 
-The tuning search for PPO sampled learning rate log-uniformly from $10^{-4}$ to $10^{-3}$, rollout length from $\{32,64,128\}$, update epochs from $\{2,4,8\}$, discount from $\{0.95,0.99,0.995\}$, entropy coefficient from $\{0,0.001,0.01\}$ and reward normalization on or off. ES sampled perturbation scale from $[0.01,0.1]$ and learning rate from $[0.003,0.03]$, both log-uniformly, population size from $\{32,64,128\}$ and episodes per candidate from $\{1,2,4\}$. OE sampled weight-mutation standard deviation log-uniformly from $[0.005,0.05]$. Population floor and change interval were design choices, not tuned parameters. Each trial had its own tuning seed; a score tie favored the lower trial index.
+For PPO tuning, we sampled learning rate log-uniformly from $10^{-4}$ to $10^{-3}$, rollout length from $\{32,64,128\}$, update epochs from $\{2,4,8\}$, discount from $\{0.95,0.99,0.995\}$, entropy coefficient from $\{0,0.001,0.01\}$ and reward normalization on or off. For ES, we sampled perturbation scale from $[0.01,0.1]$ and learning rate from $[0.003,0.03]$, both log-uniformly, population size from $\{32,64,128\}$ and episodes per candidate from $\{1,2,4\}$. For OE, we sampled weight-mutation standard deviation log-uniformly from $[0.005,0.05]$, keeping the population floor and change interval fixed. Score ties favored the lower trial index.
 
-Validation environments used seeds 4900--4919 plus four corner cases. Final T1, T2 and T3 environments used seeds 5900--5909, 5910--5919 and 5920--5929. Competence episodes were keyed from environment-specific evaluation seeds and checkpoint indices; the same test conditions were used across methods. Final run seeds were 5000--5009. The implementation separates named random streams by purpose, although common seeds can still couple methods. The exact realized environment parameters, rather than only their generating ranges, are retained with every evaluation record.
+Validation environments use seeds 4900--4919 plus four corner cases; T1, T2 and T3 use seeds 5900--5909, 5910--5919 and 5920--5929. Competence episodes use environment-specific evaluation seeds and checkpoint indices. Random streams are separated by purpose; shared seeds can couple corresponding runs across methods. The evaluation data include each environment's parameter values.
 
-\section{Complete neural comparisons}
+\section{Additional neural comparisons}
 \label{app:inference}
-H1 compares OE and PPO-DR on adaptation AUC (Equation~\ref{eq:auc}); A1 compares ES-DR and ES-fixed. H1 lies below $-0.05$, while A1 is positive and below $0.05$ (Table~\ref{tab:primaryrules}). The margin is defined on the empirical normalized scale. AUC includes starting competence and therefore measures performance during adaptation rather than adaptation speed.
+The OE--PPO-DR and ES-DR--ES-fixed adaptation comparisons use an interval rule with a margin of $0.05$. An interval wholly above zero supports the predicted direction; one wholly below zero opposes it. An interval between zero and $+0.05$, or between $-0.05$ and zero, is also below the practical margin. If neither directional condition holds, an interval contained in $[-0.05,+0.05]$ is labeled no meaningful difference; any other interval is inconclusive. Table~\ref{tab:tests} combines these intervals with the secondary rank-test results.
 
-The H1/A1 rule checks the interval in this order. An interval wholly above zero supports the predicted direction, qualified as below the margin if it also lies below $+0.05$. An interval wholly below zero is against that direction, qualified as below the margin if it also lies above $-0.05$. If neither condition holds, an interval contained in $[-0.05,+0.05]$ yields the protocol's no-meaningful-difference label; any other interval is inconclusive. Thus directional support is not the same as exceeding the practical margin.
-
-\input{tables/primary_rules}
 \input{tables/neural_tests}
 
-S1, S2, S5 and S7 are against their predicted OE directions. S3 does not support its predicted PPO direction. S4 and S6 were nondirectional and favor PPO-DR. A2 and A3 support the predicted ES-DR direction under the separate addendum family. The Mann--Whitney probability summary is $U/(n_Xn_Y)$, with ties contributing one half; the test is not generally a test of arithmetic mean equality. S7 first reduces each run to its extinction fraction across T2/T3, then compares the distributions of those fractions.
+The Mann--Whitney probability summary is $U/(n_Xn_Y)$, with ties contributing one half. Extinction comparisons use per-run extinction fractions across T2/T3. The OE--PPO-DR comparisons of T2/T3 zero-shot competence and T1 AUC were nondirectional. The remaining secondary comparisons predicted an OE advantage over ES-DR and OE-fixed in T2/T3 AUC, an OE advantage over PPO-DR in final competence and persistence, a PPO-DR advantage over PPO-fixed in AUC, and ES-DR advantages over ES-fixed in AUC and T1 zero-shot competence.
 
-For H2b, write $q_{ov},q_{of},q_{pv},q_{pf}$ for pooled AUC IQMs of OE, OE-fixed, PPO-DR and PPO-fixed. The prespecified summaries are
+For the OE/PPO comparison, write $q_{ov},q_{of},q_{pv},q_{pf}$ for pooled AUC IQMs of OE, OE-fixed, PPO-DR and PPO-fixed. The prespecified summaries are
 \begin{align}
  V&=\tfrac12[(q_{ov}-q_{of})+(q_{pv}-q_{pf})],\\
  M&=\tfrac12[(q_{ov}-q_{pv})+(q_{of}-q_{pf})],\\
  I&=(q_{ov}-q_{of})-(q_{pv}-q_{pf}),\qquad
  \Delta=|V|-|M|.
 \end{align}
-Table~\ref{tab:four} reports these contrasts among the four tuned configurations. Their selected hyperparameters and training conditions differ, so the contrasts do not isolate environmental variation. The interaction describes how the varied-minus-fixed difference changes between OE and PPO. Absolute-value contrasts are unstable when a component is close to zero.
+Here $V$ averages the two varied-minus-fixed contrasts, $M$ averages the two OE-minus-PPO contrasts, and $I$ measures their interaction (Table~\ref{tab:four}). The absolute-value contrast $\Delta$ is unstable when a component is close to zero.
 
-A4 compares the ES varied-minus-fixed contrast with the corresponding OE contrast. Its difference is $0.149628$, interval $[0.095763,0.209123]$. A4 is descriptive: the OE outcome was known before the ES-fixed extension. Its component intervals come from the four-method resampling routine and need not exactly equal the intervals from separate two-method routines.
+The exploratory OE/ES comparison subtracts the OE varied-minus-fixed contrast from the ES contrast: difference $0.1496$, interval $[0.0958,0.2091]$. Its component intervals use joint four-method resampling, whereas the individual comparisons use two-method resampling.
 
 \input{tables/four_method}
 \input{tables/descriptives}
 
-\section{Sensitivity analyses and descriptive diagnostics}
+\section{Sensitivity analyses and population dynamics}
 \label{app:diagnostics}
-Post hoc re-estimation of the core maximum anchor inside each of 50,000 bootstrap draws gives intervals of $[-0.61045,-0.52146]$ for H1, $[-0.17997,-0.06776]$ for S2, $[0.02042,0.03851]$ for A1 and $[0.04965,0.07903]$ for A3. Paired resampling of corresponding seeds gives $[-0.61012,-0.51847]$, $[-0.18100,-0.06919]$ and $[0.02039,0.03964]$ for H1, S2 and A1. For S3, the paired IQM interval is $[0.0020,0.0177]$, above zero, although the prespecified rank test on run means does not support the predicted PPO-DR advantage. This sensitivity uses both a different performance summary and a different treatment of cross-method dependence.
+Re-estimating the maximum anchor within each of 50,000 bootstrap draws and pairing corresponding run seeds leave the OE--PPO-DR and OE--OE-fixed intervals below zero and the ES-DR--ES-fixed intervals above zero (Table~\ref{tab:sensitivity}). For PPO-DR versus PPO-fixed, the paired IQM interval excludes zero, whereas the prespecified rank test on run means gives adjusted $p=0.6232$. The paired comparison changes both the performance summary and the treatment of cross-method dependence.
 
-Realized adaptation counts differ between methods. The mean final counts per environment are approximately 20,000,010 for either OE variant, 20,017,188 for PPO-DR, 20,039,595 for PPO-fixed, 20,144,256 for ES-DR and 20,288,091 for ES-fixed. ES-fixed can overshoot its first two-million-step checkpoint by 49.5\%; the largest checkpoint excess is 4.98\% of the complete adaptation budget, and the largest final excess is 4.49\%. Actual-step sensitivity integrates the piecewise-linear saved observations and truncates at 20 million steps. Scores between saved checkpoints are linearly interpolated. The resulting H1 estimate is $-0.559203$; the ES contrast is $0.028921$, with interval $[0.020572,0.038833]$.
+\input{tables/sensitivity}
 
-The primary deficit persists when individual runs or environments are omitted and when raw scores replace normalized scores. Figure~\ref{fig:profiles} shows empirical performance profiles and pairwise run-mean probability summaries.
+Mean final adaptation counts per environment are approximately 20,000,010 for either OE variant, 20,017,188 for PPO-DR, 20,039,595 for PPO-fixed, 20,144,256 for ES-DR and 20,288,091 for ES-fixed. ES-fixed can overshoot its first two-million-step checkpoint by 49.5\%; the largest checkpoint excess is 4.98\% of the complete adaptation budget, and the largest final excess is 4.49\%. Integrating linearly interpolated scores over actual step counts and truncating at 20 million steps gives an OE--PPO-DR difference of $-0.5592$ and an ES-DR--ES-fixed difference of $0.0289$, with interval $[0.0206,0.0388]$.
+
+OE remains below PPO-DR when individual runs or environments are omitted and when raw competence replaces normalized scores. Figure~\ref{fig:profiles} shows the performance distributions and pairwise run-mean comparisons.
 
 \begin{figure}[tb]
 \centering\includegraphics[width=\linewidth]{figures/fig05_profiles.pdf}
@@ -55,29 +54,32 @@ The primary deficit persists when individual runs or environments are omitted an
 \label{fig:profiles}
 \end{figure}
 
-The time-to-threshold diagnostic compares raw competence against 90\% of each run's mean T1 zero-shot score. In the core study, OE and OE-fixed each reach that threshold in 43 of 200 T2/T3 run--environment pairs; PPO-DR, PPO-fixed and ES-DR each reach it in 40. The threshold depends on the source-environment score and may be unattainable in the target environment.
+We also compare raw competence with 90\% of each run's mean T1 zero-shot score. OE and OE-fixed each reach that threshold in 43 of 200 T2/T3 run--environment pairs; PPO-DR, PPO-fixed and ES-DR each reach it in 40. A threshold set by T1 performance may be unattainable in a shifted environment.
 
-Weight diversity is mean pairwise Euclidean distance among sixteen sampled neural parameter vectors; behavior diversity uses action distances on 256 fixed validation probes. Both measures are higher for OE than OE-fixed at the final checkpoint (Figure~\ref{fig:diagnostics}). Body-trait diversity is zero by design.
+Weight diversity is mean pairwise Euclidean distance among sixteen sampled neural parameter vectors; behavior diversity uses action distances on 256 fixed validation probes. Both measures are higher for OE than OE-fixed at the final checkpoint (Figure~\ref{fig:diagnostics}).
 
-\begin{figure}[p]
+\begin{figure}[tb]
 \centering\includegraphics[width=\linewidth]{figures/figS01_diagnostics.pdf}
 \caption{\textbf{Population diagnostics and separate persistence.} Weight and behavioral diversity summarize sixteen sampled agents per training population, averaged across ten runs. Right: extinction frequencies in the separate persistence assay without floor support.}
 \label{fig:diagnostics}
 \end{figure}
 
-Three exploratory OE runs extend training to one billion steps (Figure~\ref{fig:long}). Their gains are $-4.3657$, $1.8893$ and $-0.9751$, measured as the mean of the final two validation checkpoints minus the mean of the first two. These results are descriptive; the planned 4.3-point threshold used an unreliable noise estimate.
+Three exploratory OE runs extend training to one billion steps (Figure~\ref{fig:long}). Their gains are $-4.3657$, $1.8893$ and $-0.9751$, measured as the mean of the final two validation checkpoints minus the mean of the first two. The planned 4.3-point threshold was based on an unreliable estimate of variability.
 
-\begin{figure}[p]
+\begin{figure}[tb]
 \centering\includegraphics[width=0.9\linewidth]{figures/fig08_long_training.pdf}
 \caption{\textbf{Exploratory longer training.} Three fresh OE runs trained to one billion nominal steps, with the ten original 200-million-step runs in gray. Gain is the mean of the final two saved checkpoints minus the mean of the first two.}
 \label{fig:long}
 \end{figure}
 
-\FloatBarrier
 \section{Supporting trait-only experiment}
 \label{app:trait}
 \subsection{Design and analysis}
-The trait model combines inherited speed, size, sensing range and reach with fixed behavioral rules. Populations spend 100 generations in environment A and 50 in B, except Oracle-B, which starts directly in B. Each final run seed defines its own searches and deployments. There are 200 seeds per primary group and arm (2000--2199). Shared food, behavior and initial-position streams couple groups with the same seed. The main B has 25 food items; three additional arms permit agent consumption in B, enlarge the B map to side 750, or reduce B's energy budget per generation to 25. The larger-map and reduced-energy settings were selected during recorded pilot and amendment rounds before the corresponding final runs.
+The trait model combines inherited speed, size, sensing range and reach with fixed behavioral rules. The two phases contain 100 generations in environment A and 50 in B.
+
+The groups are ET, the evolving population; F-food and F-pop, frozen copies of the food- and population-search winners; M-pop, mutating copies of the population-search winner; SV, a frozen initial population with standing variation; ET-freeze, the end-of-A evolved population with mutation disabled in B; ET-clone, copies of a randomly sampled end-of-A member with mutation disabled; and Oracle-B, the reference design selected directly in B. Oracle-B starts directly in B and is excluded from the confirmatory contrast family. Cloning changes the realized traits along with heterogeneity.
+
+Each run seed defines its own searches and deployments, with 200 seeds per primary group and arm (2000--2199). Groups with the same seed share food, behavior and initial-position streams. The main B has 25 food items; three additional arms permit agent consumption in B, enlarge the B map to side 750, or reduce B's energy budget per generation to 25. We selected the larger-map and reduced-energy settings during pilot experiments before the corresponding final runs.
 
 The generation rules derive from the MinuteLabs Evolution Simulator at commit \texttt{55af956} \citep{palfree_evolution_simulator}. A has side length 500 and 50 uniformly placed food items. Main B has side length 300 and 25 items in five clusters with standard deviation 15; centers and food are redrawn each generation. A generation lasts at most 200 ticks, with an energy allowance of 500 per agent except in the reduced-energy B arm. Agents start at edge home positions, search using fixed steering rules and return home according to feeding and remaining energy. Exhaustion and, in the consumption arm, predation can kill agents; agents with no food at generation end also die. Survivors carry into the next generation, and each survivor that consumed at least two food units produces exactly one offspring. Food units count both food items and prey. Effective movement speed is $u=\text{speed}\times\text{size}/10$, and each active movement tick costs $10^{-4}(\text{size}^3u^2+\text{sense})$. Food supports survival and reproduction without replenishing this generation-level energy allowance. There is no externally supported population floor.
 
@@ -87,15 +89,14 @@ In the consumption arm, a predator can consume only an agent whose size is at mo
 
 The A search begins with eight logarithmically spaced values for each trait. Merging designs with the same effective reach, $\max(\text{reach},\text{size}/4)$, leaves 1,472 distinct designs. Stage one evaluates 50 clones of each design for 30 generations on shared streams. Stage two evaluates the top 32 designs per objective on eight fresh sets of streams. In stage two, population search scores mean population over generations 10--99; food search scores food per agent over generations 10--29, even when a candidate was simulated for longer. The comparison therefore changes both objective and scoring horizon. Search-selected mutating agents inherit effective reach.
 
-The group identifiers used in the tables are: ET, the evolving population; F-food and F-pop, frozen copies of the food- and population-search winners; M-pop, mutating copies of the population-search winner; SV, a frozen initial population with standing variation; ET-freeze, the end-of-A evolved population with mutation disabled in B; ET-clone, copies of a randomly sampled end-of-A member with mutation disabled; and Oracle-B, the reference design selected directly in B. Oracle-B is not part of the confirmatory contrast family. Cloning changes the realized traits along with heterogeneity.
+P1 is population at the start of a generation, averaged over B generations 40--49 with zeros retained. P2 indicates that no agent would start B generation 50. Each arm has eight planned comparison pairs, except the consumption arm omits the population-search versus food-search pair because those data repeat the main arm: 31 pairs in total. P1 uses a two-sided 10,000-permutation test of mean differences and a studentized bootstrap interval with 20,000 draws. P2 uses a two-sided Fisher test and a Newcombe interval for the difference in extinction proportions. Holm adjustment is within each arm's 16-test family, or 14 tests for the consumption arm. The tests treat groups as independent, although shared streams couple corresponding seeds.
 
-P1 is population at the start of a generation, averaged over B generations 40--49 with zeros retained. P2 indicates that no agent would start B generation 50. Each arm has eight planned comparison pairs, except arm 2 omits the population-search versus food-search pair because those data repeat the main arm by construction: 31 pairs in total. P1 uses a two-sided 10,000-permutation test of mean differences and a studentized bootstrap interval with 20,000 draws. P2 uses a two-sided Fisher test and a Newcombe interval for the difference in extinction proportions. Holm adjustment is within each arm's 16-test family, or 14 tests for arm 2. Shared streams make independent-group test calibration an approximation; paired sensitivity is retained separately in the supporting analysis records.
-
-The practical margins are 2.5 agents for P1 and 0.10 for P2. The original ``meaningfully different'' label requires adjusted $p<0.05$ and an absolute point estimate at least as large as the margin; it does not require the entire interval to exceed it. Equivalence uses an interval at level $1-2(0.05)/k$, where $k$ is the arm's family size, wholly inside the margins. Boundary labels identify ceiling and floor effects that can mask population differences.
+The practical margins are 2.5 agents for P1 and 0.10 for P2. A ``meaningfully different'' label requires adjusted $p<0.05$ and an absolute point estimate at least as large as the margin, even if the interval crosses it. Equivalence requires an interval at level $1-2(0.05)/k$, where $k$ is the arm's family size, wholly inside the margins. Ceiling and floor frequencies show where boundary effects may mask population differences.
 
 \subsection{Results}
-In the main arm, F-pop reaches the population ceiling while ET is close to it. Their mean population difference is $0.6375$ against a $2.5$-agent margin, and neither group becomes extinct. F-pop also outperforms F-food, but their searches differ in both objective and scoring horizon. Cloning reduces population relative to the frozen diverse population after the move; a larger deficit occurs in the no-move control.
-Table~\ref{tab:traitcontrasts} reports all 31 pairs and both outcomes. Table~\ref{tab:traitgroups} gives every primary group's mean population, extinction count, pre-shift losses and boundary frequencies. Full labels are in \texttt{data/trait\_complete\_contrasts.csv}; Figure~\ref{fig:trait} shows group outcomes.
+In the main arm, F-pop reaches the population ceiling while ET is close to it. Their mean population difference is $0.6375$ against a $2.5$-agent margin, and neither group becomes extinct. F-pop also outperforms F-food (Figure~\ref{fig:trait}). Tables~\ref{tab:traitcontrasts} and~\ref{tab:traitgroups} give the contrasts and group outcomes.
+
+In the larger-map condition, F-pop exceeds ET by $5.74$ agents (95\% interval $[5.00,6.66]$). Under reduced energy, ET-freeze has $3.93$ fewer agents than ET (interval $[1.66,6.12]$) and an extinction probability higher by $0.145$ (interval $[0.047,0.239]$).
 
 \begin{figure}[tb]
 \centering\includegraphics[width=\linewidth]{figures/fig07_trait_experiment.pdf}
@@ -106,19 +107,18 @@ Table~\ref{tab:traitcontrasts} reports all 31 pairs and both outcomes. Table~\re
 \input{tables/trait_contrasts}
 \input{tables/trait_groups}
 
-In the main arm, the food-search group's deficit includes 62 of 200 runs lost during A. Restricting analysis to groups that both reach B selects survivors and can bias the comparison; such conditional outcomes are retained as diagnostics rather than replacing unconditional results. The no-move control continues ET's end-of-A population for fifty further generations in A. Mean late population is 48.0675 with mutation, 47.9895 after freezing, and 40.9730 after cloning. The freeze-minus-mutation difference is $-0.0780$, interval $[-0.2720,0.1140]$, which includes zero. The clone-minus-freeze difference is $-7.0165$, interval $[-9.1271,-5.0470]$. The clone deficit therefore also occurs without an environmental shift.
+F-food loses 62 of 200 main-arm runs during A; these runs contribute zeros to B outcomes. Restricting the comparison to populations that reach B would select survivors. The no-move control continues ET's end-of-A population for fifty further generations in A. Mean late population is 48.0675 with mutation, 47.9895 after freezing, and 40.9730 after cloning. The freeze-minus-mutation difference is $-0.0780$, interval $[-0.2720,0.1140]$; the clone-minus-freeze difference is $-7.0165$, interval $[-9.1271,-5.0470]$. Cloning therefore reduces population even without an environmental shift.
 
-Searching directly in B improves population score by less than 2.5 agents over searching in A in 200 of 200 main-arm runs, 200 of 200 consumption-arm runs, 199 of 200 larger-map runs and 67 of 200 reduced-energy runs. Thus searching directly in B rarely improves population score by at least 2.5 agents in the first three settings. The standing-variation group retains only one design at transfer in 153 of 200 runs, limiting its use as a diverse-population control.
+Searching directly in B improves population score by less than 2.5 agents over searching in A in 200 of 200 main-arm runs, 200 of 200 consumption-arm runs, 199 of 200 larger-map runs and 67 of 200 reduced-energy runs. The standing-variation group retains only one design at transfer in 153 of 200 runs, limiting its use as a diverse-population control.
 
-Additional exploratory results and sample sizes are in \texttt{data/trait\_exploratory.json}. On a 100-seed subset, starting ET directly in B instead of transferring from A changes P1 by $-0.22$ in the main arm, $-17.62$ in the larger-map arm and $-12.85$ in the reduced-energy arm.
+In an exploratory 100-seed subset, starting ET directly in B instead of transferring from A changes P1 by $-0.22$ in the main arm, $-17.62$ in the larger-map arm and $-12.85$ in the reduced-energy arm.
 
-\clearpage
 \section{Protocols and reproducibility}
 \label{app:reproduction}
-The core protocols were written before the corresponding runs and were not publicly registered. ES-fixed was specified after inspection of the core results, before its own tuning and final runs. The one-billion-step OE extension was exploratory. A three-seed pilot informed the choice of ten final runs per configuration, which limits precision for equivalence tests.
+The protocols were written before the corresponding runs but were not publicly registered. A three-seed pilot informed the choice of ten final runs per configuration.
 
-Neural training and evaluation records identify revision \texttt{16e8657} for the core experiment and \texttt{06ff7b2} for ES-fixed. Trait generation records identify \texttt{a1e1cdc}; its confirmatory analysis identifies \texttt{561bcd4}. Full revision identifiers and configuration hashes accompany the code.
+The neural experiments use code revision \texttt{16e8657} for the five initial configurations and \texttt{06ff7b2} for ES-fixed. The trait experiment uses \texttt{a1e1cdc} for simulation and \texttt{561bcd4} for confirmatory analysis.
 
-Core neural runs used NVIDIA RTX 4090 hardware, JAX 0.11.2 and Python 3.13.18. Statistical reanalysis used Python 3.12.14 on CPU.
+The initial neural runs used NVIDIA RTX 4090 hardware, JAX 0.11.2 and Python 3.13.18. Statistical reanalysis used Python 3.12.14 on CPU.
 
-The data include all sixty final neural evaluations, 19,800 adaptation checkpoint observations, trait generation records, final policies, training snapshots and tuning records. Core tuning policy files were not retained. The repository's reproduction guide gives commands for rebuilding the tables, figures and statistical analyses.
+The released data contain sixty final neural evaluations, 19,800 adaptation checkpoint observations, trait trajectories, final policies, training snapshots and tuning results. Policies from the initial tuning runs were not retained. \texttt{REPRODUCE.md} gives the commands for the analyses, tables and figures.

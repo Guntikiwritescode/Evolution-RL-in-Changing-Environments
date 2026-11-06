@@ -252,8 +252,8 @@ def test_analyze_runs_end_to_end_on_a_fake_final_folder(tmp_path, monkeypatch):
         row = next(x for x in report.splitlines() if x.startswith(f"| {hyp} |"))
         assert row.endswith(f"| {test} | {sec[s_]} |"), row
     assert next(x for x in report.splitlines() if x.startswith("| H1 |")).endswith(f"| {res['h1']['verdict']} |")
-    for text in ("Verdict: against", "S7", "OE populations", "steps survived", "Looks at the test split", "$30.50",
-                 "Diversity over training", "| OE | 5009 |"):
+    for text in ("D = IQM(OE) − IQM(PPO-DR)", "S7", "OE populations", "steps survived", "Training hardware",
+                 "Diversity over training", "| 5009 |"):
         assert text in report, text
 
 

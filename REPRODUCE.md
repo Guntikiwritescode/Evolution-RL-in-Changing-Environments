@@ -1,24 +1,28 @@
 # Reproduce the results
 
-Commands below run from the repository root unless stated otherwise.
+Run commands from the repository root unless stated otherwise. CPU analysis uses Python 3.12; the tested environment is Linux with Python 3.12.14. Allow roughly 4 GB of disk space for data and archive assembly.
 
-## 1. Assemble and verify data
+## Data and analysis
 
-Follow the four commands in the root README. They install NumPy, SciPy and pandas, assemble all three data archives from the checked-in parts under `data_archives/`, and run nine statistical checks. Logs are written to `results/audit/viability/rerun/`; independent calculations go to `results/audit/viability/reanalysis/`. Assembly stops on missing files or checksum mismatches; the check chain stops on its first failure.
+Start with the [README quick start](README.md#quick-start) to install dependencies, assemble the data and run the nine statistical checks. Assembly verifies archive and file checksums. The checks take several minutes on CPU and write logs to `results/audit/viability/rerun/` and calculations to `results/audit/viability/reanalysis/`. Run Python without `-O`, because the checks use assertions.
 
-If using the separately distributed complete ZIP files, put them in one directory and pass `--assets /path/to/that/directory` to `assemble_data.py`. Both forms use the same archive and payload checksums.
+The compact download omits `data_archives/`. Put its three companion files—`Evolving_AI_Study1_Data.zip`, `Evolving_AI_Study2_Data.zip` and `Evolving_AI_Study3_Data.zip`—in one directory, and replace the assembly command with:
 
-## 2. Check policies and tuning records
+```bash
+.venv-reanalysis/bin/python scripts/release/assemble_data.py --assets /path/to/data
+```
+
+To check tuning selections and saved policy coverage:
 
 ```bash
 .venv-reanalysis/bin/python scripts/release/check_saved_models.py
 ```
 
-This checks all 48 tuning scores, the six selected configurations, and the presence of 60 final policies and 600 training snapshots. File integrity is checked during archive assembly.
+This checks 48 tuning scores, six selected configurations, 60 final policies and 600 training snapshots. Core tuning policy files were not retained; their scores and trial records are included.
 
-## 3. Selected implementation and reporting tests
+## Implementation tests
 
-Use the broader pinned CPU environment for the synthetic simulator/rule tests and reporting regressions:
+Install the broader CPU environment and run the simulator and reporting tests:
 
 ```bash
 python3 -m venv .venv-validation
@@ -26,13 +30,20 @@ python3 -m venv .venv-validation
 PYTHONPATH=src JAX_PLATFORMS=cpu .venv-validation/bin/python -m pytest tests/test_part3_analysis.py tests/test_part3_addendum.py tests/test_part3_explore_report.py tests/test_part2_sim.py tests/test_rules.py tests/test_report_numbers.py tests/test_report_bib.py tests/test_publication_preparation.py -q
 ```
 
-This command selects 86 implementation and reporting tests, including synthetic simulator cases. Running plain `pytest` also selects learning benchmarks.
+Running plain `pytest` also selects learning benchmarks. Package versions are pinned in `requirements-validation.txt`; the installed environment is listed in `environments/validation-freeze.txt`. Previous check results are in [VALIDATION.md](VALIDATION.md).
 
-`requirements-validation.txt` pins the CPU test dependencies; `environments/validation-freeze.txt` records the installed environment. Historical trait and neural dependencies are listed separately in `environments/`.
+## Figures and manuscript
 
-## 4. Rebuild the manuscript
+After assembling the data, regenerate figure data and PDFs with:
 
-With Python 3 and a TeX installation containing the packages listed in `manuscript/main.tex`:
+```bash
+.venv-validation/bin/python scripts/report/prepare_publication.py
+.venv-validation/bin/python scripts/release/sync_manuscript_figures.py
+```
+
+The first command generates ten figures, numerical JSON and CSV exports, and `figures/publication/figure_review.pdf`. The second copies the seven manuscript figures and checks their datasets against the manuscript inputs.
+
+To rebuild the tables and paper, install TeX with the packages used in `manuscript/main.tex`, then run:
 
 ```bash
 cd manuscript
@@ -43,24 +54,10 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The table generator uses Python's standard library. The build uses the supplied figures and bibliography and produces `main.pdf`.
-
-## 5. Regenerate figures from retained records
-
-From the repository root, after assembling the data, use the validation environment:
-
-```bash
-.venv-validation/bin/python scripts/report/prepare_publication.py
-```
-
-This regenerates the ten-figure preparation set, numerical JSON and CSV exports, and `figures/publication/figure_review.pdf`. Seven of these figures are used in the manuscript. To copy those rebuilt PDFs into the manuscript and verify that their numerical datasets match the manuscript's frozen inputs:
-
-```bash
-.venv-validation/bin/python scripts/release/sync_manuscript_figures.py
-```
-
-Recompile the manuscript afterward. Legacy report helpers use `paper/v2/`; the current manuscript source is in `manuscript/`.
+The table generator uses Python's standard library. The compiled paper is `manuscript/main.pdf`. Older report helpers target `paper/v2/`; use `manuscript/` for the current paper.
 
 ## Training new runs
 
-The commands above analyze existing runs. Historical neural training used Python 3.13.18 and RTX 4090 hardware and has not been repeated for this release. Its dependency list is `environments/historical_requirements_part3.txt`; the trait experiment's list is `environments/historical_requirements.txt`. These are separate from the checked CPU reanalysis environment. Training entry points require a Git checkout with a commit; their command-line options are documented by `--help`.
+The neural experiments used Python 3.13.18 and RTX 4090 hardware, with dependencies in `environments/historical_requirements_part3.txt`. Trait experiment dependencies are in `environments/historical_requirements.txt`.
+
+Training entry points are `scripts/part3/train.py` and `scripts/part2/run_part2.py`; use `--help` for options and `PYTHONPATH=src` for neural scripts. Training requires a Git checkout with a commit, and full trait runs require a clean working tree. Experiment settings are in `configs/`, with protocols in `docs/`.

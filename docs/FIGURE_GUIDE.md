@@ -1,6 +1,6 @@
 # Publication figure guide
 
-Figure sources and captions. Rebuild: `python scripts/report/prepare_publication.py`. PDFs and SVGs are vector outputs; PNGs are 300 dpi. Shared style: `publication_style.py`. The manuscript uses seven of these ten figures. Neural bootstrap intervals resample training runs with fixed environments and normalization anchors; they exclude tuning and environment-sampling uncertainty. See the manuscript for sensitivity analyses.
+Generate PDF, SVG and PNG figures with `python scripts/report/prepare_publication.py`. Neural bootstrap intervals resample training runs with fixed test environments and normalization anchors; tuning and environment-sampling uncertainty are excluded.
 
 ## fig01_overview
 
@@ -16,7 +16,7 @@ Data: `results/publication/fig02_primary.json`.
 
 ## fig03_variation
 
-Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). A3 labels the pooled-IQM contrast; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.
+Top: T2/T3 adaptation AUC, with run means (circles), pooled IQMs (diamonds) and nominal 95% whole-run intervals (50,000 draws). Bottom: T1 zero-shot run means and their mean (squares), with descriptive 95% intervals (20,000 whole-run draws, seed 20261105). The ES zero-shot contrast uses pooled IQMs; lower OE/PPO panels are descriptive. Each configuration was tuned separately. Asterisk: ES-fixed extension.
 
 Data: `results/publication/fig03_variation.json`.
 

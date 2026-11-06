@@ -1,12 +1,12 @@
 # Part 3 tuning results
 
-Recorded tuning summary. Trial records, scores and selected settings accompany this report. Protocol: PREREG_part3.md Section 5. The chosen settings are in `configs/part3/tuned.yaml`, written by `tune.py --write-tuned`.
+We selected settings separately for each method using validation performance. The selected configurations are in `configs/part3/tuned.yaml`.
 
-Each trial trained for 5 × 10⁷ agent-steps (a quarter of the final budget) and was scored on the 24 validation environments only: mean of (competence − random-policy competence), zero-shot, 8 episodes. The highest score was chosen; ties go to the lower trial number. One trial per setting, so a score mixes the setting's effect with run-to-run luck.
+Each trial trained for 5 × 10⁷ agent-steps (a quarter of the final budget) and was scored on the 24 validation environments only: mean of (competence − random-policy competence), zero-shot, 8 episodes. The highest score was chosen, with ties resolved by trial number. Each setting was evaluated once, so tuning scores include variation between runs.
+
+Hardware: NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB.
 
 ## OE
-
-Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB.
 
 | Trial | seed | WEIGHT_SD | score | chosen |
 |---|---|---|---|---|
@@ -21,8 +21,6 @@ Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 2456
 
 ## OE-fixed
 
-Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB.
-
 | Trial | seed | WEIGHT_SD | score | chosen |
 |---|---|---|---|---|
 | 0 | 4100 | 0.0452 | 11.463 |  |
@@ -35,8 +33,6 @@ Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 2456
 | 7 | 4107 | 0.00507 | 15.274 | yes |
 
 ## PPO-fixed
-
-Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB.
 
 | Trial | seed | ENT_COEF | GAMMA | LR | NORMALIZE_REWARD | NUM_STEPS | UPDATE_EPOCHS | score | chosen |
 |---|---|---|---|---|---|---|---|---|---|
@@ -51,8 +47,6 @@ Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 2456
 
 ## PPO-DR
 
-Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB.
-
 | Trial | seed | ENT_COEF | GAMMA | LR | NORMALIZE_REWARD | NUM_STEPS | UPDATE_EPOCHS | score | chosen |
 |---|---|---|---|---|---|---|---|---|---|
 | 0 | 4300 | 0 | 0.99 | 0.000263 | True | 64 | 4 | 26.404 |  |
@@ -65,8 +59,6 @@ Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 2456
 | 7 | 4307 | 0 | 0.99 | 0.00018 | True | 64 | 8 | 26.928 | yes |
 
 ## ES-DR
-
-Commit 732a643 (clean: True); hardware: NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB.
 
 | Trial | seed | EPISODES | LR | POP_SIZE | SIGMA | score | chosen |
 |---|---|---|---|---|---|---|---|

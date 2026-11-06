@@ -1,236 +1,138 @@
 # Neural environment and implementation specification
 
-Excerpts from the study protocol, retaining original section numbers and scientific rules. Original document SHA-256: `c1061810041008bec5a3ca4e00ba6889d0c516cdbfaca650f3e0c896ff176b15`.
+This document describes the implementation used for the reported experiments. It incorporates the final design choices and tuned settings; the protocol and dated ES-fixed extension are in [PREREG_part3.md](PREREG_part3.md). Section numbers are retained for cross-references from the code.
 
 ## 3. The world (`src/evo2/env`)
 
-A continuous, square 2D arena with walls. Time moves in discrete steps. All constants live in `configs/part3/*.yaml`.
+The environment is a continuous, square 2D arena with walls and discrete time steps. Constants are defined in `configs/part3/world.yaml`; environment distributions are in the other Part 3 configuration files.
 
 ### 3.1 Agents
 
-**Body traits** (provisional ranges; the default is the start for evolving methods):
+All methods use a fixed body (`body_option: b`):
 
-| Trait | Range | Default | Effect |
-|---|---|---|---|
-| max speed | 0.25–2.0 units/step | 1.0 | upper bound on the speed action |
-| size | 0.5–2.0 | 1.0 | eating reach = size; energy cost grows with size³ |
-| sense range | 4–20 units | 10 | how far the sensors see; costs energy |
+| Trait | Value | Bounds used to scale the input |
+|---|---|---|
+| Maximum speed | 1.0 units/step | 0.25–2.0 |
+| Size | 1.0 | 0.5–2.0 |
+| Sensing range | 10 units | 4–20 |
 
-**Sensors** (the brain's inputs, 30 numbers in total). Directional sectors were selected before training.
-- K = 8 sectors, each 45°, covering 360° around the agent's heading. Sector 0 is centred on the heading (−22.5° to +22.5°); sector i is centred i × 45° to the left (counter-clockwise).
-- In each sector, three values, one each for food, other agents and walls. Each is 1 − d / range for the nearest object of that kind within sense range, or 0 if there is none. Distances are between centres. An object at exactly the sense range reads 0.
-- Walls: d is the distance to the wall along the sector's centre line.
-- Own energy ÷ the birth energy, clipped to [0, 2]. Previous action (2 numbers, the squashed values in [−1, 1]). The 3 body traits, scaled to [0, 1].
-- Dead agents' slots read all zeros.
+**Sensors: 30 inputs.** Eight 45° sectors cover the surroundings relative to the agent's heading. Sector 0 is centred on the heading; subsequent sectors run counter-clockwise. Each sector measures food, other living agents and walls as `1 − distance / sensing range`, or zero if none is in range. Food and agent distances are between centres; wall distance is measured along the sector centre line. The remaining inputs are energy divided by birth energy, clipped to [0, 2]; the two previous squashed actions; and the three body traits scaled to [0, 1]. Dead slots return zeros.
 
-**Actions** (2 numbers). Each is squashed into its range with tanh, so the bounds hold whatever the network outputs:
-- turn rate = (π/4) × tanh(a₁), in [−π/4, π/4] per step;
-- speed = max speed × (tanh(a₂) + 1) / 2, in [0, max speed].
-- **[core build]** At evaluation every method acts deterministically: the brain's output is the action. PPO samples Gaussian noise around that output only while training.
+**Actions.** The network's two outputs determine turn rate `(π/4) × tanh(a₁)` and speed `maximum speed × (tanh(a₂) + 1) / 2`. Evaluation uses deterministic network outputs. PPO samples a Gaussian action distribution during training, before the environment applies these bounds.
 
-**Energy** (provisional constants; same structure as Part 1: cost grows with size³ × speed², plus a sense cost):
-- cost per step = 0.5 + 1.0 × size³ × speed² + 0.05 × sense range;
-- eating a food item gives 40;
-- energy at birth or episode start is 100;
-- an agent dies at energy ≤ 0.
+**Energy.** Each living agent pays `0.5 + size³ × speed² + 0.05 × sensing range` per step. A food item gives 40 energy; birth or episode-start energy is 100. An agent dies at energy ≤ 0. With the fixed body at full speed, the energy cost is 2 per step.
 
-With default traits at full speed, the cost is 2.0 per step, so an agent lasts 50 steps without food.
+**Eating.** A food item is reachable when its centre is within the agent's size radius. If several agents reach one item, the agent with the lowest random draw that step receives it. Each item is eaten once; an agent can eat several items per step.
 
-**Eating.** A food item within an agent's reach (centre distance ≤ size) is eaten. If several agents reach the same item in one step, the one with the lowest random draw that step gets it. One item can be eaten only once. An agent can eat several items in one step.
+**Step order** (`src/evo2/env/world.py`):
 
-**Order of events in one step [core build]** (both modes; `src/evo2/env/world.py`):
-1. Alive agents turn, then move; walls stop movement (positions are clipped to the arena).
-2. Eating, at the new positions.
-3. Every agent alive at the start of the step pays its energy cost.
-4. Death: energy ≤ 0, or (ecological mode) age ≥ 1,000.
-5. Births (ecological mode).
-6. Food: eaten items regrow, then present items drift (bouncing off walls), then, every P steps, the cluster or patch centres and the uneaten items move.
+1. Living agents turn and move; positions are clipped at the walls.
+2. Agents eat at their new positions.
+3. Agents alive at the start of the step pay their energy cost.
+4. Agents die from depleted energy or, in ecological mode, age ≥ 1,000.
+5. Eligible agents give birth in ecological mode.
+6. Absent food regrows, present food drifts, and seasonal relocation occurs when due.
+
+OE then applies its population floor, mutations and any scheduled environment change (Section 5).
 
 ### 3.2 Food and environment parameters
 
 | Parameter | Meaning |
 |---|---|
-| arena side L | square arena, side L |
-| food count F | food items present when fully grown |
-| layout | uniform; clusters (k centres, Gaussian spread σ); patches (k discs of radius r, uniform inside). Centres are drawn uniformly in [0.15 L, 0.85 L]²; food positions are clipped to the arena |
-| regrowth rate ρ | each eaten item comes back with probability ρ per step, at a new position drawn from the layout |
-| drift speed | every food item moves this far per step in its own fixed random direction, bouncing off walls |
-| seasonal period P | every P steps the cluster or patch centres move to new random places, and so do uneaten items |
-| hazards (optional, not in the core) | discs that drain extra energy per step |
+| Arena side L | Side length of the square arena |
+| Food count F | Number of food items when fully grown |
+| Layout | Uniform; Gaussian clusters with k centres and spread σ; or k circular patches with radius r |
+| Regrowth probability ρ | Independent probability per step that an absent item returns at a newly sampled position |
+| Drift speed | Distance moved per step along each item's direction, reflecting at walls |
+| Seasonal period P | Interval between relocation of the layout centres and present food; zero disables relocation |
+
+Cluster and patch centres are uniform in [0.15 L, 0.85 L]². Patch positions are uniform within their discs. Food positions are clipped to the arena. Arrays provide 64 food slots and at most five layout centres.
 
 ### 3.3 Two modes
 
-- **Ecological mode** (OE's training, and persistence tests):
-  - an agent with energy ≥ 200 gives birth: the child starts with 100 and appears 1 unit from the parent in a random direction (clipped to the arena), and the parent loses 120 (20 is the cost of birth);
-  - when several agents can give birth in one step, they are taken in a random order and matched to free slots in slot order;
-  - the child's genome is the parent's, mutated (Section 4.2);
-  - agents die at energy ≤ 0 or at age 1,000 steps;
-  - the arrays hold at most 128 agents: when full, no births happen, and the parent keeps its energy;
-  - there is no fitness function anywhere.
-- **Episodic mode** (training PPO and ES, and every competence measurement):
-  - 16 agents, 500 steps, no births;
-  - dead agents stay dead until the episode ends;
-  - all agents start with energy 100 at random positions;
-  - score: food eaten per agent.
+**Ecological mode** supports 128 agent slots. An agent with energy ≥ 200 can produce one child per step, losing 120 energy; the child starts with 100 energy at a position one unit from its parent, clipped to the arena. Eligible parents are ordered randomly and matched to free slots. When slots are exhausted, remaining parents keep their energy. Agents die at energy ≤ 0 or age 1,000. OE starts with 32 agents and uses the population floor described in Section 5.
 
-### 3.4 Environment splits (locked before any training)
+**Episodic mode** starts 16 agents at random positions with energy 100 and has no births. Dead agents remain dead for the episode. PPO restarts a world after 500 steps or when all its agents are dead. ES and evaluation execute 500-step episodes, with dead slots contributing no agent-steps. Competence is mean food eaten per starting agent.
 
-Provisional ranges; the locked values go in the config files and the pre-registration.
+### 3.4 Environment splits
 
-| Split | Where defined | Contents |
-|---|---|---|
-| Train distribution | `configs/part3/train.yaml` | L 40–80; F 20–60; layout any (k 2–5, σ 3–8, patch radius 4–10); ρ 0.01–0.05; no drift; no seasonal moves |
-| Canonical environment (PPO-fixed, fixed-world ablation) | `train.yaml` | L 60, F 40, uniform, ρ 0.03 |
-| Validation set | `configs/part3/validation.yaml` | 20 fixed environments drawn from the train ranges with environment seeds 4900–4919, plus 4 held-out corner combinations. Used only for tuning and sanity checks |
-| Test set | `configs/part3/test_split.yaml` (locked) | **T1** in-distribution: 10 environments from the train ranges, environment seeds 5900–5909. **T2** near shift: smaller (L 30–40), scarcer (F 10–20), clustered (k 2–3, σ 2–4), slower regrowth (ρ 0.005–0.01), 10 environments. **T3** far shift: drifting food (0.05–0.3 per step) with seasonal relocation (P 100–300), on train-range sizes, 10 environments |
+| Split | Definition |
+|---|---|
+| Training (`train.yaml`) | L 40–80; F 20–60; uniform, clustered or patch layouts; k 2–5; σ 3–8; patch radius 4–10; ρ 0.01–0.05; no drift or seasons |
+| Canonical (`train.yaml`) | L 60, F 40, uniform, ρ 0.03; used by the fixed-environment methods |
+| Validation (`validation.yaml`) | 20 training-distribution environments, seeds 4900–4919, plus four corners combining L ∈ {40, 80} and F ∈ {20, 60}, with three clusters, σ 5 and ρ 0.03 |
+| T1 (`test_split.yaml`) | Ten training-distribution environments, seeds 5900–5909 |
+| T2 (`test_split.yaml`) | Ten environments: L 30–40, F 10–20, clusters with k 2–3 and σ 2–4, ρ 0.005–0.01; seeds 5910–5919 |
+| T3 (`test_split.yaml`) | Ten environments with training-distribution ranges plus drift 0.05–0.3 and seasonal relocation every 100–300 steps; seeds 5920–5929 |
 
-**The lock.** Only `src/evo2/env/splits.py` reads `test_split.yaml`, and only when called with `final=True`. `scripts/part3/evaluate.py` passes that only with an explicit `--final` flag. A test checks that every training, tuning and pilot entry point fails if it tries to load the test file.
+`load_test_split` requires `final=True`. The evaluation entry point requires `--split test --final --adapt`, completed final runs and the full test split, and logs test access. Training and tuning use the training and validation configurations.
 
----
+## 4. Brains and genomes (`src/evo2/agents`)
 
-## 4. Agents' brains and genomes (`src/evo2/agents`)
+### 4.1 Controller
 
-### 4.1 Brain
+Every method uses a 30 → 32 → 32 → 2 multilayer perceptron with tanh hidden activations: **2,114 parameters**, including biases. The controller has no recurrent state; the previous action is part of its observation. Hidden weights use orthogonal initialization with gain √2, output weights use gain 0.01, and biases start at zero.
 
-- The same network for every method:
-  - a small multilayer perceptron, 30 inputs → 32 hidden (tanh) → 32 hidden (tanh) → 2 outputs;
-  - about 2,100 weights *(provisional size)*;
-  - the outputs are squashed into the action ranges.
-- No memory beyond the previous-action input, so every method gets the same kind of brain.
-- PPO adds a separate value network of the same shape. It is used only in training and is not part of the policy.
+PPO adds a separate 30 → 32 → 32 → 1 value network and two learned, state-independent action log standard deviations. The value head uses initialization gain 1. These additions are used during training; the evaluated controller is the actor mean.
 
-### 4.2 Genome and mutation (evolving methods)
+### 4.2 OE inheritance and mutation
 
-- **Genome** = brain weights + the 3 body traits.
-- **Mutation at birth** *(provisional sizes)*:
-  - each weight gets Gaussian noise (sd 0.02); weights have no bounds;
-  - each trait gets Gaussian noise of 5% of its range, then is clipped to its bounds;
-  - a test checks that the bounds always hold.
-- **Initial population** (OE): 32 agents, each with a default body. Brains are drawn from the same initializer PPO uses, from the run's seed.
-
----
+Each agent stores controller parameters and the fixed body traits. At both ordinary and floor births, the child receives its parent's controller plus independent Gaussian noise on every weight and bias. The selected noise standard deviations are 0.03411858603369065 for OE and 0.005074746343511773 for OE-fixed (`configs/part3/tuned.yaml`). Body traits are copied unchanged. Initial controllers use the shared initializer above, with independent keys.
 
 ## 5. Methods (`src/evo2/methods`)
 
-Every method uses the same brain, world, compute budget (Section 6), tuning budget and evaluation.
+| Method | Training procedure |
+|---|---|
+| OE | Survival and reproduction in one ecological world. Parameters are redrawn from the training distribution every 2,000 steps; agents retain their positions, clipped to the new arena, and food is regenerated. |
+| OE-fixed | The same ecological process in the canonical environment. |
+| PPO-fixed | Parameter-sharing PPO in 64 parallel canonical worlds; reward is food eaten per step. |
+| PPO-DR | The same PPO procedure, with a new training-distribution environment at each episode reset. |
+| ES-DR | `evosax.Open_ES` optimizes one controller using antithetic sampling, centred-rank shaping and Adam updates to the mean. Candidates share environment and episode randomness within each generation; score is mean food per agent. |
+| ES-fixed | The ES procedure in the canonical environment, added under protocol Section 16. |
 
-| Method | What it does | Training mode |
-|---|---|---|
-| **OE** (open-ended evolution) | One population lives in a shared world. The world's parameters are redrawn from the train distribution every 2,000 steps *(provisional)*; agents stay where they are (clipped into a smaller arena). No fitness function, only survival and births with mutation | ecological |
-| **OE-fixed** (ablation, Q2) | OE in the canonical environment only | ecological |
-| **PPO-fixed** | PPO in the canonical environment. All 16 agents share one network (parameter sharing), and each agent's experience is its own trajectory. Reward = food eaten that step | episodic |
-| **PPO-DR** (main baseline) | PPO with each episode in an environment drawn from the train distribution | episodic |
-| **ES-DR** | OpenAI-ES (evosax `Open_ES`, antithetic sampling, centred-rank fitness shaping) optimizes one parameter vector. Fitness = mean food per agent over the candidate's episodes, in environments drawn from the train distribution. All candidates in a generation share the same environments (common random numbers) | episodic |
+**OE population floor.** If fewer than 16 agents remain after a world step, empty slots are filled with mutated copies of parents sampled uniformly from survivors not born that step. If none remain, the parent pool is the agents alive at the start of the step. Floor offspring appear at random positions with 100 externally supplied energy. Floor births and ordinary births are counted separately. OE has no scalar fitness ranking.
 
-**Fixed bodies.** The default body was selected for every method on 2 Nov 2026 (`body_option: b` in `configs/part3/methods.yaml`): maximum speed 1.0, size 1.0, sensing range 10. OE mutates controller weights only. Body traits remain fixed inputs.
+**PPO.** Each agent supplies a trajectory to the shared policy. Death and episode termination end that trajectory; steps from agents already dead are masked out of every loss. PPO-fixed uses 128 rollout steps, γ = 0.95 and no reward normalization; PPO-DR uses 64 rollout steps, γ = 0.99 and reward normalization over living agents. Both use eight update epochs. Full selected settings, including learning rates, are in `configs/part3/tuned.yaml`, overlaid on `methods.yaml` by `load_methods_config`.
 
+**ES.** The returned controller is the distribution mean. ES-DR uses 64 candidates and one episode per candidate per generation; σ = 0.08987903644893716 and learning rate = 0.0073745955277558515. ES-fixed is tuned separately; its settings are loaded with `--tuned-extra` and stored in each run's `run.json`.
 
-**OE needs a population floor [core build].** Quick tries on test seeds 3980–3984 (OE as above, no floor, train distribution, random keys made the way real runs make them: the seed's "train_run" stream) went extinct every time, after 177, 176, 274, 177 and 177 steps, with 1, 0, 2, 0 and 0 births before that.  Newly initialized brains do not find enough food to breed before they starve. So the code has a population floor (`MIN_POP = 16`, selected before final runs):
-- whenever fewer than 16 agents are alive after a step, empty slots are filled up to 16 with mutated copies of agents chosen uniformly at random from those alive and not born this step;
-- the copies appear at random places with birth energy 100, which comes from outside the world;
-- there is still no fitness function: every living agent is equally likely to be copied, so longer-lived agents are copied more only because they are alive longer;
-- every floor birth is counted and reported, next to normal births.
-In one 16,000-step quick try with the floor (seed 3980, default settings, "train_run" keys), floor births were 354 of the 489 births in the first 6,000 steps and 381 of the 471 in the last 6,000; the population averaged 18.3 agents, and 16.3 in the last 2,000 steps. So in this try the population still lived mostly on floor births after 16,000 steps (about 290,000 agent-steps, 0.15% of the provisional training budget).
+**Adaptation.** The test environment stays fixed. OE continues mutation and reproduction with the floor enabled. PPO carries over actor, critic, action variance and reward-normalization statistics, with a fresh Adam state. ES initializes a new optimizer from the trained mean controller. Each uses its selected training hyperparameters.
 
-**Method details settled while building [core build]:**
-- **PPO:** dead agents' steps are left out of every loss term (a `valid` mask); an agent's death ends its trajectory; the end of an episode (500 steps) also ends it, as in PureJaxRL. Optional running reward normalization (PureJaxRL's NormalizeVecReward) is a tuning setting. In the adaptation phase PPO continues from its trained weights with a fresh Adam state.
-- **ES:** the policy after training is the ES mean (not the best candidate seen). In the optional body-optimization design, which was not used, body traits are 3 numbers mapped to the trait ranges with a sigmoid, starting at the default body.
-- **OE:** in the adaptation phase OE keeps evolving with the environment fixed to the test environment.
+## 6. Agent-step budgets and saved outputs
 
-Lifetime learning and neural mechanism ablations were planned but not run.
+Training uses **2 × 10⁸ agent-steps per run**, and adaptation uses **2 × 10⁷ per test environment**. Every method counts agents alive at the start of each simulated step, including all PPO worlds and ES candidates. Tuning uses eight trials per method at **5 × 10⁷ agent-steps per trial**, scored on the 24 validation environments.
 
-**Implementations used:**
-- PPO is adapted from PureJaxRL's `ppo_continuous_action.py` (Apache-2.0; credited in `src/evo2/methods/ppo.py` and in `README.md`), changed for multi-agent parameter sharing in this world.
-- ES uses evosax 0.3.2 `Open_ES` (Apache-2.0).
-- **Sanity checks before use**, on gymnax tasks:
-  - PPO must solve Pendulum-v1 to a pre-set return;
-  - ES must improve on a standard gymnax task;
-  - the targets and their sources are fixed in the pre-registration.
+Training proceeds in units of one OE step, one PPO update or one ES generation. `evo2.run.chunk_size` reduces chunk size near each target; overshoot is smaller than the maximum agent-step count of one unit. Actual counts are saved. The same chunk rule is used when resuming a run.
 
----
+`src/evo2/train_loop.py` saves ten policy snapshots at the first chunk boundary reaching each tenth of the training budget, together with their actual step counts. Each run also records settings, seed, source commit, hardware, wall time and progress. `checkpoint.pkl` supports resuming; `policy.pkl` and `done.json` mark completed training.
 
-## 6. Compute accounting
+## 7. Evaluation and analysis
 
-- **Training budget:**
-  - every method gets the same total number of training agent-steps, counting every agent-step (*provisional*: 2 × 10⁸; the pilot sets it);
-  - every method counts the same thing: agents alive at the start of each step (OE in its shared world; PPO in its parallel worlds; ES in every candidate's episodes). The first draft charged PPO and ES for dead agents' slots as well, which early in training is 4–5 times their living agent-steps, and would have favored OE;
-  - so that PPO spends no simulation on empty worlds, an episodic training world ends its episode as soon as every agent in it is dead (or after 500 steps) and starts a new one; this also lets the parallel worlds drift out of step.
-- **Adaptation budget** (after the move to a test environment): every method gets the same number of agent-steps (*provisional*: 2 × 10⁷).
-- **Tuning:**
-  - the same number of random-search trials for every method, scored on the validation set only;
-  - tuning compute is reported separately;
-  - search ranges are declared before tuning.
-- **Reported for every run:** agent-steps, wall-clock time and hardware.
-- **Stopping at the budget [core build]:** each method runs in chunks of units (one PPO update, one ES generation, one OE step). The next chunk is the full chunk only if even fully alive units could not pass the budget; otherwise it is the largest power of two of units that could not pass it, down to one unit. So no method passes the budget by a full unit, and a resumed run takes the same chunks as an uninterrupted one. At the default settings a unit is at most 65,536 agent-steps for PPO (0.03% of 2 × 10⁸), 1,024,000 for ES (0.5%) and 128 for OE. The actual count is recorded for every run.
-- **Snapshots:** each run saves its policy after every tenth of the training budget, for learning curves and (OE) diversity over time.
-- **Adaptation compute is large [core build].** At 2 × 10⁷ agent-steps per test environment, adaptation on all 30 test environments costs 6 × 10⁸ agent-steps per run, three times the training budget; on T2 and T3 only (the primary metric) it costs 4 × 10⁸. The selected protocol used 2 × 10⁷ adaptation agent-steps on all 30 test environments.
-- **Compile time [after P0, 2 Nov 2026].** P0 showed that short GPU runs spent most of their time compiling (OE on the RTX 4090: 149 s for about 3 s of work). Measured on this machine: every chunk length compiled its own program (the budget logic uses the full chunk, then powers of two down to 1 near each target), and every adaptation built a new trainer, so it compiled again for every environment and run (OE: its chunk program compiled about 11 times per adaptation here, about 5 s each); for PPO and ES the test environment was also written into the compiled program. Changes:
-  - one compiled program serves every chunk length (`evo2.methods.loop.run_dynamic`);
-  - adaptation keeps the test environment in the state (PPO's worlds, ES's runner, OE's state), so one trainer per method serves every environment and run (`evo2.run.get_trainer`);
-  - compiled programs are saved on disk and reused by later processes (`evo2.runio.enable_compile_cache`).
+**Competence** is mean food per agent over eight episodic evaluations per environment and checkpoint. PPO and ES use 16 copies of one controller. OE samples 16 living agents afresh for each episode, without replacement when possible. Evaluation keys are shared across methods and runs; adaptation randomness comes from each run's seed.
 
-  Checked against the code before the change (test seed 3955, trained policies, environment P3[0]): all five methods' training, and OE, OE-fixed, PPO-fixed and PPO-DR adaptation, are bit-identical. ES-DR adaptation is not: with the environment written into the program, the compiler rounds some arithmetic differently in the last bit (first difference 9.5 × 10⁻⁷ in a position, at step 37 of a trained policy's episode; one float32 step at the arena size is 3.8 × 10⁻⁶), and the world, being chaotic, grows that into different episodes. Neither version is more exact. The new version gives every environment and every method the same compiled arithmetic. No ES adaptation result existed before the change.
-- **Speed on this machine [core build]** (2 CPU cores, one quick run each, so rough; counted as all slots, before the accounting change above, and with smaller settings than `methods.yaml`): PPO about 74,000 slot-steps per second (16 worlds; `methods.yaml` has 64); ES about 250,000 (32 candidates × 2 episodes; `methods.yaml` has 64 candidates); OE about 300 steps per second, about 6,500 agent-steps per second at 16–40 agents. OE is slow here because one world steps one step at a time; on a GPU, many OE runs (seeds) step together. The pilot measures GPU speed.
+**Zero-shot evaluation** measures competence without learning and compares it with a random policy on the same episodes. The random policy uses the fixed body and draws turn and speed uniformly within their bounds. Persistence is measured separately: 32 sampled or copied agents run for 5,000 ecological steps with ordinary births, no mutation, no floor and no environment change. Outputs include extinction and survival time.
 
----
+**Adaptation evaluation** contains the zero-shot value at point 0 and ten measurements after successive tenths of the adaptation budget. Each point records its actual agent-step count.
 
-## 7. Evaluation (`src/evo2/eval`) and metrics (`src/evo2/metrics`)
+**Normalization** is `(competence − random) / (best − random)`. The denominator uses the best competence among all five core methods, final runs and checkpoints in that environment. ES-fixed uses the same core denominator. Environments with best ≤ random are excluded from normalized measures.
 
-**Individual competence.** Food per agent in an episodic episode: 16 agents, 500 steps, in a fixed set of evaluation episodes per test environment, with evaluation seeds fixed in the pre-registration.
-- For OE, 16 agents are sampled from the living population, a new sample for each episode (without replacement when at least 16 are alive).
-- The random policy is scored on the same episodes as the policy. The adaptation curve's point 0 is the zero-shot competence (the same number). Evaluation episodes are the same for every method and run; the adaptation's own randomness comes from the run's seed, so it differs between runs.
-- PPO's reward-normalization statistics are taken over living agents and carried into the adaptation phase with the weights.
-- For PPO and ES, 16 copies of the policy are used. In the optional body-optimization design, which was not used, PPO uses its tuned body and ES its optimized one.
+The primary metric is trapezoidal area under the normalized adaptation curve on T2 and T3, using nominal budget fractions 0, 0.1, …, 1 as the x-axis. Scores are aggregated by interquartile mean over run–environment pairs. Confidence intervals use 50,000 whole-run bootstrap resamples, preserving all environments of each sampled run. Secondary measures include zero-shot and final competence, time to 90% of pre-shift competence, persistence and OE diversity. Exact comparisons, exclusions and decision rules are in protocol Sections 7–8 and 16; implementations are in `src/evo2/metrics.py` and `src/evo2/analysis.py`.
 
-**Normalization** per test environment: (score − random policy score) ÷ (best observed score − random policy score).
-- The random policy draws actions uniformly within bounds and uses the default body.
-- "Best observed" is defined exactly in the pre-registration.
-
-**Protocols**, run on every test environment:
-1. **Zero-shot.** Everything frozen: no learning, no mutation.
-   - individual competence;
-   - ecological persistence: 32 agents (32 sampled from an OE population, or 32 copies of a PPO or ES policy) placed in ecological mode, with births but no mutation, no population floor and no environment change, for 5,000 steps; extinction yes or no, and steps survived.
-2. **Adaptation.** Each method continues its own improvement process in the test environment for the adaptation budget: OE keeps evolving, PPO keeps training, ES keeps optimizing. Competence is measured at 10 evenly spaced checkpoints *(provisional)*.
-
-**Primary metric** (from the plan): the area under the normalized competence curve during adaptation on T2 and T3, aggregated with the interquartile mean (IQM) over test environments and seeds.
-
-**Secondary metrics:** zero-shot competence; final competence after adaptation; time to reach 90% of pre-shift competence; extinction rate in ecological mode; genotypic and behavioural diversity; compute cost.
-
-**Statistics:** rliable 1.2.0 (Apache-2.0): IQM with 95% stratified bootstrap CIs, probability of improvement, performance profiles. The exact definitions go in the pre-registration.
-
----
-
-## 8. Seeds (plan: Part 3 pilots 3000–3999, tuning 4000–4999, final 5000–5999; never reused across purposes)
+## 8. Seeds
 
 | Use | Seeds |
 |---|---|
 | Unit tests and smoke runs | 3900–3999 |
 | Pilot runs | 3000–3099 |
-| Pilot evaluation: stand-in shifted environments 3100–3109 and their episodes 3130–3199 (`configs/part3/pilot_shift.yaml`) | 3100–3199 |
-| Statistics: bootstrap (4800) and the behavioral-diversity probe set (4801) | 4800–4899 |
-| Tuning runs | 4000–4799 |
-| Validation environments and their episodes | 4900–4999 |
-| Final runs (count from the pilot's power analysis; at least 10 per method) | 5000–5499 |
-| Test environments and their evaluation episodes | 5900–5999 |
+| Pilot evaluation | 3100–3199 |
+| Tuning | 4000–4799; trial t of method m uses 4000 + 100m + t |
+| Bootstrap and diversity probes | 4800 and 4801 |
+| Validation environments and episodes | 4900–4999 |
+| Final runs | 5000–5009 for each method |
+| Test environments and episodes | 5900–5999 |
 
-Each seed is split into named streams with SeedSequence / JAX PRNG keys, and a test checks that keys never serve two purposes (the Part 2 stream-key test, carried over).
+`src/evo2/seeds.py` validates purpose-specific ranges and folds named stream identifiers into JAX keys. Streams separate environment generation, evaluation, tuning draws, training, adaptation and diversity probes. Test environment j uses episode seed 5930 + j, in T1, T2, T3 order.
 
----
+## 9. Dependencies
 
-## 9. Libraries (checked 2 Nov 2026)
-
-| Library | Version | License | Use |
-|---|---|---|---|
-| jax / jaxlib | 0.11.2 | Apache-2.0 | everything |
-| flax | 0.12.12 | Apache-2.0 | networks |
-| optax | 0.2.8 | Apache-2.0 | optimizers |
-| distrax | 0.1.9 | Apache-2.0 | PPO action distributions |
-| evosax | 0.3.2 | Apache-2.0 | ES-DR (`Open_ES`) |
-| gymnax | 1.0.1 | Apache-2.0 | baseline sanity checks |
-| rliable | 1.2.0 | Apache-2.0 | statistics |
-| PureJaxRL (code adapted, not installed) | commit 31756b1 | Apache-2.0 | PPO |
-
-Historical neural dependencies are pinned in `environments/historical_requirements_part3.txt`, with pandas held at 2.3.3 so that rliable's dependency arch 7.2.0 imports. rliable is used for the IQM and the probability of improvement; its bootstrap is not used (`PREREG_part3.md` Section 8.1). The historical Parts 1–2 environment is listed separately in `environments/historical_requirements.txt`. The checked CPU reanalysis environment is documented in `REPRODUCE.md` at the repository root.
-
----
-
+The neural environment uses JAX; PPO adapts PureJaxRL, ES uses evosax 0.3.2, and IQM and probability-of-improvement calculations use rliable 1.2.0. The whole-run bootstrap is implemented locally. Training dependencies are listed in `environments/historical_requirements_part3.txt`; CPU setup is in [REPRODUCE.md](../REPRODUCE.md). Credits and license notices are in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
