@@ -1,0 +1,8 @@
+# Written by scripts/part2/b_redesign.py --rule --round 2 from results/part2/b_redesign/rule_round2.json.
+# Do not edit by hand. Arm 4: world B with less energy per generation.
+extends: arm3.yaml
+part2:
+  arm4_energy: 25
+  arm4_rule_round: 2
+  arm4_rule_commit: e2619663f841c0b28cb60fefe127c28b2e01b0f7
+

@@ -1,0 +1,18 @@
+# Part 3 training distribution and canonical environment (docs/SPEC_part3.md, Section 3.4).
+# Provisional until check-in 8. Integer ranges are inclusive.
+train_ranges:
+  L: [40.0, 80.0]
+  F: [20, 60]
+  layouts: [uniform, clusters, patches]
+  k: [2, 5]
+  sigma: [3.0, 8.0]
+  patch_r: [4.0, 10.0]
+  rho: [0.01, 0.05]
+  drift: [0.0, 0.0]        # no drift in training
+  season_P: [0, 0]         # no seasonal moves in training
+canonical:                 # PPO-fixed and the fixed-world ablation (OE-fixed)
+  L: 60.0
+  F: 40
+  layout: uniform
+  rho: 0.03
+

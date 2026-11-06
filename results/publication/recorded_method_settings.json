@@ -1,0 +1,856 @@
+{
+  "oe": {
+    "source": "results/part3/final/oe_seed5000/run.json",
+    "budget_agent_steps": 200000000,
+    "methods_config": {
+      "body_option": "b",
+      "budget": {
+        "adapt_agent_steps": 20000000,
+        "adapt_checkpoints": 10,
+        "train_agent_steps": 200000000
+      },
+      "es": {
+        "chunk_generations": 5,
+        "settings": {
+          "EPISODES": 2,
+          "LR": 0.01,
+          "POP_SIZE": 64,
+          "SIGMA": 0.05
+        }
+      },
+      "es_dr": {
+        "settings": {
+          "EPISODES": 1,
+          "LR": 0.0073745955277558515,
+          "POP_SIZE": 64,
+          "SIGMA": 0.08987903644893716
+        }
+      },
+      "evaluation": {
+        "episodes_per_env": 8,
+        "oe_sample": 16,
+        "persistence_agents": 32,
+        "persistence_steps": 5000
+      },
+      "oe": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 2000,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.03411858603369065
+        }
+      },
+      "oe_fixed": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 0,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.005074746343511773
+        }
+      },
+      "ppo": {
+        "body": [
+          1.0,
+          1.0,
+          10.0
+        ],
+        "chunk_updates": 10,
+        "n_envs": 64,
+        "settings": {
+          "ANNEAL_LR": false,
+          "CLIP_EPS": 0.2,
+          "ENT_COEF": 0.0,
+          "GAE_LAMBDA": 0.95,
+          "GAMMA": 0.99,
+          "LOG_STD_INIT": 0.0,
+          "LR": 0.0003,
+          "MAX_GRAD_NORM": 0.5,
+          "NORMALIZE_REWARD": true,
+          "NUM_MINIBATCHES": 32,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 4,
+          "VF_COEF": 0.5
+        }
+      },
+      "ppo_dr": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.99,
+          "LR": 0.00018035308869270724,
+          "NORMALIZE_REWARD": true,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "ppo_fixed": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.95,
+          "LR": 0.0007062967773715715,
+          "NORMALIZE_REWARD": false,
+          "NUM_STEPS": 128,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "tuned_from": {
+        "folder": "results/part3/tuning",
+        "per_method": {
+          "es_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 23.776692708333332,
+            "seed": 4407,
+            "trial": 7
+          },
+          "oe": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.332682291666666,
+            "seed": 4002,
+            "trial": 2
+          },
+          "oe_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.273763020833334,
+            "seed": 4107,
+            "trial": 7
+          },
+          "ppo_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 26.928385416666668,
+            "seed": 4307,
+            "trial": 7
+          },
+          "ppo_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 27.449544270833332,
+            "seed": 4201,
+            "trial": 1
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-tuned"
+      }
+    },
+    "training_commits": [
+      "16e86573f55fef8f6035249b734476256e9041a7"
+    ],
+    "n": 10
+  },
+  "oe_fixed": {
+    "source": "results/part3/final/oe_fixed_seed5000/run.json",
+    "budget_agent_steps": 200000000,
+    "methods_config": {
+      "body_option": "b",
+      "budget": {
+        "adapt_agent_steps": 20000000,
+        "adapt_checkpoints": 10,
+        "train_agent_steps": 200000000
+      },
+      "es": {
+        "chunk_generations": 5,
+        "settings": {
+          "EPISODES": 2,
+          "LR": 0.01,
+          "POP_SIZE": 64,
+          "SIGMA": 0.05
+        }
+      },
+      "es_dr": {
+        "settings": {
+          "EPISODES": 1,
+          "LR": 0.0073745955277558515,
+          "POP_SIZE": 64,
+          "SIGMA": 0.08987903644893716
+        }
+      },
+      "evaluation": {
+        "episodes_per_env": 8,
+        "oe_sample": 16,
+        "persistence_agents": 32,
+        "persistence_steps": 5000
+      },
+      "oe": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 2000,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.03411858603369065
+        }
+      },
+      "oe_fixed": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 0,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.005074746343511773
+        }
+      },
+      "ppo": {
+        "body": [
+          1.0,
+          1.0,
+          10.0
+        ],
+        "chunk_updates": 10,
+        "n_envs": 64,
+        "settings": {
+          "ANNEAL_LR": false,
+          "CLIP_EPS": 0.2,
+          "ENT_COEF": 0.0,
+          "GAE_LAMBDA": 0.95,
+          "GAMMA": 0.99,
+          "LOG_STD_INIT": 0.0,
+          "LR": 0.0003,
+          "MAX_GRAD_NORM": 0.5,
+          "NORMALIZE_REWARD": true,
+          "NUM_MINIBATCHES": 32,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 4,
+          "VF_COEF": 0.5
+        }
+      },
+      "ppo_dr": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.99,
+          "LR": 0.00018035308869270724,
+          "NORMALIZE_REWARD": true,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "ppo_fixed": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.95,
+          "LR": 0.0007062967773715715,
+          "NORMALIZE_REWARD": false,
+          "NUM_STEPS": 128,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "tuned_from": {
+        "folder": "results/part3/tuning",
+        "per_method": {
+          "es_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 23.776692708333332,
+            "seed": 4407,
+            "trial": 7
+          },
+          "oe": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.332682291666666,
+            "seed": 4002,
+            "trial": 2
+          },
+          "oe_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.273763020833334,
+            "seed": 4107,
+            "trial": 7
+          },
+          "ppo_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 26.928385416666668,
+            "seed": 4307,
+            "trial": 7
+          },
+          "ppo_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 27.449544270833332,
+            "seed": 4201,
+            "trial": 1
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-tuned"
+      }
+    },
+    "training_commits": [
+      "16e86573f55fef8f6035249b734476256e9041a7"
+    ],
+    "n": 10
+  },
+  "ppo_dr": {
+    "source": "results/part3/final/ppo_dr_seed5000/run.json",
+    "budget_agent_steps": 200000000,
+    "methods_config": {
+      "body_option": "b",
+      "budget": {
+        "adapt_agent_steps": 20000000,
+        "adapt_checkpoints": 10,
+        "train_agent_steps": 200000000
+      },
+      "es": {
+        "chunk_generations": 5,
+        "settings": {
+          "EPISODES": 2,
+          "LR": 0.01,
+          "POP_SIZE": 64,
+          "SIGMA": 0.05
+        }
+      },
+      "es_dr": {
+        "settings": {
+          "EPISODES": 1,
+          "LR": 0.0073745955277558515,
+          "POP_SIZE": 64,
+          "SIGMA": 0.08987903644893716
+        }
+      },
+      "evaluation": {
+        "episodes_per_env": 8,
+        "oe_sample": 16,
+        "persistence_agents": 32,
+        "persistence_steps": 5000
+      },
+      "oe": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 2000,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.03411858603369065
+        }
+      },
+      "oe_fixed": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 0,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.005074746343511773
+        }
+      },
+      "ppo": {
+        "body": [
+          1.0,
+          1.0,
+          10.0
+        ],
+        "chunk_updates": 10,
+        "n_envs": 64,
+        "settings": {
+          "ANNEAL_LR": false,
+          "CLIP_EPS": 0.2,
+          "ENT_COEF": 0.0,
+          "GAE_LAMBDA": 0.95,
+          "GAMMA": 0.99,
+          "LOG_STD_INIT": 0.0,
+          "LR": 0.0003,
+          "MAX_GRAD_NORM": 0.5,
+          "NORMALIZE_REWARD": true,
+          "NUM_MINIBATCHES": 32,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 4,
+          "VF_COEF": 0.5
+        }
+      },
+      "ppo_dr": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.99,
+          "LR": 0.00018035308869270724,
+          "NORMALIZE_REWARD": true,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "ppo_fixed": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.95,
+          "LR": 0.0007062967773715715,
+          "NORMALIZE_REWARD": false,
+          "NUM_STEPS": 128,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "tuned_from": {
+        "folder": "results/part3/tuning",
+        "per_method": {
+          "es_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 23.776692708333332,
+            "seed": 4407,
+            "trial": 7
+          },
+          "oe": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.332682291666666,
+            "seed": 4002,
+            "trial": 2
+          },
+          "oe_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.273763020833334,
+            "seed": 4107,
+            "trial": 7
+          },
+          "ppo_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 26.928385416666668,
+            "seed": 4307,
+            "trial": 7
+          },
+          "ppo_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 27.449544270833332,
+            "seed": 4201,
+            "trial": 1
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-tuned"
+      }
+    },
+    "training_commits": [
+      "16e86573f55fef8f6035249b734476256e9041a7"
+    ],
+    "n": 10
+  },
+  "ppo_fixed": {
+    "source": "results/part3/final/ppo_fixed_seed5000/run.json",
+    "budget_agent_steps": 200000000,
+    "methods_config": {
+      "body_option": "b",
+      "budget": {
+        "adapt_agent_steps": 20000000,
+        "adapt_checkpoints": 10,
+        "train_agent_steps": 200000000
+      },
+      "es": {
+        "chunk_generations": 5,
+        "settings": {
+          "EPISODES": 2,
+          "LR": 0.01,
+          "POP_SIZE": 64,
+          "SIGMA": 0.05
+        }
+      },
+      "es_dr": {
+        "settings": {
+          "EPISODES": 1,
+          "LR": 0.0073745955277558515,
+          "POP_SIZE": 64,
+          "SIGMA": 0.08987903644893716
+        }
+      },
+      "evaluation": {
+        "episodes_per_env": 8,
+        "oe_sample": 16,
+        "persistence_agents": 32,
+        "persistence_steps": 5000
+      },
+      "oe": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 2000,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.03411858603369065
+        }
+      },
+      "oe_fixed": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 0,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.005074746343511773
+        }
+      },
+      "ppo": {
+        "body": [
+          1.0,
+          1.0,
+          10.0
+        ],
+        "chunk_updates": 10,
+        "n_envs": 64,
+        "settings": {
+          "ANNEAL_LR": false,
+          "CLIP_EPS": 0.2,
+          "ENT_COEF": 0.0,
+          "GAE_LAMBDA": 0.95,
+          "GAMMA": 0.99,
+          "LOG_STD_INIT": 0.0,
+          "LR": 0.0003,
+          "MAX_GRAD_NORM": 0.5,
+          "NORMALIZE_REWARD": true,
+          "NUM_MINIBATCHES": 32,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 4,
+          "VF_COEF": 0.5
+        }
+      },
+      "ppo_dr": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.99,
+          "LR": 0.00018035308869270724,
+          "NORMALIZE_REWARD": true,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "ppo_fixed": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.95,
+          "LR": 0.0007062967773715715,
+          "NORMALIZE_REWARD": false,
+          "NUM_STEPS": 128,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "tuned_from": {
+        "folder": "results/part3/tuning",
+        "per_method": {
+          "es_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 23.776692708333332,
+            "seed": 4407,
+            "trial": 7
+          },
+          "oe": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.332682291666666,
+            "seed": 4002,
+            "trial": 2
+          },
+          "oe_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.273763020833334,
+            "seed": 4107,
+            "trial": 7
+          },
+          "ppo_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 26.928385416666668,
+            "seed": 4307,
+            "trial": 7
+          },
+          "ppo_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 27.449544270833332,
+            "seed": 4201,
+            "trial": 1
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-tuned"
+      }
+    },
+    "training_commits": [
+      "16e86573f55fef8f6035249b734476256e9041a7"
+    ],
+    "n": 10
+  },
+  "es_dr": {
+    "source": "results/part3/final/es_dr_seed5000/run.json",
+    "budget_agent_steps": 200000000,
+    "methods_config": {
+      "body_option": "b",
+      "budget": {
+        "adapt_agent_steps": 20000000,
+        "adapt_checkpoints": 10,
+        "train_agent_steps": 200000000
+      },
+      "es": {
+        "chunk_generations": 5,
+        "settings": {
+          "EPISODES": 2,
+          "LR": 0.01,
+          "POP_SIZE": 64,
+          "SIGMA": 0.05
+        }
+      },
+      "es_dr": {
+        "settings": {
+          "EPISODES": 1,
+          "LR": 0.0073745955277558515,
+          "POP_SIZE": 64,
+          "SIGMA": 0.08987903644893716
+        }
+      },
+      "evaluation": {
+        "episodes_per_env": 8,
+        "oe_sample": 16,
+        "persistence_agents": 32,
+        "persistence_steps": 5000
+      },
+      "oe": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 2000,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.03411858603369065
+        }
+      },
+      "oe_fixed": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 0,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.005074746343511773
+        }
+      },
+      "ppo": {
+        "body": [
+          1.0,
+          1.0,
+          10.0
+        ],
+        "chunk_updates": 10,
+        "n_envs": 64,
+        "settings": {
+          "ANNEAL_LR": false,
+          "CLIP_EPS": 0.2,
+          "ENT_COEF": 0.0,
+          "GAE_LAMBDA": 0.95,
+          "GAMMA": 0.99,
+          "LOG_STD_INIT": 0.0,
+          "LR": 0.0003,
+          "MAX_GRAD_NORM": 0.5,
+          "NORMALIZE_REWARD": true,
+          "NUM_MINIBATCHES": 32,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 4,
+          "VF_COEF": 0.5
+        }
+      },
+      "ppo_dr": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.99,
+          "LR": 0.00018035308869270724,
+          "NORMALIZE_REWARD": true,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "ppo_fixed": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.95,
+          "LR": 0.0007062967773715715,
+          "NORMALIZE_REWARD": false,
+          "NUM_STEPS": 128,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "tuned_from": {
+        "folder": "results/part3/tuning",
+        "per_method": {
+          "es_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 23.776692708333332,
+            "seed": 4407,
+            "trial": 7
+          },
+          "oe": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.332682291666666,
+            "seed": 4002,
+            "trial": 2
+          },
+          "oe_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.273763020833334,
+            "seed": 4107,
+            "trial": 7
+          },
+          "ppo_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 26.928385416666668,
+            "seed": 4307,
+            "trial": 7
+          },
+          "ppo_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 27.449544270833332,
+            "seed": 4201,
+            "trial": 1
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-tuned"
+      }
+    },
+    "training_commits": [
+      "16e86573f55fef8f6035249b734476256e9041a7"
+    ],
+    "n": 10
+  },
+  "es_fixed": {
+    "source": "results/part3/addendum/es_fixed_seed5000/run.json",
+    "budget_agent_steps": 200000000,
+    "methods_config": {
+      "body_option": "b",
+      "budget": {
+        "adapt_agent_steps": 20000000,
+        "adapt_checkpoints": 10,
+        "train_agent_steps": 200000000
+      },
+      "es": {
+        "chunk_generations": 5,
+        "settings": {
+          "EPISODES": 2,
+          "LR": 0.01,
+          "POP_SIZE": 64,
+          "SIGMA": 0.05
+        }
+      },
+      "es_dr": {
+        "settings": {
+          "EPISODES": 1,
+          "LR": 0.0073745955277558515,
+          "POP_SIZE": 64,
+          "SIGMA": 0.08987903644893716
+        }
+      },
+      "es_fixed": {
+        "settings": {
+          "EPISODES": 4,
+          "LR": 0.011780463090817461,
+          "POP_SIZE": 32,
+          "SIGMA": 0.04410517527778201
+        }
+      },
+      "evaluation": {
+        "episodes_per_env": 8,
+        "oe_sample": 16,
+        "persistence_agents": 32,
+        "persistence_steps": 5000
+      },
+      "oe": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 2000,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.03411858603369065
+        }
+      },
+      "oe_fixed": {
+        "chunk_steps": 2000,
+        "settings": {
+          "CHANGE_EVERY": 0,
+          "MIN_POP": 16,
+          "N_INITIAL": 32,
+          "TRAIT_FRAC": 0.05,
+          "WEIGHT_SD": 0.005074746343511773
+        }
+      },
+      "ppo": {
+        "body": [
+          1.0,
+          1.0,
+          10.0
+        ],
+        "chunk_updates": 10,
+        "n_envs": 64,
+        "settings": {
+          "ANNEAL_LR": false,
+          "CLIP_EPS": 0.2,
+          "ENT_COEF": 0.0,
+          "GAE_LAMBDA": 0.95,
+          "GAMMA": 0.99,
+          "LOG_STD_INIT": 0.0,
+          "LR": 0.0003,
+          "MAX_GRAD_NORM": 0.5,
+          "NORMALIZE_REWARD": true,
+          "NUM_MINIBATCHES": 32,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 4,
+          "VF_COEF": 0.5
+        }
+      },
+      "ppo_dr": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.99,
+          "LR": 0.00018035308869270724,
+          "NORMALIZE_REWARD": true,
+          "NUM_STEPS": 64,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "ppo_fixed": {
+        "settings": {
+          "ENT_COEF": 0.0,
+          "GAMMA": 0.95,
+          "LR": 0.0007062967773715715,
+          "NORMALIZE_REWARD": false,
+          "NUM_STEPS": 128,
+          "UPDATE_EPOCHS": 8
+        }
+      },
+      "tuned_from": {
+        "folder": "results/part3/tuning",
+        "per_method": {
+          "es_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 23.776692708333332,
+            "seed": 4407,
+            "trial": 7
+          },
+          "oe": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.332682291666666,
+            "seed": 4002,
+            "trial": 2
+          },
+          "oe_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 15.273763020833334,
+            "seed": 4107,
+            "trial": 7
+          },
+          "ppo_dr": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 26.928385416666668,
+            "seed": 4307,
+            "trial": 7
+          },
+          "ppo_fixed": {
+            "commit": "732a643c75b3e33329565dc168103e4f442d7a8f",
+            "score": 27.449544270833332,
+            "seed": 4201,
+            "trial": 1
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-tuned"
+      },
+      "tuned_from_addendum": {
+        "folder": "/workspace/addendum/a/tuning",
+        "per_method": {
+          "es_fixed": {
+            "commit": "06ff7b27313e55e6c9a017359cb89a2eda9c1361",
+            "score": 21.713541666666668,
+            "seed": 4505,
+            "trial": 5
+          }
+        },
+        "written_by": "scripts/part3/tune.py --write-addendum"
+      }
+    },
+    "training_commits": [
+      "06ff7b27313e55e6c9a017359cb89a2eda9c1361"
+    ],
+    "n": 10
+  }
+}

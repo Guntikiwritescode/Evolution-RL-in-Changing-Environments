@@ -1,0 +1,16 @@
+{
+  "panels": [
+    [
+      "A  Trait experiment",
+      "200 seeds per primary group\n4 prespecified arms\n\nSearch-pipeline and mutation\ncomparisons\n\nP1: mean population\nP2: terminal extinction"
+    ],
+    [
+      "B  Neural experiment",
+      "10 runs per method\n5 core methods + ES-fixed addendum\n\nOE - PPO-DR adaptation IQM:\n-0.559 [-0.609, -0.520]\n\nZero-shot and adaptation tests"
+    ],
+    [
+      "C  Inference scope",
+      "Separately tuned pipelines\nOne world and variation schedule\n\nMatched nominal agent steps\nWhole-run uncertainty\n\nHistorical reconstruction:\nseparate supporting evidence"
+    ]
+  ]
+}

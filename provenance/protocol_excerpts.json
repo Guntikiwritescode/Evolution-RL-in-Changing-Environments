@@ -1,0 +1,74 @@
+[
+  {
+    "document": "docs/PREREG_part2.md",
+    "original_sha256": "71a125c9ebb937d103fb86033cd9f4229d6b433865ee6c533100ab0f06b0d842",
+    "included_original_sections": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      18
+    ],
+    "distribution": "scientific excerpts; private operational sections omitted",
+    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+  },
+  {
+    "document": "docs/PREREG_part3.md",
+    "original_sha256": "78f367f3fc19c01aaf744c77f28c1ee092895f255c6c0fe07373f4a08d706f41",
+    "included_original_sections": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      16
+    ],
+    "distribution": "scientific excerpts; private operational sections omitted",
+    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+  },
+  {
+    "document": "docs/SPEC_part3.md",
+    "original_sha256": "c1061810041008bec5a3ca4e00ba6889d0c516cdbfaca650f3e0c896ff176b15",
+    "included_original_sections": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "distribution": "scientific excerpts; private operational sections omitted",
+    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+  },
+  {
+    "document": "docs/SPEC_part1.md",
+    "original_sha256": "3858484a1b2ddbefd10f665c68b57f477bf63e0268ff1ce05999fe1bb25f51ee",
+    "included_original_sections": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13
+    ],
+    "distribution": "scientific excerpts; private operational sections omitted",
+    "editorial_changes": "Personal and operational wording removed; unperformed extension plans abridged. Statistical rules and realized design choices retained."
+  }
+]

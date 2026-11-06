@@ -1,0 +1,7 @@
+# Written by scripts/part2/maprule.py (round 2) from results/part2/maprule_round2/maprule.json.
+# Do not edit by hand. Arm 3's map side (PREREG_part2.md Section 9.2).
+extends: base.yaml
+part2:
+  arm3_side: 750
+  arm3_rule_commit: e5423a8ec25b0368a06f318bf617aba04042d4c0
+

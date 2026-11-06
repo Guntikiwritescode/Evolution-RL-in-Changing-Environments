@@ -1,0 +1,12 @@
+# Part 3 validation set (docs/SPEC_part3.md, Section 3.4). Used only for tuning and sanity checks.
+# Provisional until check-in 8.
+drawn:
+  ranges: train            # the train ranges in train.yaml
+  env_seeds: [4900, 4919]  # inclusive; one environment per seed ("env_params" stream)
+corners:                   # 4 fixed corner combinations of size and food
+  - {L: 40.0, F: 20, layout: clusters, k: 3, sigma: 5.0, rho: 0.03}
+  - {L: 40.0, F: 60, layout: clusters, k: 3, sigma: 5.0, rho: 0.03}
+  - {L: 80.0, F: 20, layout: clusters, k: 3, sigma: 5.0, rho: 0.03}
+  - {L: 80.0, F: 60, layout: clusters, k: 3, sigma: 5.0, rho: 0.03}
+episode_seeds: [4930, 4999]  # evaluation episodes on validation environments
+

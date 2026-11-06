@@ -1,0 +1,17 @@
+# Frozen Part 1 configuration, written by scripts/part1/calibrate.py --stage 2.
+# Do not edit by hand. Calibration details: calibration/selected.json and calibration/log.csv.
+extends: base.yaml
+world:
+  tick_cap: 200
+  cannibalism: false
+mutation_sd:
+  speed: 1.0
+  size: 1.0
+  sense: 1.0
+  reach: 0.25
+calibration:
+  selected_setting: sd1_reach0.25_cap200_cann0
+  score: 0.29370903465714515
+  targets_sha: a7e92c340f96
+  frozen_utc: '2026-10-31T19:39:52+00:00'
+

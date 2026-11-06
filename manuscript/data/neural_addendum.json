@@ -1,0 +1,425 @@
+{
+ "a1": {
+  "D": 0.028590476922424446,
+  "ci": [
+   0.02030836624522241,
+   0.03839286541722351
+  ],
+  "margin": 0.05,
+  "p_es_dr_greater": 0.99,
+  "reps": 50000,
+  "seed": 4800,
+  "verdict": "support (below the margin)"
+ },
+ "a4": {
+  "interaction": {
+   "ci": [
+    0.09576325850459447,
+    0.2091228212082522
+   ],
+   "value": 0.1496283706032293
+  },
+  "variety_es": {
+   "ci": [
+    0.020276132003000928,
+    0.03846149614509982
+   ],
+   "value": 0.028590476922424446
+  },
+  "variety_oe": {
+   "ci": [
+    -0.17973271413302103,
+    -0.06783896719489078
+   ],
+   "value": -0.12103789368080486
+  },
+  "verdict": "variety effect larger for ES than for OE"
+ },
+ "bootstrap_reps": 50000,
+ "commits": [
+  "06ff7b27313e55e6c9a017359cb89a2eda9c1361"
+ ],
+ "core_analysis": "results/part3/final/analysis.json",
+ "descriptive": {
+  "es_dr": {
+   "primary_mean_by_set": {
+    "T1": 0.9231493206008612,
+    "T2": 0.8743486275200236,
+    "T3": 0.8685532055560102
+   },
+   "train_wall_hours_mean": 0.007195277777777777,
+   "zero_shot_norm_mean_by_set": {
+    "T1": 0.9017476611391696,
+    "T2": 0.7114345370881691,
+    "T3": 0.8543368549853686
+   },
+   "zero_shot_raw_mean_by_set": {
+    "T1": 29.439375,
+    "T2": 3.19125,
+    "T3": 20.849140625
+   }
+  },
+  "es_fixed": {
+   "primary_mean_by_set": {
+    "T1": 0.8929720221759433,
+    "T2": 0.8377488023545245,
+    "T3": 0.8469723883992866
+   },
+   "train_wall_hours_mean": 0.002049166666666667,
+   "zero_shot_norm_mean_by_set": {
+    "T1": 0.8223300620372906,
+    "T2": 0.6769835468364414,
+    "T3": 0.8041461471990753
+   },
+   "zero_shot_raw_mean_by_set": {
+    "T1": 27.2596875,
+    "T2": 3.051328125,
+    "T3": 19.829140625
+   }
+  },
+  "oe": {
+   "primary_mean_by_set": {
+    "T1": 0.3959602484497688,
+    "T2": 0.3205163051293167,
+    "T3": 0.27591906726579835
+   },
+   "train_wall_hours_mean": 0.37181388888888894,
+   "zero_shot_norm_mean_by_set": {
+    "T1": 0.4051867241860878,
+    "T2": 0.4383340126431791,
+    "T3": 0.29655642256069537
+   },
+   "zero_shot_raw_mean_by_set": {
+    "T1": 13.685,
+    "T2": 2.1965625,
+    "T3": 7.73296875
+   }
+  },
+  "oe_fixed": {
+   "primary_mean_by_set": {
+    "T1": 0.5303219585099821,
+    "T2": 0.3859880233041455,
+    "T3": 0.45101105745862297
+   },
+   "train_wall_hours_mean": 0.4022316666666667,
+   "zero_shot_norm_mean_by_set": {
+    "T1": 0.5923137921732817,
+    "T2": 0.5285493050915369,
+    "T3": 0.544094696296979
+   },
+   "zero_shot_raw_mean_by_set": {
+    "T1": 19.346875,
+    "T2": 2.53890625,
+    "T3": 13.32375
+   }
+  }
+ },
+ "es_dr_check": {
+  "flag": false,
+  "hardware": [
+   "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+  ],
+  "missing": [],
+  "original_range": [
+   0.8559625441976115,
+   0.8814527735426563
+  ],
+  "rows": [
+   {
+    "original": 0.8814527735426563,
+    "rerun": 0.8830080556403319,
+    "seed": 5000
+   },
+   {
+    "original": 0.8665947774997672,
+    "rerun": 0.8766689910808756,
+    "seed": 5001
+   }
+  ],
+  "tolerance": 0.01
+ },
+ "excluded_es_fixed": [],
+ "family": [
+  {
+   "U": 99.0,
+   "all_tied": false,
+   "ci": [
+    0.02030836624522241,
+    0.03839286541722351
+   ],
+   "iqm_difference": 0.028590476922424446,
+   "measure": "primary",
+   "n_x": 10,
+   "n_y": 10,
+   "name": "A2",
+   "p": 0.00024612812790522973,
+   "p_holm": 0.00036534358221910004,
+   "p_x_greater": 0.99,
+   "predicted": ">",
+   "reject": true,
+   "result": "supported",
+   "sets": [
+    "T2",
+    "T3"
+   ],
+   "x": "es_dr",
+   "y": "es_fixed"
+  },
+  {
+   "U": 100.0,
+   "all_tied": false,
+   "ci": [
+    0.04987244348199851,
+    0.07881129170205997
+   ],
+   "iqm_difference": 0.06451558614829034,
+   "measure": "zero_shot",
+   "n_x": 10,
+   "n_y": 10,
+   "name": "A3",
+   "p": 0.00018267179110955002,
+   "p_holm": 0.00036534358221910004,
+   "p_x_greater": 1.0,
+   "predicted": ">",
+   "reject": true,
+   "result": "supported",
+   "sets": [
+    "T1"
+   ],
+   "x": "es_dr",
+   "y": "es_fixed"
+  }
+ ],
+ "hardware": [
+  "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+ ],
+ "iqm_primary": {
+  "es_dr": [
+   0.8776577279185683,
+   0.872698974103564,
+   0.882342479540714
+  ],
+  "es_fixed": [
+   0.8490672509961439,
+   0.8402613679507294,
+   0.8554149458219756
+  ],
+  "oe": [
+   0.2905293422581987,
+   0.2416555875075971,
+   0.32926321142136183
+  ],
+  "oe_fixed": [
+   0.4115672359390036,
+   0.37587144446836257,
+   0.4433380297014971
+  ]
+ },
+ "random_max_difference_from_core": 0.0,
+ "readings": {
+  "adaptation": "a real but small effect, under 5% of the random-to-best range; reported as \"a small advantage, below the pre-set margin\", not as a meaningful difference, and it does not by itself support Milano et al.'s direction",
+  "fragments": {
+   "adaptation": [
+    "a real but small effect, under 5% of the random-to-best range",
+    "reported as \"a small advantage, below the pre-set margin\", not as a meaningful difference, and it does not by itself support Milano et al.'s direction"
+   ],
+   "milano_claim": [
+    "in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found",
+    "set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason",
+    "which part of it is not tested"
+   ]
+  },
+  "milano_claim": "in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found; set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason; which part of it is not tested"
+ },
+ "runs": {
+  "es_dr": [
+   5000,
+   5001,
+   5002,
+   5003,
+   5004,
+   5005,
+   5006,
+   5007,
+   5008,
+   5009
+  ],
+  "es_fixed": [
+   5000,
+   5001,
+   5002,
+   5003,
+   5004,
+   5005,
+   5006,
+   5007,
+   5008,
+   5009
+  ],
+  "oe": [
+   5000,
+   5001,
+   5002,
+   5003,
+   5004,
+   5005,
+   5006,
+   5007,
+   5008,
+   5009
+  ],
+  "oe_fixed": [
+   5000,
+   5001,
+   5002,
+   5003,
+   5004,
+   5005,
+   5006,
+   5007,
+   5008,
+   5009
+  ]
+ },
+ "spend": {
+  "at": "2026-11-04T22:34:48Z",
+  "parts": {
+   "a": {
+    "check": [],
+    "cost": 0.3842,
+    "dc": "EU-RO-1",
+    "end_reason": "finished",
+    "pod_created_at": "2026-11-04T22:07:15Z",
+    "pod_deleted_at": "2026-11-04T22:33:09Z",
+    "price": 0.89,
+    "volume_deleted_at": null
+   }
+  },
+  "total": 0.3842
+ },
+ "test_access_log": [
+  {
+   "adapt": true,
+   "commit": "06ff7b27313e55e6c9a017359cb89a2eda9c1361",
+   "runs": [
+    "/workspace/addendum/a/es_fixed_seed5000",
+    "/workspace/addendum/a/es_fixed_seed5001",
+    "/workspace/addendum/a/es_fixed_seed5002",
+    "/workspace/addendum/a/es_fixed_seed5003",
+    "/workspace/addendum/a/es_fixed_seed5004",
+    "/workspace/addendum/a/es_fixed_seed5005",
+    "/workspace/addendum/a/es_fixed_seed5006",
+    "/workspace/addendum/a/es_fixed_seed5007",
+    "/workspace/addendum/a/es_fixed_seed5008",
+    "/workspace/addendum/a/es_fixed_seed5009",
+    "/workspace/addendum/a/es_dr_seed5000",
+    "/workspace/addendum/a/es_dr_seed5001"
+   ],
+   "time": "2026-11-04T22:17:52Z"
+  }
+ ],
+ "tuning": {
+  "chosen": {
+   "score": 21.713541666666668,
+   "seed": 4505,
+   "settings": {
+    "EPISODES": 4,
+    "LR": 0.011780463090817461,
+    "POP_SIZE": 32,
+    "SIGMA": 0.04410517527778201
+   },
+   "trial": 5
+  },
+  "trials": [
+   {
+    "score": 18.8193359375,
+    "seed": 4500,
+    "settings": {
+     "EPISODES": 1,
+     "LR": 0.0038529614025428166,
+     "POP_SIZE": 64,
+     "SIGMA": 0.02616934629168885
+    },
+    "trial": 0
+   },
+   {
+    "score": 17.4736328125,
+    "seed": 4501,
+    "settings": {
+     "EPISODES": 4,
+     "LR": 0.012393631240974113,
+     "POP_SIZE": 128,
+     "SIGMA": 0.03577898724165051
+    },
+    "trial": 1
+   },
+   {
+    "score": 20.426432291666668,
+    "seed": 4502,
+    "settings": {
+     "EPISODES": 2,
+     "LR": 0.005430800803511122,
+     "POP_SIZE": 32,
+     "SIGMA": 0.0855220299872645
+    },
+    "trial": 2
+   },
+   {
+    "score": 11.526041666666666,
+    "seed": 4503,
+    "settings": {
+     "EPISODES": 4,
+     "LR": 0.0035466382213500793,
+     "POP_SIZE": 128,
+     "SIGMA": 0.050397607997448926
+    },
+    "trial": 3
+   },
+   {
+    "score": 19.971028645833332,
+    "seed": 4504,
+    "settings": {
+     "EPISODES": 1,
+     "LR": 0.009033884704215612,
+     "POP_SIZE": 128,
+     "SIGMA": 0.05047975429746922
+    },
+    "trial": 4
+   },
+   {
+    "score": 21.713541666666668,
+    "seed": 4505,
+    "settings": {
+     "EPISODES": 4,
+     "LR": 0.011780463090817461,
+     "POP_SIZE": 32,
+     "SIGMA": 0.04410517527778201
+    },
+    "trial": 5
+   },
+   {
+    "score": 15.6650390625,
+    "seed": 4506,
+    "settings": {
+     "EPISODES": 2,
+     "LR": 0.009134042615399414,
+     "POP_SIZE": 64,
+     "SIGMA": 0.013518931974474364
+    },
+    "trial": 6
+   },
+   {
+    "score": 14.721354166666666,
+    "seed": 4507,
+    "settings": {
+     "EPISODES": 4,
+     "LR": 0.005445475182969622,
+     "POP_SIZE": 32,
+     "SIGMA": 0.020922248445590128
+    },
+    "trial": 7
+   }
+  ]
+ },
+ "verdicts_given": true
+}

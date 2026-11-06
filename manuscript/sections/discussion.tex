@@ -1,0 +1,25 @@
+\section{Discussion}
+The tested OE procedure scores below PPO-DR before and during adaptation, in both the training-range and shifted environments. Its populations also have poorer persistence in the separate assay without floor support.
+
+OE selects an interacting population through energy and reproduction and supplies replacement agents when the population falls below its floor. ES and PPO optimize an episodic food score and deploy copies of one actor. Each configuration was tuned separately on zero-shot validation performance. Selection objective, population structure, replacement support and tuning could each contribute to the performance difference. Separating their effects would require experiments that change one component at a time.
+
+The ES zero-shot result on T1 (A3) is consistent with the benefit of varied training reported by \citet{milano2019moderate} in a different task. The ES adaptation contrast (A1) is smaller and concerns the shifted suites. Both results come from one variation schedule and separately tuned configurations. Our experiment cannot test the moderate-rate optimum found in their rate sweep, or attribute the contrasting OE result to selection type.
+
+In T2, where food is scarce and regrowth is slow, extinction is frequent even among policies with relatively high normalized food scores. Those scores express performance relative to an empirical reference; survival requires sufficient food to cover the population's energy costs. Floor replacements supply additional energy during OE training and adaptation, whereas the persistence assay removes that support.
+
+There are ten training runs per configuration and thirty fixed test environments. The bootstrap holds the empirical normalization anchors fixed and excludes variation from tuning and test-environment sampling. The primary contrast persists under alternative resampling and step-count calculations, but these checks use the same observations. Generalization to other environments and tuning searches remains untested. Training records begin near 20 million steps, so they do not establish improvement from initialization. The three exploratory longer-training runs provide little evidence about performance at the larger budget.
+
+\section{Conclusion}
+Under the tested configurations and nominal agent-step budgets, floor-supported ecological neuroevolution performs below PPO-DR during adaptation and has poorer persistence without floor support. The varied OE configuration scores below OE-fixed, while ES-DR scores slightly above ES-fixed. The predicted advantage of PPO-DR over PPO-fixed is unsupported under its prespecified rule. These findings compare separately tuned procedures in one foraging world; they do not identify the causes of the performance differences.
+
+\section*{Data and code availability}
+The manuscript, implementation, configurations, analysis scripts and data are available at \url{https://github.com/Guntikiwritescode/ecological-neuroevolution}. Appendix~\ref{app:reproduction} describes the archived records and source revisions.
+
+\section*{Author contributions}
+Abhinav Guntaka designed the study, implemented the software, ran the experiments, analyzed the results and wrote the manuscript.
+
+\section*{Funding and competing interests}
+The author funded this work. Total project expenditure was US\$87. The author declares no competing interests.
+
+\section*{Use of AI tools}
+Claude Code and Cursor Agents assisted with the research. ChatGPT/Codex assisted with code inspection, statistical reanalysis, manuscript drafting and editing. The author is responsible for the scientific content and conclusions.

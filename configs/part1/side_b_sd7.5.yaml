@@ -1,0 +1,6 @@
+# Pre-registered side check (spec W10, 12.2): Environment B cluster spread 7.5 instead of 15.
+# Everything else is the frozen final config. Not tuned; reported next to the main run.
+extends: final.yaml
+env_B:
+  cluster_sd: 7.5
+

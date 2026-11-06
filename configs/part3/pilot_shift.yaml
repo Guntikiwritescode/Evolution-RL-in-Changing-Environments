@@ -1,0 +1,31 @@
+# Stand-in shifted environments for the pilot (check-in 8) only: the pilot needs the
+# variance of the adaptation measure to size the final runs, and the test split is locked.
+# The ranges are copies of T2 and T3 in the locked test file (a test keeps them equal);
+# the environments themselves are new draws with pilot-evaluation seeds, so no test
+# environment is used. Never used for tuning or for choosing method settings.
+P2:
+  ranges:
+    L: [30.0, 40.0]
+    F: [10, 20]
+    layouts: [clusters]
+    k: [2, 3]
+    sigma: [2.0, 4.0]
+    patch_r: [4.0, 10.0]
+    rho: [0.005, 0.01]
+    drift: [0.0, 0.0]
+    season_P: [0, 0]
+  env_seeds: [3100, 3104]
+P3:
+  ranges:
+    L: [40.0, 80.0]
+    F: [20, 60]
+    layouts: [uniform, clusters, patches]
+    k: [2, 5]
+    sigma: [3.0, 8.0]
+    patch_r: [4.0, 10.0]
+    rho: [0.01, 0.05]
+    drift: [0.05, 0.3]
+    season_P: [100, 300]
+  env_seeds: [3105, 3109]
+episode_seeds: [3130, 3199]
+

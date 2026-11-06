@@ -1,0 +1,42 @@
+# LOCKED Part 3 test set (docs/SPEC_part3.md, Section 3.4).
+# Only evo2.env.splits.load_test_split(final=True) may read this file, and only
+# scripts/part3/evaluate.py with --final calls it. Provisional until check-in 8;
+# after that it changes only with AA's approval, dated in the pre-registration.
+T1:   # in distribution
+  ranges:
+    L: [40.0, 80.0]
+    F: [20, 60]
+    layouts: [uniform, clusters, patches]
+    k: [2, 5]
+    sigma: [3.0, 8.0]
+    patch_r: [4.0, 10.0]
+    rho: [0.01, 0.05]
+    drift: [0.0, 0.0]
+    season_P: [0, 0]
+  env_seeds: [5900, 5909]
+T2:   # near shift: smaller, scarcer, clustered, slower regrowth
+  ranges:
+    L: [30.0, 40.0]
+    F: [10, 20]
+    layouts: [clusters]
+    k: [2, 3]
+    sigma: [2.0, 4.0]
+    patch_r: [4.0, 10.0]   # unused (clusters only)
+    rho: [0.005, 0.01]
+    drift: [0.0, 0.0]
+    season_P: [0, 0]
+  env_seeds: [5910, 5919]
+T3:   # far shift: drifting food and seasonal relocation, train-range sizes
+  ranges:
+    L: [40.0, 80.0]
+    F: [20, 60]
+    layouts: [uniform, clusters, patches]
+    k: [2, 5]
+    sigma: [3.0, 8.0]
+    patch_r: [4.0, 10.0]
+    rho: [0.01, 0.05]
+    drift: [0.05, 0.3]
+    season_P: [100, 300]
+  env_seeds: [5920, 5929]
+episode_seeds: [5930, 5999]  # evaluation episodes on test environments
+

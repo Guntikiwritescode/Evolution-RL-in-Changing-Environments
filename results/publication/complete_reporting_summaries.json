@@ -1,0 +1,1737 @@
+{
+  "core": {
+    "compute": {
+      "es_dr": {
+        "adapt_final_agent_steps_mean": 20144255.733333334,
+        "adapt_wall_hours_mean": 0.019240833333333332,
+        "eval_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "software": [
+          "{\"jax\": \"0.11.2\", \"jax_platform_version\": \"cuda 12090\", \"cuda_driver_version\": \"13.2\", \"python\": \"3.13.18\"}"
+        ],
+        "train_agent_steps": [
+          200020120,
+          200276575,
+          200312317,
+          200002830,
+          200201878,
+          200052709,
+          200057893,
+          200216359,
+          200118196,
+          200181324
+        ],
+        "train_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "train_wall_hours_mean": 0.007195277777777777
+      },
+      "oe": {
+        "adapt_final_agent_steps_mean": 20000009.723333333,
+        "adapt_wall_hours_mean": 1.0110883333333334,
+        "eval_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "software": [
+          "{\"jax\": \"0.11.2\", \"jax_platform_version\": \"cuda 12090\", \"cuda_driver_version\": \"13.2\", \"python\": \"3.13.18\"}"
+        ],
+        "train_agent_steps": [
+          200000031,
+          200000015,
+          200000020,
+          200000004,
+          200000017,
+          200000012,
+          200000003,
+          200000004,
+          200000017,
+          200000012
+        ],
+        "train_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "train_wall_hours_mean": 0.37181388888888894
+      },
+      "oe_fixed": {
+        "adapt_final_agent_steps_mean": 20000009.846666668,
+        "adapt_wall_hours_mean": 1.00997,
+        "eval_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "software": [
+          "{\"jax\": \"0.11.2\", \"jax_platform_version\": \"cuda 12090\", \"cuda_driver_version\": \"13.2\", \"python\": \"3.13.18\"}"
+        ],
+        "train_agent_steps": [
+          200000006,
+          200000012,
+          200000011,
+          200000007,
+          200000012,
+          200000001,
+          200000016,
+          200000015,
+          200000013,
+          200000004
+        ],
+        "train_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "train_wall_hours_mean": 0.4022316666666667
+      },
+      "ppo_dr": {
+        "adapt_final_agent_steps_mean": 20017188.043333333,
+        "adapt_wall_hours_mean": 0.19655166666666668,
+        "eval_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "software": [
+          "{\"jax\": \"0.11.2\", \"jax_platform_version\": \"cuda 12090\", \"cuda_driver_version\": \"13.2\", \"python\": \"3.13.18\"}"
+        ],
+        "train_agent_steps": [
+          200030214,
+          200042853,
+          200043807,
+          200033396,
+          200010407,
+          200015128,
+          200024669,
+          200011167,
+          200002202,
+          200023408
+        ],
+        "train_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "train_wall_hours_mean": 0.04723333333333334
+      },
+      "ppo_fixed": {
+        "adapt_final_agent_steps_mean": 20039594.85333333,
+        "adapt_wall_hours_mean": 0.14018027777777778,
+        "eval_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "software": [
+          "{\"jax\": \"0.11.2\", \"jax_platform_version\": \"cuda 12090\", \"cuda_driver_version\": \"13.2\", \"python\": \"3.13.18\"}"
+        ],
+        "train_agent_steps": [
+          200054994,
+          200118624,
+          200015717,
+          200042971,
+          200023509,
+          200021436,
+          200084263,
+          200072327,
+          200028121,
+          200027878
+        ],
+        "train_hardware": [
+          "[\"NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB\"]"
+        ],
+        "train_wall_hours_mean": 0.02176416666666666
+      }
+    },
+    "descriptive": {
+      "es_dr": {
+        "extinction_rate_by_set": {
+          "T1": 0.03,
+          "T2": 0.89,
+          "T3": 0.22
+        },
+        "final_normalized_mean_T2_T3": 0.8802730273527304,
+        "persistence_births_mean_by_set": {
+          "T1": 497.35,
+          "T2": 15.79,
+          "T3": 334.86
+        },
+        "primary_mean_by_set": {
+          "T1": 0.9231493206008612,
+          "T2": 0.8743486275200236,
+          "T3": 0.8685532055560102
+        },
+        "steps_survived_mean_by_set": {
+          "T1": 4962.91,
+          "T2": 1273.87,
+          "T3": 4150.55
+        },
+        "time_to_90_T2_T3": {
+          "median_time_if_reached": 0.0,
+          "pairs": 200,
+          "reached": 40,
+          "runs_reaching_by_env": {
+            "22": 10,
+            "23": 10,
+            "24": 10,
+            "26": 10
+          },
+          "share_reached": 0.2
+        },
+        "zero_shot_competence_mean_per_env": [
+          40.978125,
+          39.1875,
+          7.37578125,
+          18.465625,
+          39.3796875,
+          9.52578125,
+          50.43359375,
+          12.81875,
+          25.3578125,
+          50.87109375,
+          3.18984375,
+          5.9640625,
+          3.29921875,
+          2.85390625,
+          2.95,
+          2.4921875,
+          4.14921875,
+          4.22421875,
+          1.61328125,
+          1.1765625,
+          11.93359375,
+          21.61875,
+          35.821875,
+          29.11640625,
+          35.31640625,
+          6.84921875,
+          40.31796875,
+          14.3578125,
+          5.04453125,
+          8.11484375
+        ],
+        "zero_shot_normalized_mean_T2_T3": 0.7828856960367687
+      },
+      "oe": {
+        "extinction_rate_by_set": {
+          "T1": 0.48,
+          "T2": 0.94,
+          "T3": 0.76
+        },
+        "final_normalized_mean_T2_T3": 0.249628765160352,
+        "persistence_births_mean_by_set": {
+          "T1": 300.0,
+          "T2": 6.8,
+          "T3": 102.78
+        },
+        "primary_mean_by_set": {
+          "T1": 0.3959602484497688,
+          "T2": 0.3205163051293167,
+          "T3": 0.27591906726579835
+        },
+        "steps_survived_mean_by_set": {
+          "T1": 3188.28,
+          "T2": 776.13,
+          "T3": 1892.91
+        },
+        "time_to_90_T2_T3": {
+          "median_time_if_reached": 0.1,
+          "pairs": 200,
+          "reached": 43,
+          "runs_reaching_by_env": {
+            "21": 7,
+            "22": 9,
+            "23": 6,
+            "24": 9,
+            "26": 10,
+            "27": 2
+          },
+          "share_reached": 0.215
+        },
+        "zero_shot_competence_mean_per_env": [
+          16.1265625,
+          15.94375,
+          3.44375,
+          9.9515625,
+          22.7265625,
+          4.890625,
+          18.8640625,
+          6.5453125,
+          11.90390625,
+          26.45390625,
+          2.46875,
+          3.86875,
+          2.20625,
+          1.9671875,
+          1.9109375,
+          1.8296875,
+          2.70078125,
+          2.98984375,
+          1.16171875,
+          0.86171875,
+          3.36796875,
+          10.8203125,
+          10.69765625,
+          9.8546875,
+          11.953125,
+          2.8328125,
+          15.6953125,
+          7.18828125,
+          1.71953125,
+          3.2
+        ],
+        "zero_shot_normalized_mean_T2_T3": 0.36744521760193727
+      },
+      "oe_fixed": {
+        "extinction_rate_by_set": {
+          "T1": 0.3,
+          "T2": 0.93,
+          "T3": 0.48
+        },
+        "final_normalized_mean_T2_T3": 0.34864746340109,
+        "persistence_births_mean_by_set": {
+          "T1": 387.31,
+          "T2": 10.79,
+          "T3": 231.77
+        },
+        "primary_mean_by_set": {
+          "T1": 0.5303219585099821,
+          "T2": 0.3859880233041455,
+          "T3": 0.45101105745862297
+        },
+        "steps_survived_mean_by_set": {
+          "T1": 4019.21,
+          "T2": 1004.2,
+          "T3": 3150.16
+        },
+        "time_to_90_T2_T3": {
+          "median_time_if_reached": 0.0,
+          "pairs": 200,
+          "reached": 43,
+          "runs_reaching_by_env": {
+            "21": 4,
+            "22": 10,
+            "23": 9,
+            "24": 10,
+            "26": 10
+          },
+          "share_reached": 0.215
+        },
+        "zero_shot_competence_mean_per_env": [
+          27.4796875,
+          24.24453125,
+          4.9671875,
+          13.3140625,
+          29.1609375,
+          6.6265625,
+          27.86015625,
+          9.20234375,
+          17.80703125,
+          32.80625,
+          2.63671875,
+          4.7125,
+          2.66875,
+          2.08203125,
+          2.17734375,
+          2.0921875,
+          3.36015625,
+          3.39609375,
+          1.31796875,
+          0.9453125,
+          6.9515625,
+          17.18984375,
+          22.60625,
+          17.80390625,
+          20.84375,
+          4.82265625,
+          23.90703125,
+          10.434375,
+          3.21953125,
+          5.45859375
+        ],
+        "zero_shot_normalized_mean_T2_T3": 0.536322000694258
+      },
+      "ppo_dr": {
+        "extinction_rate_by_set": {
+          "T1": 0.03,
+          "T2": 0.83,
+          "T3": 0.15
+        },
+        "final_normalized_mean_T2_T3": 0.8158919622428757,
+        "persistence_births_mean_by_set": {
+          "T1": 410.58,
+          "T2": 16.73,
+          "T3": 313.81
+        },
+        "primary_mean_by_set": {
+          "T1": 0.9294699130933541,
+          "T2": 0.7610971938158692,
+          "T3": 0.886114129130364
+        },
+        "steps_survived_mean_by_set": {
+          "T1": 4944.83,
+          "T2": 1412.76,
+          "T3": 4430.06
+        },
+        "time_to_90_T2_T3": {
+          "median_time_if_reached": 0.0,
+          "pairs": 200,
+          "reached": 40,
+          "runs_reaching_by_env": {
+            "22": 10,
+            "23": 10,
+            "24": 10,
+            "26": 10
+          },
+          "share_reached": 0.2
+        },
+        "zero_shot_competence_mean_per_env": [
+          41.04375,
+          39.96875,
+          7.809375,
+          18.67578125,
+          40.4015625,
+          9.8796875,
+          51.78203125,
+          13.2640625,
+          25.72421875,
+          50.92421875,
+          3.2,
+          5.9921875,
+          3.38671875,
+          2.82265625,
+          2.9109375,
+          2.61171875,
+          4.23671875,
+          4.22421875,
+          1.70859375,
+          1.1984375,
+          12.73671875,
+          22.0515625,
+          36.746875,
+          30.7203125,
+          36.90234375,
+          7.2859375,
+          41.39765625,
+          15.24921875,
+          5.1796875,
+          8.94375
+        ],
+        "zero_shot_normalized_mean_T2_T3": 0.8112411187329229
+      },
+      "ppo_fixed": {
+        "extinction_rate_by_set": {
+          "T1": 0.1,
+          "T2": 0.95,
+          "T3": 0.14
+        },
+        "final_normalized_mean_T2_T3": 0.8135037676370565,
+        "persistence_births_mean_by_set": {
+          "T1": 505.35,
+          "T2": 12.04,
+          "T3": 362.5
+        },
+        "primary_mean_by_set": {
+          "T1": 0.921617632172656,
+          "T2": 0.7290413619664032,
+          "T3": 0.9089490500801939
+        },
+        "steps_survived_mean_by_set": {
+          "T1": 4744.45,
+          "T2": 883.52,
+          "T3": 4439.06
+        },
+        "time_to_90_T2_T3": {
+          "median_time_if_reached": 0.0,
+          "pairs": 200,
+          "reached": 40,
+          "runs_reaching_by_env": {
+            "22": 10,
+            "23": 10,
+            "24": 10,
+            "26": 10
+          },
+          "share_reached": 0.2
+        },
+        "zero_shot_competence_mean_per_env": [
+          44.35078125,
+          41.3015625,
+          7.05078125,
+          17.5890625,
+          40.27578125,
+          8.79765625,
+          53.184375,
+          13.3578125,
+          26.41875,
+          51.89765625,
+          3.15546875,
+          5.80390625,
+          3.44140625,
+          2.7109375,
+          2.88515625,
+          2.625,
+          4.27890625,
+          4.17421875,
+          1.675,
+          1.24375,
+          12.4765625,
+          23.0640625,
+          40.7625,
+          32.8375,
+          37.515625,
+          7.4203125,
+          43.3171875,
+          15.93046875,
+          4.7828125,
+          8.81640625
+        ],
+        "zero_shot_normalized_mean_T2_T3": 0.8191907779430351
+      }
+    },
+    "per_run": {
+      "es_dr": [
+        {
+          "adapt_wall_hours": 0.022508333333333335,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5000,
+          "train_agent_steps": 200020120,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.01361111111111111
+        },
+        {
+          "adapt_wall_hours": 0.0183,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5001,
+          "train_agent_steps": 200276575,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.006097222222222222
+        },
+        {
+          "adapt_wall_hours": 0.017694444444444443,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5002,
+          "train_agent_steps": 200312317,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.005058333333333334
+        },
+        {
+          "adapt_wall_hours": 0.01828611111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5003,
+          "train_agent_steps": 200002830,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.005849999999999999
+        },
+        {
+          "adapt_wall_hours": 0.01785,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5004,
+          "train_agent_steps": 200201878,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.005563888888888889
+        },
+        {
+          "adapt_wall_hours": 0.023105555555555556,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5005,
+          "train_agent_steps": 200052709,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.012930555555555555
+        },
+        {
+          "adapt_wall_hours": 0.019158333333333333,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5006,
+          "train_agent_steps": 200057893,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.005594444444444444
+        },
+        {
+          "adapt_wall_hours": 0.018366666666666667,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5007,
+          "train_agent_steps": 200216359,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.00575
+        },
+        {
+          "adapt_wall_hours": 0.01820277777777778,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5008,
+          "train_agent_steps": 200118196,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.005808333333333334
+        },
+        {
+          "adapt_wall_hours": 0.018936111111111112,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5009,
+          "train_agent_steps": 200181324,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.005688888888888889
+        }
+      ],
+      "oe": [
+        {
+          "adapt_wall_hours": 0.9755333333333334,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5000,
+          "train_agent_steps": 200000031,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.38372222222222224
+        },
+        {
+          "adapt_wall_hours": 0.9901249999999999,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5001,
+          "train_agent_steps": 200000015,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.38478333333333337
+        },
+        {
+          "adapt_wall_hours": 1.001975,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5002,
+          "train_agent_steps": 200000020,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.36595833333333333
+        },
+        {
+          "adapt_wall_hours": 0.9910277777777777,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5003,
+          "train_agent_steps": 200000004,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.38698611111111114
+        },
+        {
+          "adapt_wall_hours": 0.9627361111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5004,
+          "train_agent_steps": 200000017,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.36886944444444447
+        },
+        {
+          "adapt_wall_hours": 0.9936944444444445,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5005,
+          "train_agent_steps": 200000012,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.38221666666666665
+        },
+        {
+          "adapt_wall_hours": 1.0550583333333334,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5006,
+          "train_agent_steps": 200000003,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.3815805555555556
+        },
+        {
+          "adapt_wall_hours": 1.0667166666666665,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5007,
+          "train_agent_steps": 200000004,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.37192222222222227
+        },
+        {
+          "adapt_wall_hours": 1.0305805555555556,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5008,
+          "train_agent_steps": 200000017,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.3542472222222222
+        },
+        {
+          "adapt_wall_hours": 1.043436111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5009,
+          "train_agent_steps": 200000012,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.3378527777777778
+        }
+      ],
+      "oe_fixed": [
+        {
+          "adapt_wall_hours": 0.9579833333333333,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5000,
+          "train_agent_steps": 200000006,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.4050833333333333
+        },
+        {
+          "adapt_wall_hours": 0.9499027777777778,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5001,
+          "train_agent_steps": 200000012,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.39923333333333333
+        },
+        {
+          "adapt_wall_hours": 0.9920333333333334,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5002,
+          "train_agent_steps": 200000011,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.41835555555555554
+        },
+        {
+          "adapt_wall_hours": 0.9787555555555556,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5003,
+          "train_agent_steps": 200000007,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.40902777777777777
+        },
+        {
+          "adapt_wall_hours": 1.0484083333333334,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5004,
+          "train_agent_steps": 200000012,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.38592777777777776
+        },
+        {
+          "adapt_wall_hours": 1.0010138888888889,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5005,
+          "train_agent_steps": 200000001,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.37433888888888883
+        },
+        {
+          "adapt_wall_hours": 1.0152416666666666,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5006,
+          "train_agent_steps": 200000016,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.37524722222222223
+        },
+        {
+          "adapt_wall_hours": 1.0255944444444445,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5007,
+          "train_agent_steps": 200000015,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.37819166666666665
+        },
+        {
+          "adapt_wall_hours": 1.1394055555555556,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5008,
+          "train_agent_steps": 200000013,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.4193777777777778
+        },
+        {
+          "adapt_wall_hours": 0.9913611111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5009,
+          "train_agent_steps": 200000004,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.4575333333333333
+        }
+      ],
+      "ppo_dr": [
+        {
+          "adapt_wall_hours": 0.21072222222222223,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5000,
+          "train_agent_steps": 200030214,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.047322222222222224
+        },
+        {
+          "adapt_wall_hours": 0.2005972222222222,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5001,
+          "train_agent_steps": 200042853,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.046205555555555555
+        },
+        {
+          "adapt_wall_hours": 0.2161388888888889,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5002,
+          "train_agent_steps": 200043807,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.04436944444444444
+        },
+        {
+          "adapt_wall_hours": 0.20276944444444445,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5003,
+          "train_agent_steps": 200033396,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.045663888888888886
+        },
+        {
+          "adapt_wall_hours": 0.20165555555555556,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5004,
+          "train_agent_steps": 200010407,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.048808333333333336
+        },
+        {
+          "adapt_wall_hours": 0.1955138888888889,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5005,
+          "train_agent_steps": 200015128,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.048438888888888885
+        },
+        {
+          "adapt_wall_hours": 0.18431944444444442,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5006,
+          "train_agent_steps": 200024669,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.04668055555555556
+        },
+        {
+          "adapt_wall_hours": 0.18015277777777777,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5007,
+          "train_agent_steps": 200011167,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.04725277777777778
+        },
+        {
+          "adapt_wall_hours": 0.1894111111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5008,
+          "train_agent_steps": 200002202,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.04906944444444444
+        },
+        {
+          "adapt_wall_hours": 0.1842361111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5009,
+          "train_agent_steps": 200023408,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.048522222222222224
+        }
+      ],
+      "ppo_fixed": [
+        {
+          "adapt_wall_hours": 0.1509361111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5000,
+          "train_agent_steps": 200054994,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.024102777777777775
+        },
+        {
+          "adapt_wall_hours": 0.13682777777777777,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5001,
+          "train_agent_steps": 200118624,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.020225
+        },
+        {
+          "adapt_wall_hours": 0.1438861111111111,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5002,
+          "train_agent_steps": 200015717,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.02093333333333333
+        },
+        {
+          "adapt_wall_hours": 0.1422972222222222,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5003,
+          "train_agent_steps": 200042971,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.02263611111111111
+        },
+        {
+          "adapt_wall_hours": 0.14461666666666667,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5004,
+          "train_agent_steps": 200023509,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.021355555555555555
+        },
+        {
+          "adapt_wall_hours": 0.14126944444444445,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5005,
+          "train_agent_steps": 200021436,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.021077777777777775
+        },
+        {
+          "adapt_wall_hours": 0.13778055555555555,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5006,
+          "train_agent_steps": 200084263,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.021647222222222224
+        },
+        {
+          "adapt_wall_hours": 0.13855555555555557,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5007,
+          "train_agent_steps": 200072327,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.02131388888888889
+        },
+        {
+          "adapt_wall_hours": 0.136975,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5008,
+          "train_agent_steps": 200028121,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.022094444444444448
+        },
+        {
+          "adapt_wall_hours": 0.12865833333333335,
+          "eval_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "eval_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "seed": 5009,
+          "train_agent_steps": 200027878,
+          "train_commit": "16e86573f55fef8f6035249b734476256e9041a7",
+          "train_gpu": [
+            "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+          ],
+          "train_wall_hours": 0.022255555555555556
+        }
+      ]
+    },
+    "oe_population": {
+      "oe": {
+        "adaptation_mean_per_env_by_set": {
+          "births": {
+            "T1": 44972.59,
+            "T2": 1200.31,
+            "T3": 33259.1
+          },
+          "floor_births": {
+            "T1": 81177.41,
+            "T2": 253243.48,
+            "T3": 124389.0
+          },
+          "steps_all_dead_before_floor": {
+            "T1": 0.0,
+            "T2": 0.0,
+            "T3": 0.0
+          }
+        },
+        "training_mean": {
+          "births": 459737.4,
+          "births_per_1000_steps": 46.621560291351116,
+          "deaths": 1099113.4,
+          "floor_births": 639368.3,
+          "floor_births_per_1000_steps": 64.46558071744155,
+          "floor_share_of_new_agents": 0.5780318825037755,
+          "steps": 9870594.9,
+          "steps_all_dead_before_floor": 0.0
+        },
+        "training_per_run": [
+          {
+            "births": 441674,
+            "births_per_1000_steps": 45.03433802763478,
+            "deaths": 1034189,
+            "floor_births": 592522,
+            "floor_births_per_1000_steps": 60.415229415383784,
+            "floor_share_of_new_agents": 0.5729300828856426,
+            "steps": 9807494,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 421909,
+            "births_per_1000_steps": 42.831844284238194,
+            "deaths": 1046132,
+            "floor_births": 624207,
+            "floor_births_per_1000_steps": 63.36896587920967,
+            "floor_share_of_new_agents": 0.5966900420221084,
+            "steps": 9850358,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 423706,
+            "births_per_1000_steps": 45.41325152132774,
+            "deaths": 917520,
+            "floor_births": 493812,
+            "floor_births_per_1000_steps": 52.92728580725761,
+            "floor_share_of_new_agents": 0.5382041551228423,
+            "steps": 9330008,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 445792,
+            "births_per_1000_steps": 45.35431430228898,
+            "deaths": 1054270,
+            "floor_births": 608463,
+            "floor_births_per_1000_steps": 61.90425611790624,
+            "floor_share_of_new_agents": 0.5771497408122324,
+            "steps": 9829098,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 484442,
+            "births_per_1000_steps": 51.44407370306918,
+            "deaths": 975194,
+            "floor_births": 490756,
+            "floor_births_per_1000_steps": 52.11457271298405,
+            "floor_share_of_new_agents": 0.5032372912987927,
+            "steps": 9416867,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 484877,
+            "births_per_1000_steps": 49.22759068804125,
+            "deaths": 1122608,
+            "floor_births": 637715,
+            "floor_births_per_1000_steps": 64.74461151101049,
+            "floor_share_of_new_agents": 0.5680737079900801,
+            "steps": 9849700,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 428594,
+            "births_per_1000_steps": 40.86887724680656,
+            "deaths": 1270021,
+            "floor_births": 841424,
+            "floor_births_per_1000_steps": 80.23456737265796,
+            "floor_share_of_new_agents": 0.6625291924996338,
+            "steps": 10487051,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 498187,
+            "births_per_1000_steps": 47.7784961043014,
+            "deaths": 1289815,
+            "floor_births": 791616,
+            "floor_births_per_1000_steps": 75.91972888112828,
+            "floor_share_of_new_agents": 0.6137495415966624,
+            "steps": 10427013,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 490222,
+            "births_per_1000_steps": 48.8404986927135,
+            "deaths": 1220906,
+            "floor_births": 730676,
+            "floor_births_per_1000_steps": 72.7967741610885,
+            "floor_share_of_new_agents": 0.5984742378151164,
+            "steps": 10037203,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 477971,
+            "births_per_1000_steps": 49.422318343089664,
+            "deaths": 1060479,
+            "floor_births": 582492,
+            "floor_births_per_1000_steps": 60.229815315789,
+            "floor_share_of_new_agents": 0.5492808329946448,
+            "steps": 9671157,
+            "steps_all_dead_before_floor": 0
+          }
+        ]
+      },
+      "oe_fixed": {
+        "adaptation_mean_per_env_by_set": {
+          "births": {
+            "T1": 47141.54,
+            "T2": 1013.22,
+            "T3": 40609.58
+          },
+          "floor_births": {
+            "T1": 68664.06,
+            "T2": 250011.46,
+            "T3": 103767.99
+          },
+          "steps_all_dead_before_floor": {
+            "T1": 0.0,
+            "T2": 0.0,
+            "T3": 0.0
+          }
+        },
+        "training_mean": {
+          "births": 343255.5,
+          "births_per_1000_steps": 28.683461020356496,
+          "deaths": 843177.3,
+          "floor_births": 499906.1,
+          "floor_births_per_1000_steps": 41.65612641488625,
+          "floor_share_of_new_agents": 0.5858175816218628,
+          "steps": 11978916.8,
+          "steps_all_dead_before_floor": 0.0
+        },
+        "training_per_run": [
+          {
+            "births": 369408,
+            "births_per_1000_steps": 31.005084337626474,
+            "deaths": 842253,
+            "floor_births": 472829,
+            "floor_births_per_1000_steps": 39.68539669491616,
+            "floor_share_of_new_agents": 0.5613966140171947,
+            "steps": 11914433,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 379902,
+            "births_per_1000_steps": 31.9530969024079,
+            "deaths": 763078,
+            "floor_births": 383160,
+            "floor_births_per_1000_steps": 32.22712333477215,
+            "floor_share_of_new_agents": 0.50213481997531,
+            "steps": 11889364,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 375665,
+            "births_per_1000_steps": 31.360514477226946,
+            "deaths": 879351,
+            "floor_births": 503670,
+            "floor_births_per_1000_steps": 42.04637197168993,
+            "floor_share_of_new_agents": 0.5727851160251781,
+            "steps": 11978917,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 383208,
+            "births_per_1000_steps": 32.03275163449722,
+            "deaths": 808706,
+            "floor_births": 425482,
+            "floor_births_per_1000_steps": 35.56647885991197,
+            "floor_share_of_new_agents": 0.5261373332179203,
+            "steps": 11963006,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 249481,
+            "births_per_1000_steps": 20.39292766817436,
+            "deaths": 1034192,
+            "floor_births": 784695,
+            "floor_births_per_1000_steps": 64.14207244871585,
+            "floor_share_of_new_agents": 0.7587634986694721,
+            "steps": 12233702,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 367944,
+            "births_per_1000_steps": 30.607773228430297,
+            "deaths": 853286,
+            "floor_births": 485326,
+            "floor_births_per_1000_steps": 40.372307062653995,
+            "floor_share_of_new_agents": 0.5687836206593458,
+            "steps": 12021260,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 349974,
+            "births_per_1000_steps": 29.47591302106758,
+            "deaths": 882053,
+            "floor_births": 532064,
+            "floor_births_per_1000_steps": 44.812106572606254,
+            "floor_share_of_new_agents": 0.6032211764119007,
+            "steps": 11873220,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 298045,
+            "births_per_1000_steps": 24.89725793098102,
+            "deaths": 816622,
+            "floor_births": 518562,
+            "floor_births_per_1000_steps": 43.31819647102075,
+            "floor_share_of_new_agents": 0.6350202729097351,
+            "steps": 11970997,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 295918,
+            "births_per_1000_steps": 24.439438477146425,
+            "deaths": 864265,
+            "floor_births": 568331,
+            "floor_births_per_1000_steps": 46.937633091447985,
+            "floor_share_of_new_agents": 0.6576009923066153,
+            "steps": 12108216,
+            "steps_all_dead_before_floor": 0
+          },
+          {
+            "births": 363010,
+            "births_per_1000_steps": 30.66985252600677,
+            "deaths": 687967,
+            "floor_births": 324942,
+            "floor_births_per_1000_steps": 27.453577641127495,
+            "floor_share_of_new_agents": 0.4723323720259553,
+            "steps": 11836053,
+            "steps_all_dead_before_floor": 0
+          }
+        ]
+      }
+    },
+    "h2b": {
+      "delta": {
+        "ci": [
+          -0.474258151729356,
+          -0.40559750919676624
+        ],
+        "value": -0.43816210980477743
+      },
+      "interaction": {
+        "ci": [
+          -0.19070444285200566,
+          -0.0763829078104719
+        ],
+        "value": -0.1309587512191296
+      },
+      "interaction_excludes_0": true,
+      "method": {
+        "ci": [
+          -0.524013704762798,
+          -0.46710045155044483
+        ],
+        "value": -0.4937206278760175
+      },
+      "variety": {
+        "ci": [
+          -0.08523827821305581,
+          -0.02817995295502344
+        ],
+        "value": -0.05555851807124007
+      },
+      "verdict": "method matters more"
+    },
+    "excluded_runs": [],
+    "environments_left_out": []
+  },
+  "addendum": {
+    "a4": {
+      "interaction": {
+        "ci": [
+          0.09576325850459447,
+          0.2091228212082522
+        ],
+        "value": 0.1496283706032293
+      },
+      "variety_es": {
+        "ci": [
+          0.020276132003000928,
+          0.03846149614509982
+        ],
+        "value": 0.028590476922424446
+      },
+      "variety_oe": {
+        "ci": [
+          -0.17973271413302103,
+          -0.06783896719489078
+        ],
+        "value": -0.12103789368080486
+      },
+      "verdict": "variety effect larger for ES than for OE"
+    },
+    "hardware": [
+      "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+    ],
+    "es_dr_check": {
+      "flag": false,
+      "hardware": [
+        "NVIDIA GeForce RTX 4090, 595.91.07, 24564 MiB"
+      ],
+      "missing": [],
+      "original_range": [
+        0.8559625441976115,
+        0.8814527735426563
+      ],
+      "rows": [
+        {
+          "original": 0.8814527735426563,
+          "rerun": 0.8830080556403319,
+          "seed": 5000
+        },
+        {
+          "original": 0.8665947774997672,
+          "rerun": 0.8766689910808756,
+          "seed": 5001
+        }
+      ],
+      "tolerance": 0.01
+    },
+    "descriptive": {
+      "es_dr": {
+        "primary_mean_by_set": {
+          "T1": 0.9231493206008612,
+          "T2": 0.8743486275200236,
+          "T3": 0.8685532055560102
+        },
+        "train_wall_hours_mean": 0.007195277777777777,
+        "zero_shot_norm_mean_by_set": {
+          "T1": 0.9017476611391696,
+          "T2": 0.7114345370881691,
+          "T3": 0.8543368549853686
+        },
+        "zero_shot_raw_mean_by_set": {
+          "T1": 29.439375,
+          "T2": 3.19125,
+          "T3": 20.849140625
+        }
+      },
+      "es_fixed": {
+        "primary_mean_by_set": {
+          "T1": 0.8929720221759433,
+          "T2": 0.8377488023545245,
+          "T3": 0.8469723883992866
+        },
+        "train_wall_hours_mean": 0.002049166666666667,
+        "zero_shot_norm_mean_by_set": {
+          "T1": 0.8223300620372906,
+          "T2": 0.6769835468364414,
+          "T3": 0.8041461471990753
+        },
+        "zero_shot_raw_mean_by_set": {
+          "T1": 27.2596875,
+          "T2": 3.051328125,
+          "T3": 19.829140625
+        }
+      },
+      "oe": {
+        "primary_mean_by_set": {
+          "T1": 0.3959602484497688,
+          "T2": 0.3205163051293167,
+          "T3": 0.27591906726579835
+        },
+        "train_wall_hours_mean": 0.37181388888888894,
+        "zero_shot_norm_mean_by_set": {
+          "T1": 0.4051867241860878,
+          "T2": 0.4383340126431791,
+          "T3": 0.29655642256069537
+        },
+        "zero_shot_raw_mean_by_set": {
+          "T1": 13.685,
+          "T2": 2.1965625,
+          "T3": 7.73296875
+        }
+      },
+      "oe_fixed": {
+        "primary_mean_by_set": {
+          "T1": 0.5303219585099821,
+          "T2": 0.3859880233041455,
+          "T3": 0.45101105745862297
+        },
+        "train_wall_hours_mean": 0.4022316666666667,
+        "zero_shot_norm_mean_by_set": {
+          "T1": 0.5923137921732817,
+          "T2": 0.5285493050915369,
+          "T3": 0.544094696296979
+        },
+        "zero_shot_raw_mean_by_set": {
+          "T1": 19.346875,
+          "T2": 2.53890625,
+          "T3": 13.32375
+        }
+      }
+    },
+    "tuning": {
+      "chosen": {
+        "score": 21.713541666666668,
+        "seed": 4505,
+        "settings": {
+          "EPISODES": 4,
+          "LR": 0.011780463090817461,
+          "POP_SIZE": 32,
+          "SIGMA": 0.04410517527778201
+        },
+        "trial": 5
+      },
+      "trials": [
+        {
+          "score": 18.8193359375,
+          "seed": 4500,
+          "settings": {
+            "EPISODES": 1,
+            "LR": 0.0038529614025428166,
+            "POP_SIZE": 64,
+            "SIGMA": 0.02616934629168885
+          },
+          "trial": 0
+        },
+        {
+          "score": 17.4736328125,
+          "seed": 4501,
+          "settings": {
+            "EPISODES": 4,
+            "LR": 0.012393631240974113,
+            "POP_SIZE": 128,
+            "SIGMA": 0.03577898724165051
+          },
+          "trial": 1
+        },
+        {
+          "score": 20.426432291666668,
+          "seed": 4502,
+          "settings": {
+            "EPISODES": 2,
+            "LR": 0.005430800803511122,
+            "POP_SIZE": 32,
+            "SIGMA": 0.0855220299872645
+          },
+          "trial": 2
+        },
+        {
+          "score": 11.526041666666666,
+          "seed": 4503,
+          "settings": {
+            "EPISODES": 4,
+            "LR": 0.0035466382213500793,
+            "POP_SIZE": 128,
+            "SIGMA": 0.050397607997448926
+          },
+          "trial": 3
+        },
+        {
+          "score": 19.971028645833332,
+          "seed": 4504,
+          "settings": {
+            "EPISODES": 1,
+            "LR": 0.009033884704215612,
+            "POP_SIZE": 128,
+            "SIGMA": 0.05047975429746922
+          },
+          "trial": 4
+        },
+        {
+          "score": 21.713541666666668,
+          "seed": 4505,
+          "settings": {
+            "EPISODES": 4,
+            "LR": 0.011780463090817461,
+            "POP_SIZE": 32,
+            "SIGMA": 0.04410517527778201
+          },
+          "trial": 5
+        },
+        {
+          "score": 15.6650390625,
+          "seed": 4506,
+          "settings": {
+            "EPISODES": 2,
+            "LR": 0.009134042615399414,
+            "POP_SIZE": 64,
+            "SIGMA": 0.013518931974474364
+          },
+          "trial": 6
+        },
+        {
+          "score": 14.721354166666666,
+          "seed": 4507,
+          "settings": {
+            "EPISODES": 4,
+            "LR": 0.005445475182969622,
+            "POP_SIZE": 32,
+            "SIGMA": 0.020922248445590128
+          },
+          "trial": 7
+        }
+      ]
+    },
+    "excluded_es_fixed": [],
+    "readings": {
+      "adaptation": "a real but small effect, under 5% of the random-to-best range; reported as \"a small advantage, below the pre-set margin\", not as a meaningful difference, and it does not by itself support Milano et al.'s direction",
+      "fragments": {
+        "adaptation": [
+          "a real but small effect, under 5% of the random-to-best range",
+          "reported as \"a small advantage, below the pre-set margin\", not as a meaningful difference, and it does not by itself support Milano et al.'s direction"
+        ],
+        "milano_claim": [
+          "in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found",
+          "set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason",
+          "which part of it is not tested"
+        ]
+      },
+      "milano_claim": "in our world, score-based ES evolved in varied environments did better on new environments from the training ranges, before any adaptation, as Milano et al. found; set against S2 and the exploratory OE result, their direction holds for score-based ES and not for survival-based OE, and the kind of evolution (with the other ES/OE differences in 16.1) is the likely reason; which part of it is not tested"
+    }
+  }
+}

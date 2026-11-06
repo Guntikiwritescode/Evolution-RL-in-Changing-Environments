@@ -1,0 +1,35 @@
+{
+  "source_commit": "ea7792af7f66f575b4cb294469a681055fdf69d0",
+  "comparison": [
+    {
+      "path": "scripts/part2/write_report_part2.py",
+      "snapshot_sha256": "5c982520ccaa1b67447f10d5888f5fc2acb55f8d5fd55eaf100d02a1c499912a",
+      "working_sha256": "04b99973187200464bad1ea1ee317b927fa9bf299715e0c23a241cfeafc82a92"
+    },
+    {
+      "path": "scripts/part3/analyze.py",
+      "snapshot_sha256": "90792d1f8266d59f44b45eb667bd512e85c48a4de6110f18b9d7d76d1ec1665f",
+      "working_sha256": "e7e1eadf9344a6b424e4a4fc56d5c808db93d40555ce9883df353474891b4084"
+    },
+    {
+      "path": "scripts/part3/analyze_addendum.py",
+      "snapshot_sha256": "50a67371b654f64fe4599185137868f84a34c21e7905625802042c4c43ae435d",
+      "working_sha256": "7944d1467db5ca0373f88ca3c227f76d53fc7894f2e3b29857ad74080270dbcc"
+    },
+    {
+      "path": "src/evo2/analysis.py",
+      "snapshot_sha256": "3b6098c7d72bbc06cf89d47f53bf64a4bcb4be176b119461994663f0d66992f1",
+      "working_sha256": "1cbcab608f92c6872977bd2ab598537194deca58c37f18592259a80113890430"
+    },
+    {
+      "path": "tests/test_report_numbers.py",
+      "snapshot_sha256": "1c844e90d9fb8ae3a5bd837ce58625aded5a2346f43b600ecf424f4f76995601",
+      "working_sha256": "9efdf60b05bff7a73194e12a43297f866019cfc40c43b5b39ff0f4e750b782fe"
+    }
+  ],
+  "scope": "Preparation changes, not replacement of historical experimental code revisions; original data retained.",
+  "preparation_dates": [
+    "2026-11-05",
+    "2026-11-06"
+  ]
+}

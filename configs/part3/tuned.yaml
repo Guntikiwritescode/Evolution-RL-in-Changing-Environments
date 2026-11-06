@@ -1,0 +1,55 @@
+# Written by scripts/part3/tune.py --write-tuned (check-in 9). Do not edit by hand.
+settings:
+  es_dr:
+    EPISODES: 1
+    LR: 0.0073745955277558515
+    POP_SIZE: 64
+    SIGMA: 0.08987903644893716
+  oe:
+    WEIGHT_SD: 0.03411858603369065
+  oe_fixed:
+    WEIGHT_SD: 0.005074746343511773
+  ppo_dr:
+    ENT_COEF: 0.0
+    GAMMA: 0.99
+    LR: 0.00018035308869270724
+    NORMALIZE_REWARD: true
+    NUM_STEPS: 64
+    UPDATE_EPOCHS: 8
+  ppo_fixed:
+    ENT_COEF: 0.0
+    GAMMA: 0.95
+    LR: 0.0007062967773715715
+    NORMALIZE_REWARD: false
+    NUM_STEPS: 128
+    UPDATE_EPOCHS: 8
+source:
+  folder: results/part3/tuning
+  per_method:
+    es_dr:
+      commit: 732a643c75b3e33329565dc168103e4f442d7a8f
+      score: 23.776692708333332
+      seed: 4407
+      trial: 7
+    oe:
+      commit: 732a643c75b3e33329565dc168103e4f442d7a8f
+      score: 15.332682291666666
+      seed: 4002
+      trial: 2
+    oe_fixed:
+      commit: 732a643c75b3e33329565dc168103e4f442d7a8f
+      score: 15.273763020833334
+      seed: 4107
+      trial: 7
+    ppo_dr:
+      commit: 732a643c75b3e33329565dc168103e4f442d7a8f
+      score: 26.928385416666668
+      seed: 4307
+      trial: 7
+    ppo_fixed:
+      commit: 732a643c75b3e33329565dc168103e4f442d7a8f
+      score: 27.449544270833332
+      seed: 4201
+      trial: 1
+  written_by: scripts/part3/tune.py --write-tuned
+

@@ -1,0 +1,42 @@
+# Part 2 configuration (docs/PREREG_part2.md). The world, environments, blob
+# defaults, mutation sizes and phases are the frozen Part 1 config; nothing is
+# recalibrated. Only the `part2` section is new.
+extends: ../part1/final.yaml
+experiment: part2
+
+part2:
+  n_clones: 50                   # Section 3
+  grid:                          # Section 3: 8 log-spaced points per trait, 0.25x to 4x default
+    points: 8
+    low_factor: 0.25
+    high_factor: 4.0
+  search:
+    stage2_sets: 8               # may become 16 (and top 64) once, by the pilot's U3 rule (Section 10)
+    stage2_top: 32
+  long_B_generations: 200        # Section 18.5 (exploratory seeds only); outcomes use B generations 0-49
+  arm3_side: null                # set by the map-size rule (Section 9.2) before the pilot
+  arm3_candidates: [400, 500, 600, 800, 1000]
+  arm3_candidates_round2: [650, 700, 750]   # AA, 1 Nov 2026, after no side passed in round 1
+  arm3_rule: {max_mean_p1: 20.0, max_extinct: 3}
+  suite_sides: [400, 500, 600, 800, 1000]   # Section 18.4
+  suite_food: [15, 40]
+  suite_tick_cap: 100
+  mutation_factors: [0.5, 2.0]   # Section 18.5
+  acheck_generations: 50         # Section 4, A-checks
+  seeds:                         # Section 10 and 18.2 (inclusive ranges)
+    final_100: [2000, 2099]
+    final_200: [2000, 2199]
+    exploratory: [2000, 2099]
+    landscape: [2000, 2009]
+    maprule: [2800, 2829]
+    maprule_round2: [2830, 2859]
+    b_redesign_rule: [2860, 2869]      # AA, 1 Nov 2026: B redesign after the pilot
+    b_redesign_probe: [2870, 2871]
+    b_redesign_rule_round2: [2872, 2881]   # AA, 2 Nov 2026: round 2, median rule (Section 17)
+    pilot: [2900, 2909]
+    pilot2: [2910, 2919]               # second pilot, with arm 4 (Section 9.3)
+    pilot_landscape: [2900, 2901]
+    synthetic: 2950
+    smoke: [2990, 2998]
+    stats: 2999
+

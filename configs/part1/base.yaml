@@ -1,0 +1,63 @@
+# Part 1 base configuration. Every setting is tagged as in docs/SPEC_part1.md:
+# [SOURCE] = MinuteLabs simulator (commit 55af956), [PAPER] = 2025 paper,
+# [AUTHOR] = author decision, [GUESS] = my choice, [PLAN] = PROJECT_PLAN.md.
+# Settings marked "calibrated" are free during calibration and frozen afterwards.
+
+experiment: part1
+
+world:
+  energy_per_generation: 500.0   # [SOURCE] B6, src/store/simulation.js:25
+  cannibalism: false             # [AUTHOR] check-in 1 (S1 default is on, api/mod.rs:30)
+  cannibalism_size_ratio: 0.8    # [SOURCE] C1, api/mod.rs:30
+  tick_cap: 0                    # 0 = no limit [SOURCE] L1; > 0 = limit L2 [GUESS], calibrated
+
+env_A:
+  size: 500.0                    # [PAPER] ER p.3, [SOURCE] src/store/simulation.js:41
+  food: 50                       # [PAPER] ER p.3, [SOURCE] src/store/simulation.js:39
+  layout: uniform                # [SOURCE] stage/mod.rs:46-51
+
+env_B:
+  size: 300.0                    # [PAPER] ER p.3
+  food: 25                       # [PAPER] ER p.3
+  layout: clusters               # [PAPER] 5 clusters, ER p.3
+  n_clusters: 5                  # [PAPER]
+  cluster_sd: 15.0               # [GUESS] W10, fixed before any B run
+  cluster_margin_sds: 2.0        # [GUESS] W8
+  redraw_each_generation: true   # [GUESS] W8
+
+blob_default:                    # ET starting blob
+  speed: 10.0                    # [SOURCE] src/store/simulation.js:19, [PAPER] ER p.5
+  size: 10.0                     # [SOURCE] :20, [PAPER] ER p.5
+  sense: 20.0                    # [SOURCE] :21, [PAPER] ER p.5
+  reach: 1.0                     # [SOURCE] :22, [PAPER] Fig. 3
+  flee: 1.0e12                   # [SOURCE] :23
+
+mutation_sd:                     # standard deviations (S1 passes them to Normal::new as std_dev)
+  speed: 0.5                     # [SOURCE] :19, calibrated ([AUTHOR] check-in 1: may change)
+  size: 0.5                      # [SOURCE] :20, calibrated ([AUTHOR] check-in 1: may change)
+  sense: 0.5                     # [SOURCE] :21, calibrated ([AUTHOR] check-in 1: may change)
+  reach: 0.25                    # [GUESS] S1 default 0 cannot produce Fig. 3; calibrated
+
+et:
+  n_start: 50                    # [PAPER] ER p.3
+
+gs:
+  n_clones: 50                   # [PAPER] ER p.3
+  traits: [speed, size, sense]   # [GUESS] GS2; reach fixed at blob_default.reach
+  grid_low_factor: 0.25          # [GUESS] GS3: 8 log-spaced points from 0.25x to 4x default
+  grid_high_factor: 4.0
+  grid_points: 8                 # [PAPER] 8x8x8
+  search: once                   # [GUESS] GS5 option (b): one search shared by all runs
+  search_seed: 999               # [PLAN]-compatible: a seed outside every range in the seed table
+  eval_generations: 30           # [GUESS] GS5
+  score: food_per_creature       # [GUESS] GS4 (M1; extinct generations score 0)
+
+phases:
+  train_generations: 100         # [PAPER] ER p.3
+  transfer_generations: 50       # [PAPER] Figs. 6-7
+
+seeds:
+  final: [0, 29]                 # [PLAN] inclusive range
+  calibration: [1000, 1029]      # [PLAN]
+  validation: [9000, 9199]       # Python-vs-Rust reference checks; outside every plan range
+

@@ -1,0 +1,6 @@
+# Pre-registered side check (spec W8, 12.2): Environment B cluster spots drawn once for the whole
+# transfer phase instead of fresh every generation. Everything else is the frozen final config.
+extends: final.yaml
+env_B:
+  redraw_each_generation: false
+

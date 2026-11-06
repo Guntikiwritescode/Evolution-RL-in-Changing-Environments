@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evosim"
+version = "0.1.0"
+description = "Part 1-2 simulator for 'Evolving (Artificial) Intelligence' v2: a Python port of the MinuteLabs evolution simulator"
+license = "GPL-3.0-only"
+requires-python = ">=3.11"
+dependencies = ["numpy", "numba", "scipy", "pyyaml", "matplotlib", "pandas"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["evosim*", "evo2*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

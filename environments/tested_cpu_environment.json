@@ -1,0 +1,21 @@
+{
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "scope": "Current CPU reanalysis and synthetic tests; not historical GPU retraining",
+  "packages": {
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "pandas": "2.2.3",
+    "jax": "0.11.2",
+    "jaxlib": "0.11.2",
+    "flax": "0.12.12",
+    "optax": "0.2.8",
+    "rliable": "1.2.0",
+    "matplotlib": "3.10.8",
+    "pytest": "9.2.0",
+    "numba": "0.68.1",
+    "evosax": "0.3.2",
+    "gymnax": "1.0.1",
+    "distrax": "0.1.9"
+  }
+}

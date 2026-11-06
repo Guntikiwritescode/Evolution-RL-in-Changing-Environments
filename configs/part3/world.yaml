@@ -1,0 +1,28 @@
+# Part 3 world constants (docs/SPEC_part3.md, Section 3). Provisional until check-in 8.
+# Every key must match a field of evo2.env.world.WorldConfig; unknown keys are an error.
+common:
+  max_food: 64            # food slots; the largest F in any split is 60
+  k_max: 5                # most cluster or patch centres in any split
+  n_sectors: 8            # 45-degree sectors
+  trait_lo: [0.25, 0.5, 4.0]     # max speed, size, sense range
+  trait_hi: [2.0, 2.0, 20.0]
+  default_traits: [1.0, 1.0, 10.0]
+  max_turn: 0.7853981633974483   # pi / 4 per step
+  base_cost: 0.5
+  move_cost: 1.0          # x size^3 x speed^2
+  sense_cost: 0.05        # x sense range
+  food_energy: 40.0
+  birth_energy: 100.0
+  centre_margin: 0.15     # cluster and patch centres lie in [0.15 L, 0.85 L]
+episodic:
+  n_slots: 16
+  ecological: false
+  episode_len: 500
+ecological:
+  n_slots: 128
+  ecological: true
+  birth_threshold: 200.0
+  parent_birth_cost: 120.0   # the child gets 100, so 20 is lost per birth
+  max_age: 1000
+  birth_offset: 1.0
+

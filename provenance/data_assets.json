@@ -1,0 +1,614 @@
+[
+  {
+    "filename": "Evolving_AI_Study1_Data.zip",
+    "bytes": 37210046,
+    "sha256": "d6f133ec61f54a8113cf0c0494757699279b05454f59452b0e18a1733fcf1c06",
+    "files": 619,
+    "uncompressed_bytes": 65819662,
+    "allowed_roots": [
+      "results",
+      "calibration"
+    ],
+    "parts": [
+      {
+        "path": "Evolving_AI_Study1_Data.zip.parts/0000",
+        "bytes": 8388608,
+        "sha256": "a00aaf77c8d04378eb8f3d71d6f1754d4e9bd480cae83f97ca3d4ae4d27457c4"
+      },
+      {
+        "path": "Evolving_AI_Study1_Data.zip.parts/0001",
+        "bytes": 8388608,
+        "sha256": "dd17d9c05381a4c07d7b3dc81b3e5ce303f2b758bdbd27810342e69a8df55028"
+      },
+      {
+        "path": "Evolving_AI_Study1_Data.zip.parts/0002",
+        "bytes": 8388608,
+        "sha256": "ba7fc10eb2ee283b179072ea1521935f64265696dbf0c6d40a5306b12ada4047"
+      },
+      {
+        "path": "Evolving_AI_Study1_Data.zip.parts/0003",
+        "bytes": 8388608,
+        "sha256": "26abdc90557beedb323d48f28f5e8b745b3114235fe0d93766a3b6e13dea3e87"
+      },
+      {
+        "path": "Evolving_AI_Study1_Data.zip.parts/0004",
+        "bytes": 3655614,
+        "sha256": "bc7448e82470fe8b34cff986677af27f8505352f7ff25912b72a93114f5cb126"
+      }
+    ]
+  },
+  {
+    "filename": "Evolving_AI_Study2_Data.zip",
+    "bytes": 531831116,
+    "sha256": "bf0cc2d831a30f9e2565c6f7f49a8aa05ee1a62bdb2d0e76469f3b477de328cd",
+    "files": 849,
+    "uncompressed_bytes": 643801246,
+    "allowed_roots": [
+      "results"
+    ],
+    "parts": [
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0000",
+        "bytes": 8388608,
+        "sha256": "eb1410879b26a249989361caf75c1745dfeb7dd314491951ed063357f8dbee15"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0001",
+        "bytes": 8388608,
+        "sha256": "4f9aac98dea7b37b655c9c74e330d77cef8a3421b994dc273a6faf2a4f9a2089"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0002",
+        "bytes": 8388608,
+        "sha256": "3added0419ba0005ea71697384cfaa36e6c86f959acac5d74a2c3181a26c8cb8"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0003",
+        "bytes": 8388608,
+        "sha256": "77a75327b92c648eeb00e9e03f5996fa981628f811f13c392dea281db6229ad1"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0004",
+        "bytes": 8388608,
+        "sha256": "444134e7a85a785b1861956c46c69bfbfc59c7b3aefd202c2a4e50097154d01e"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0005",
+        "bytes": 8388608,
+        "sha256": "9b71f45f154a08cf74bb227544c3bd41dafe3cd95539393571f496f242df829c"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0006",
+        "bytes": 8388608,
+        "sha256": "9e5c57085fa99287dc256f01a2e4aba5459d0e84f11321fb6d16f7debf0c93a3"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0007",
+        "bytes": 8388608,
+        "sha256": "27368308771ec53bae31ccd2848d281ace3a06625d39288b368c6ad2bd212129"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0008",
+        "bytes": 8388608,
+        "sha256": "ab1e0be13cf821f62a1ae92e08b355095bd526308c6c772c74490b29fa4b8e7d"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0009",
+        "bytes": 8388608,
+        "sha256": "1bd8022a0e5bf733067b2b4359a12f733ed778c9d9a07af46c3bd2ae9db2afec"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0010",
+        "bytes": 8388608,
+        "sha256": "48fe285dc6b023b72c8fc85e35c88ac17f9e648e19fd507a61fe0073cc564a2b"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0011",
+        "bytes": 8388608,
+        "sha256": "a8602c5ad1b9dcdd56d0c8d7d3609e2b88be27b432ee796da5a4bec493251eb6"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0012",
+        "bytes": 8388608,
+        "sha256": "cf7ea06d618e83b3da22e87a272c0f9c3cf9382c3ccb8e5040b5aea194cfaf8b"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0013",
+        "bytes": 8388608,
+        "sha256": "19612a3809e921f040eda710e2b779e790896e70302257d05adbf19ca4be7218"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0014",
+        "bytes": 8388608,
+        "sha256": "0ed37c28793bfcc27e040f2dc74873bbedf105218a95e000c7775298a8f4fa07"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0015",
+        "bytes": 8388608,
+        "sha256": "00b4535635ed049cc85981d47f34aa3713432991758fb678268c84d0bd16501d"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0016",
+        "bytes": 8388608,
+        "sha256": "20337316ff49345f604fd0148c39ac5d105f5fd9154d0c8280bbcdabbd095a30"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0017",
+        "bytes": 8388608,
+        "sha256": "0ce032764b454a8ca922385190b7d7886a72acfca3b0f9910271e4aa435983f6"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0018",
+        "bytes": 8388608,
+        "sha256": "0b12337836335e3a74881bc76e87d437e8db5b176f027f05e23a4b2bfc3fe2cd"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0019",
+        "bytes": 8388608,
+        "sha256": "0286222ea326239765257fda1c88432e2fce84eb5bebbfa4844aac1279c7a600"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0020",
+        "bytes": 8388608,
+        "sha256": "16d9e862af16ec572761268319c1b251f7c91b50150bc724a91944b2fac6bf94"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0021",
+        "bytes": 8388608,
+        "sha256": "13ce1f3a9ef7afbe1280a941b8cf0b167892cda440e161c41790ce9cdfce2870"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0022",
+        "bytes": 8388608,
+        "sha256": "74b5bab76d2c4305362048fe76dde364939d6327ca26761ead774d6efa449387"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0023",
+        "bytes": 8388608,
+        "sha256": "71ee389537fff927ad15877847aeb5dc81ecd6a328034de52687d840698422d7"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0024",
+        "bytes": 8388608,
+        "sha256": "29ba77c7ac6a9d97ae037a85943a736b3b4b529e715c4d8e5f81fd65fe81caf2"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0025",
+        "bytes": 8388608,
+        "sha256": "bd8c94b6cb9814c785129205f1615bc2dcc726841eb564e45d1c2b05acf42e6e"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0026",
+        "bytes": 8388608,
+        "sha256": "960b14aa84c91a51bf96d19cf2a9bbeb34a6eebd35e5e396b2b025dd641ac3c1"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0027",
+        "bytes": 8388608,
+        "sha256": "8d514a94c869ed662efe1abe6126fe2e4d3899497bb7326cdb3aa4d2156f7e2a"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0028",
+        "bytes": 8388608,
+        "sha256": "40e36d2bd15fb0c3f5693b222d5516ee2e266aa62b8b588f9e7741f33b60b808"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0029",
+        "bytes": 8388608,
+        "sha256": "57d56aa320e969cfb338cb2f0b2cf2c42233f8ef87723beea9bdf6aab8df78ff"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0030",
+        "bytes": 8388608,
+        "sha256": "67bb22c4981fd90ec32b07541344d9f664ebf4a92b8c11a8a3d103bf18028195"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0031",
+        "bytes": 8388608,
+        "sha256": "3ef1748f8410b0e00a6fc0679efe968729d6e8eb3e16217755bf5ab63243a03b"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0032",
+        "bytes": 8388608,
+        "sha256": "f0617af3888eeaa654d05de917bb3b9ea07ff2fb7ab204a434e19feb82791286"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0033",
+        "bytes": 8388608,
+        "sha256": "ee577573d7ea3fe796c9bbc66d9beb9cbf46202708dfd80c2c08eaf69ea902e0"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0034",
+        "bytes": 8388608,
+        "sha256": "a5b28483dddb6c7b4286fe72b3576e3a248c7e6d816af1fe71ab89636fb1c581"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0035",
+        "bytes": 8388608,
+        "sha256": "ee42cd6138a3c3dd2be01a0670d0f6751ae5686b2fed5c2bab04dc81a065d22e"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0036",
+        "bytes": 8388608,
+        "sha256": "d048a4013b7af8591e9f6c95bd57ba05d1ed274d7c035afcaf37f5e7630bef84"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0037",
+        "bytes": 8388608,
+        "sha256": "5f571b1cebeb6096d0046868e89673d51a3cefffe8ff41600b1228ab234ac57e"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0038",
+        "bytes": 8388608,
+        "sha256": "9977aca35c35a4d60706c174d13ca4a3b78e21cbef25531c7ac754eb8274d340"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0039",
+        "bytes": 8388608,
+        "sha256": "160ff3d3252f833bd3683d8334437f7c895f9a5d8cf5646ae535e0499a2913c0"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0040",
+        "bytes": 8388608,
+        "sha256": "2852511892b71626c4d115bcb3b11c3e3db6b01449daf3ef88ad682797cc90f1"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0041",
+        "bytes": 8388608,
+        "sha256": "96e2f8ee39937416eaa567ec73b718fdab20d0d1de20bc955a7a53d1962701d4"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0042",
+        "bytes": 8388608,
+        "sha256": "e976b60fba3e46d41866a8dab75ff16aa80d3cf674823b8835ff7d3cb543d691"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0043",
+        "bytes": 8388608,
+        "sha256": "97d0ff542c765694af3b6699c7cc3ba885b9cd9d045f2e6b8f6c421e7ed4a119"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0044",
+        "bytes": 8388608,
+        "sha256": "fad357a5f67b6b7aca8a81b04f6d6c839b91d319f539ac143936898073042be3"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0045",
+        "bytes": 8388608,
+        "sha256": "feb841a1f73331259ad569d0658f361d34b144cddd78ccca4fdf95d2fdf7db4e"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0046",
+        "bytes": 8388608,
+        "sha256": "92e0f1577279476333b87a6894671d41542b4806256f3311c23da0551186991c"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0047",
+        "bytes": 8388608,
+        "sha256": "fd822a876ab0683291927d1f09e2e17fedd68e0724ccbcb1ab50df3c57d920dc"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0048",
+        "bytes": 8388608,
+        "sha256": "7f4c7d5406b7c9ea4da2845396e5c7da53a4b43824993b6d7019c9559cfd75fb"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0049",
+        "bytes": 8388608,
+        "sha256": "43a413eb4cd2cb27ed67e223ebbe6158d856e06ac705dcb564c2150b4e4b25ba"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0050",
+        "bytes": 8388608,
+        "sha256": "a4b8f4cb014f7b06e247549f652f568f41d17fb4db271620fe20c3d23dd1fcb2"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0051",
+        "bytes": 8388608,
+        "sha256": "4171e611081c73cc035d8c6e58b78e2a0571bebb946a0c7e6e4bbdbbfdd718a0"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0052",
+        "bytes": 8388608,
+        "sha256": "1b309150d9e09bbcfae1d0a4cc99203ec7d070d84178ba11652b372983cc010f"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0053",
+        "bytes": 8388608,
+        "sha256": "1c04ffd3d29840824bcf31d8f6f7fbdb5e7fffc71a43059d240582fa0fbdb4c6"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0054",
+        "bytes": 8388608,
+        "sha256": "0e4de09ca7c713cf36f089e6229cf97443906372880fa527937877f9460c3d45"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0055",
+        "bytes": 8388608,
+        "sha256": "a52ec7ca9265530fb6a645a7dc8653bda8e17c27f98e3f338e8a804effe5787a"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0056",
+        "bytes": 8388608,
+        "sha256": "32536aa30f31df17b9386a6450925d758bdb3f7be002a4af87842ce3b3fcc554"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0057",
+        "bytes": 8388608,
+        "sha256": "ada59bb4d18a4612b8d95aba2edd07772bcf66f3a181f1cb558731619e5ac854"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0058",
+        "bytes": 8388608,
+        "sha256": "ea691b2771a3c7994d2231458af6ebe16ef70f9e9d573d0def22067416e53be6"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0059",
+        "bytes": 8388608,
+        "sha256": "8b2969cf3e7f9a96f1b862aae161eea4d26a38c9fcc9b80b90adc6eb4cb333f3"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0060",
+        "bytes": 8388608,
+        "sha256": "d17d68f5d5dcd8b88c698ba93db634ed75b1c1fb1d2478fd9aa6445177b4f8d9"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0061",
+        "bytes": 8388608,
+        "sha256": "1d0af1b4fd7542f62e87c509816a841507583798bb8886660f288d7ba196023f"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0062",
+        "bytes": 8388608,
+        "sha256": "c912b63c33b4b828ff0b35f3b876019c3477c070d5e535890a2c43ef6e13f571"
+      },
+      {
+        "path": "Evolving_AI_Study2_Data.zip.parts/0063",
+        "bytes": 3348812,
+        "sha256": "fedc5f9dfded8f7a7db20a2ebc95d27610643b73798a3a7f2802b028f5dc16cd"
+      }
+    ]
+  },
+  {
+    "filename": "Evolving_AI_Study3_Data.zip",
+    "bytes": 378240884,
+    "sha256": "4f04e86f5831bea016c22503c00562ff7c2472e187ed4ab443750d9a87eba236",
+    "files": 1613,
+    "uncompressed_bytes": 857909474,
+    "allowed_roots": [
+      "results"
+    ],
+    "parts": [
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0000",
+        "bytes": 8388608,
+        "sha256": "047dbdf5c9a2cfbc7e9b96c469f6df90551ab9fbec21c176ee212f654eeccdef"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0001",
+        "bytes": 8388608,
+        "sha256": "1f5492899cf81c4b2c6b5fae0124789bb81f9d4b9469eafa72a7c45a3555dc3f"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0002",
+        "bytes": 8388608,
+        "sha256": "13402e08bce8a1b36c8cb2ce9dd1b0f75f23e34851d6b170dc63222f21334350"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0003",
+        "bytes": 8388608,
+        "sha256": "0695e43e67ba5aae32097e75798dba1123a5305d52bc0fdd344ec6e2a9f0ea75"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0004",
+        "bytes": 8388608,
+        "sha256": "9c0546e88aea78da97a4002a1d3b4882d3570fd19ba3faad246b67c9027d7082"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0005",
+        "bytes": 8388608,
+        "sha256": "299199df84520744ad9caabe0552d588e24d44700554a7ec93d85a944aef0fdd"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0006",
+        "bytes": 8388608,
+        "sha256": "8e3d10215bcee4798653f9688f604c6be4c277faf2bc4c9f0973188d803e01bf"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0007",
+        "bytes": 8388608,
+        "sha256": "0391d0f85d8be545526c7e220749fe48e4e321c454d655d386b0318aa71799f6"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0008",
+        "bytes": 8388608,
+        "sha256": "5a87094c676d8e4e7f014632e5fde5d93493b65b758c0a7d6ee69b67977f6327"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0009",
+        "bytes": 8388608,
+        "sha256": "40b700ff3906e89ca2b7aa822f5170e12a646277b7516d3e38459ed80a66c3ab"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0010",
+        "bytes": 8388608,
+        "sha256": "5975ea2c64024ac5cb2f6a8c8ba224204750a062875596b17526bfcde3bb647d"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0011",
+        "bytes": 8388608,
+        "sha256": "e11b854cabcc9a574846c739ab6bdce67cd00ba6cb069346fda3563cb60a9d33"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0012",
+        "bytes": 8388608,
+        "sha256": "3d7928fc17998974d5fd8bb389f35bd83e7e97eb9683c117493513202c9a615c"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0013",
+        "bytes": 8388608,
+        "sha256": "7403d6dd6cdc7930ef21412de43659239dc855a0202e0a4d8d9b35eb56d592df"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0014",
+        "bytes": 8388608,
+        "sha256": "989d0f2e4ba0841a0b84aaa276ba1592c10f18060e6bab621a7c5c5be2b26638"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0015",
+        "bytes": 8388608,
+        "sha256": "807d3fdb7ebc207e0eeeaa14c67599d953b3d9ccd6a8e54449daa4bc5b57c775"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0016",
+        "bytes": 8388608,
+        "sha256": "fece6a04765f47bf57358edc8611c9628cd394d4217075bd391d22ad9dbe3333"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0017",
+        "bytes": 8388608,
+        "sha256": "ff73b10b874124afff54a156a6eb36f851299359b707231dac71b66925803aaa"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0018",
+        "bytes": 8388608,
+        "sha256": "43f43d7eb75f4a1a2c727975f79ea1bcd6e9a7cd2d236004a44fb400335f5653"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0019",
+        "bytes": 8388608,
+        "sha256": "839e4cbe9f42a5b8800d89a7f6717d85f9f63d6a525b0a1c8577c9385ae39b4c"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0020",
+        "bytes": 8388608,
+        "sha256": "5757e519bda049fa4e4c3878d2a09116df39fe9cad9c956758ce11c032955baf"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0021",
+        "bytes": 8388608,
+        "sha256": "a128d73ff07a343a03926d3ffd5f605c0a45c67cdb3f0de282578cea2505d3e0"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0022",
+        "bytes": 8388608,
+        "sha256": "a4deca9ba0f4c53ff438ec27829d72ef4015a16ab8ccda0b9a7dbb83487c062a"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0023",
+        "bytes": 8388608,
+        "sha256": "4b76217aa091b3c1a83ef9e77b5f68c0e0582de73e78d5d101a6253f95ad5d25"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0024",
+        "bytes": 8388608,
+        "sha256": "cc42eddd0570057fd9d33be436eb042512ba999f6a1c2f2868d534730967baaf"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0025",
+        "bytes": 8388608,
+        "sha256": "b745e7a189f425fd76edbfb67e5e6ac03a73084509929597f4757d01157987ef"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0026",
+        "bytes": 8388608,
+        "sha256": "c06c5ad7c77cd16895c7fd292e37dec43a88c397578c8426642f222a9e1b4e8c"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0027",
+        "bytes": 8388608,
+        "sha256": "68161159615d5773d69322427a43f3e518781e2f22087b2478529db52fcd70d3"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0028",
+        "bytes": 8388608,
+        "sha256": "ba5afe172c7fc1b396959e1f0e229444f07e511bb7e48717ff8e2140d87f18ba"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0029",
+        "bytes": 8388608,
+        "sha256": "bbbd6e9f583ddb69d072568ed5dd403e7357569ee649f2f549f4cedd75e22d3c"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0030",
+        "bytes": 8388608,
+        "sha256": "cb3018c7991f0445f694fd8e749e2d4c9df7fb05c72d34ab8a6c37264018c29a"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0031",
+        "bytes": 8388608,
+        "sha256": "30b81ab5e0ba631e5b4945f4385f39f190b70b216b31e7641fc35a6c7567adf9"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0032",
+        "bytes": 8388608,
+        "sha256": "8b005a951f98fc3205d8ad4f14f2f49391894e7112d245760a4a371eb5c884d5"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0033",
+        "bytes": 8388608,
+        "sha256": "417a49dbb0b5e87b04c5310cd5bbc8d0728ab362cfd457f9227af8b7c2527e3e"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0034",
+        "bytes": 8388608,
+        "sha256": "e0febcdda2d0a16d19b0ca9b0d5dec03071bed1a1bfe90184a697ef6498e3699"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0035",
+        "bytes": 8388608,
+        "sha256": "1a65f474fc5ef5b756ded0693f45a6ce9d417e82f36078cbf263b0a09be291d3"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0036",
+        "bytes": 8388608,
+        "sha256": "067a90846a8606a2ba0f485a090409a67641fea6876e5a07f89242fe4f6582ef"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0037",
+        "bytes": 8388608,
+        "sha256": "014f587156191a85aa460bbcd6b19c07998021cca84af4eef5885a5bc139b55b"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0038",
+        "bytes": 8388608,
+        "sha256": "16dfd71b2872008f6263fa4339950c1d3cd5e1221ef2f5c92e32b52ce8ff0741"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0039",
+        "bytes": 8388608,
+        "sha256": "33954f55646cf1e0dbd783653326a8f7d76633a2c05de39312c2f6181109cacf"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0040",
+        "bytes": 8388608,
+        "sha256": "e7a44254b1edcc5f396f4af4d675f44a857ff8450c3cc627304903d0b756eb9f"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0041",
+        "bytes": 8388608,
+        "sha256": "61b349ec3daf94df9cfa628629182933f653d6b4416ce410e6728e34385db301"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0042",
+        "bytes": 8388608,
+        "sha256": "6eb852a71fb6c087bf973e6dda304950a5c73516799c21318c6ab00aacda14ce"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0043",
+        "bytes": 8388608,
+        "sha256": "0aaf6d801b2362b8ed024e471d20963343758cc1c4831c15b387661e304f8a9a"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0044",
+        "bytes": 8388608,
+        "sha256": "405d85dbf269c64ad4405320b071fad889e3452b6a09d5f400ab08ef23328c87"
+      },
+      {
+        "path": "Evolving_AI_Study3_Data.zip.parts/0045",
+        "bytes": 753524,
+        "sha256": "74baea5a345d33968eb34f90fe5288a5e6905b9541f29dfebc608dd93191958a"
+      }
+    ]
+  }
+]

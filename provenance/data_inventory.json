@@ -1,0 +1,43 @@
+{
+  "source_revision": "ea7792af7f66f575b4cb294469a681055fdf69d0",
+  "source_git_blobs_verified": 3728,
+  "original_archive_sha256": "ababa08549d86a3512f5ac1e581e52ffb61b7a28cd9829de2cd006ff984a5658",
+  "excluded_administrative_records": [
+    "results/part3/addendum/_logs/plan.json",
+    "results/part3/explore_long/_machines/state.json",
+    "results/part3/explore_long/_machines/plan.json"
+  ],
+  "assets": [
+    {
+      "filename": "Evolving_AI_Study1_Data.zip",
+      "bytes": 37210046,
+      "sha256": "d6f133ec61f54a8113cf0c0494757699279b05454f59452b0e18a1733fcf1c06",
+      "files": 619,
+      "uncompressed_bytes": 65819662,
+      "allowed_roots": [
+        "results",
+        "calibration"
+      ]
+    },
+    {
+      "filename": "Evolving_AI_Study2_Data.zip",
+      "bytes": 531831116,
+      "sha256": "bf0cc2d831a30f9e2565c6f7f49a8aa05ee1a62bdb2d0e76469f3b477de328cd",
+      "files": 849,
+      "uncompressed_bytes": 643801246,
+      "allowed_roots": [
+        "results"
+      ]
+    },
+    {
+      "filename": "Evolving_AI_Study3_Data.zip",
+      "bytes": 378240884,
+      "sha256": "4f04e86f5831bea016c22503c00562ff7c2472e187ed4ab443750d9a87eba236",
+      "files": 1613,
+      "uncompressed_bytes": 857909474,
+      "allowed_roots": [
+        "results"
+      ]
+    }
+  ]
+}

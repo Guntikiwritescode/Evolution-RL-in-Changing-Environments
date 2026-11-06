@@ -1,0 +1,38 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,graphicx,booktabs,longtable,tabularx,array}
+\usepackage[round,authoryear]{natbib}
+\usepackage{caption,subcaption,placeins,needspace}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Evolution and Reinforcement Learning in Changing Environments},pdfauthor={Abhinav Guntaka},pdfsubject={Research manuscript}}
+\usepackage{enumitem}
+\setlist{nosep}
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.12}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\IQM}{\operatorname{IQM}}
+\newcommand{\E}{\mathbb{E}}
+\title{Evolution and Reinforcement Learning\\in Changing Environments}
+\author{Abhinav Guntaka}
+\date{}
+\begin{document}
+\maketitle
+\vspace{-2em}
+\begin{abstract}
+We compare floor-supported ecological neuroevolution (OE), evolution strategies (ES) and proximal policy optimization (PPO) in a simulated foraging world. Each method has separately tuned fixed- and varied-environment variants, with ten training runs per variant and a shared nominal agent-step budget. We measure food acquisition before and during adaptation to thirty predefined test environments, and population persistence in a separate assay. OE performs below PPO with domain randomization: on the twenty shifted test environments, the difference in pooled interquartile mean of normalized adaptation area under the curve is $-0.5592$, with a nominal 95\% bootstrap interval of $[-0.6088,-0.5196]$. Varied OE also scores below its fixed variant. A later ES-fixed extension finds a positive ES contrast of $0.0286$, below the prespecified $0.05$ margin; the predicted PPO-DR advantage over PPO-fixed is unsupported under its original rule. OE relies heavily on population-floor replacements, particularly in the resource-scarce test suite. Separate tuning prevents the fixed/varied comparisons from isolating the effect of environmental variation. Objectives and population structure also differ between methods.
+\end{abstract}
+\input{sections/introduction}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/discussion}
+\bibliographystyle{plainnat}
+\bibliography{references}
+\clearpage
+\appendix
+\input{sections/appendix}
+\end{document}

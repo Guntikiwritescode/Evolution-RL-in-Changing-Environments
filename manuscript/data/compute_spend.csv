@@ -1,0 +1,9 @@
+stage,usd,machine_hours,basis,source
+study1,0.0,,recorded no rented machines; local resource cost excluded,docs/REPRODUCE.md
+study2,0.33999999999999986,,"rounded account balance difference, approximate",docs/REPRODUCE.md; claimed balance-after not independently backed by cited prelaunch file
+study3_throughput,1.9760327612000026,,account balance difference; not an itemized invoice,results/part3/throughput/spend.json
+study3_pilot,5.286807774651704,5.933671523597505,recorded stage estimate,results/part3/pilot/spend.json
+study3_tuning,2.1552,2.418,recorded stage estimate,results/part3/tuning/spend.json
+study3_final,30.5326,34.266,recorded stage estimate,results/part3/final/spend.json
+study3_explore_long,5.8993,6.621111111111111,recorded stage estimate,results/part3/explore_long/spend.json
+study3_addendum,0.3842,0.43166666666666664,recorded stage estimate,results/part3/addendum/spend.json

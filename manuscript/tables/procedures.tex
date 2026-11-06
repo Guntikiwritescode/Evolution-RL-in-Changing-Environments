@@ -1,0 +1,12 @@
+\begin{table}[tb]
+\centering\small
+\caption{Training and transfer procedures. Each row has fixed and varied variants, separately tuned. Body traits and actor architecture are shared.}\label{tab:procedures}
+\begin{tabularx}{\linewidth}{lYYY}
+\toprule
+Procedure & Training signal & Competence deployment & State at adaptation start\\\midrule
+OE & Energy-dependent survival/reproduction plus floor replacements & 16 sampled population members & Genomes/alive mask retained; world state and energy reset\\
+ES & Rank-shaped episodic food score & 16 copies of mean actor & Mean solution retained; fresh strategy/optimizer\\
+PPO & Food reward and clipped policy objective & 16 copies of actor & Actor/critic and reward statistics retained; fresh Adam/rollout state\\
+\bottomrule
+\end{tabularx}
+\end{table}

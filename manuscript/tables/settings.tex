@@ -1,0 +1,19 @@
+\Needspace{14\baselineskip}
+{\small
+\begin{longtable}{lP{12cm}}
+\caption{Selected settings from the recorded tuning outputs, rounded to six significant digits. Exact values are retained in the accompanying tuning CSV. Fixed and varied configurations were selected separately. Asterisk: later ES-fixed extension.}\label{tab:settings}\\
+\toprule
+Procedure & Settings\\\midrule
+\endfirsthead
+\toprule
+Procedure & Settings\\\midrule
+\endhead
+\bottomrule\endfoot
+OE & Mutation SD = 0.0341186\\
+OE-fixed & Mutation SD = 0.00507475\\
+PPO-DR & Entropy coefficient = 0; Discount = 0.99; Learning rate = 0.000180353; Reward normalization = on; Rollout length = 64; Update epochs = 8\\
+PPO-fixed & Entropy coefficient = 0; Discount = 0.95; Learning rate = 0.000706297; Reward normalization = off; Rollout length = 128; Update epochs = 8\\
+ES-DR & Episodes per candidate = 1; Learning rate = 0.0073746; Population size = 64; Perturbation SD = 0.089879\\
+ES-fixed* & Episodes per candidate = 4; Learning rate = 0.0117805; Population size = 32; Perturbation SD = 0.0441052\\
+\end{longtable}
+}

@@ -1,0 +1,47 @@
+# Numbers printed in the 2025 paper's experiment report, typed once from the PDF
+# (paper/original_paper.pdf; the uploaded file fdb56213-1771660728018.pdf). Read by
+# scripts/part1/compare_paper.py. Nothing in this file is a rebuild result.
+#
+# Pages: "ER p.N" is the experiment report's own page number; PDF page = N + 53.
+# status:
+#   target   = used in calibration (ET training numbers; calibration/targets.json)
+#   defn     = used only to choose a metric definition in calibration stage 2
+#   setting  = used to set a [GUESS] setting before any run (so not an independent check)
+#   held_out = never used for anything; compared only after the final run
+
+fig11:  # Figure 11 table, ER p.12 (PDF p.65). sd: across 30 seeds. p as printed (uncorrected; spec 11.1)
+  - {row: "Final training fitness (mean)",   key: final_fitness,     et: [1.03, 0.03],  gs: [1.30, 0.10], t: -14.14, df: 34.2, p: "<.001", d: -3.65, effect: large,  sig: "***", et_status: target,   gs_status: held_out}
+  - {row: "Final training fitness (median)", key: final_median,      et: [1.00, 0.00],  gs: [1.57, 0.43], t: -7.22,  df: 29.0, p: "<.001", d: -1.86, effect: large,  sig: "***", et_status: target,   gs_status: held_out}
+  - {row: "Transfer fitness (gen 1-10)",     key: transfer_first10,  et: [1.03, 0.01],  gs: [1.13, 0.15], t: -3.37,  df: 29.5, p: ".002",  d: -0.87, effect: large,  sig: "*",   et_status: held_out, gs_status: held_out}
+  - {row: "Transfer fitness (last 10 gen)",  key: transfer_last10,   et: [1.03, 0.01],  gs: [1.13, 0.15], t: -3.37,  df: 29.5, p: ".002",  d: -0.87, effect: large,  sig: "*",   et_status: held_out, gs_status: held_out}
+  - {row: "Generalization gap",              key: gap,               et: [-0.00, 0.03], gs: [0.18, 0.13], t: -7.69,  df: 31.3, p: "<.001", d: -1.99, effect: large,  sig: "***", et_status: held_out, gs_status: held_out}
+  - {row: "Transfer trend slope",            key: slope,             et: [0.00, 0.00],  gs: [0.02, 0.04], t: -3.10,  df: 29.0, p: ".004",  d: -0.80, effect: medium, sig: "*",   et_status: held_out, gs_status: held_out}
+  - {row: "Trait diversity (CV2)",           key: cv2,               et: [0.41, 0.29],  gs: [0.00, 0.00], t: 7.61,   df: 29.0, p: "<.001", d: 1.97,  effect: large,  sig: "***", et_status: target,   gs_status: held_out}
+  - {row: "Shannon diversity (H)",           key: shannon,           et: [3.77, 0.06],  gs: [0.00, 0.00], t: 338.40, df: 29.0, p: "<.001", d: 87.37, effect: large,  sig: "***", et_status: target,   gs_status: held_out}
+  - {row: "Energy efficiency",               key: energy_efficiency, et: [0.20, 0.18],  gs: [0.00, 0.00], t: 5.84,   df: 29.0, p: "<.001", d: 1.51,  effect: large,  sig: "***", et_status: defn,     gs_status: held_out}
+
+text:  # numbers printed in the report's text; value, sd (null if none), source, status, what it means
+  - {id: et_population_gen100, value: 48,    sd: null, source: "ER p.4 ('roughly 48 agents ... by generation 100')", status: target,   what: "ET population at generation 100"}
+  - {id: gs_population_gen100, value: 37,    sd: null, source: "ER p.4 ('37 for GS by generation 100'); Fig. 2 caption ~37", status: held_out, what: "GS population at generation 100"}
+  - {id: et_survival,          value: 0.665, sd: null, source: "ER p.4 (66.5%)", status: target,   what: "ET survival rate in training"}
+  - {id: gs_survival,          value: 0.504, sd: null, source: "ER p.4 (50.4%)", status: held_out, what: "GS survival rate in training"}
+  - {id: et_transfer_gen0,     value: 0.56,  sd: null, source: "ER p.8 ('fell from about 1.03 to 0.56 in the first transfer generation')", status: held_out, what: "ET fitness, first transfer generation"}
+  - {id: et_transfer_stable,   value: 1.04,  sd: 0.04, source: "ER p.8 ('stabilized at approximately 1.04 +/- 0.04')", status: held_out, what: "ET fitness once stable in transfer"}
+  - {id: et_transfer_population, value: 29,  sd: null, source: "ER p.9, Fig. 7 caption ('stabilizes around 29 agents')", status: held_out, what: "ET population once stable in transfer"}
+  - {id: gs_transfer_population_late, value: 2.5, sd: null, source: "ER p.8 ('by generation 25-30, most GS runs had populations of 2-3 agents')", status: held_out, what: "GS population in transfer generations 25-30 (2-3; midpoint used)"}
+  - {id: slope_text_et,        value: 0.02,  sd: 0.04, source: "ER p.11 ('0.02 +/- 0.04 per generation for ET compared to 0.00 for GS')", status: held_out, what: "transfer trend slope, ET (text; the Fig. 11 table gives this value to GS instead)"}
+  - {id: slope_text_gs,        value: 0.00,  sd: null, source: "ER p.11", status: held_out, what: "transfer trend slope, GS (text)"}
+  - {id: compute_et,           value: 7900000, sd: null, source: "ER p.11, Fig. 10", status: held_out, what: "ET total simulation steps"}
+  - {id: compute_gs,           value: 33500000, sd: null, source: "ER p.11, Fig. 10", status: setting, what: "GS total simulation steps (used at design stage to set the search length, GS5)"}
+
+inconsistencies:  # places where the paper disagrees with itself (none of these are rebuild results)
+  - "Fig. 11: the two transfer-fitness rows (gen 1-10 and last 10 gen) are identical in every column; probably a copy error (spec M6)."
+  - "Generalization gap: the table and text give GS 0.18 +/- 0.13; the bar chart (Fig. 8) shows about 0.23 for GS and about 0.02 for ET (spec 11.2)."
+  - "Fig. 11 caption says Bonferroni-corrected, but the printed p-values are uncorrected; the stars match corrected values (spec 11.1)."
+  - "The caption and text (ER p.3) say Bonferroni over 10 comparisons, but the Fig. 11 table has 9 rows."
+  - "Transfer trend slope: the Fig. 11 table gives ET 0.00 +/- 0.00 and GS 0.02 +/- 0.04; the text (ER p.11) gives ET 0.02 +/- 0.04 and GS 0.00, with the same d = -0.80. In every row d is ET minus GS (row 1: 1.03 vs 1.30, d = -3.65), so d = -0.80 means ET is lower, which fits the table. The text is probably the swapped version."
+  - "First transfer generation: ET fitness 0.56 (ER p.8) times about 48 blobs (Fig. 7) is about 27 food, more than the 25 Environment B places. This holds only if B had no other food source; blob-eating would be one (spec 11.4)."
+  - "Late transfer: about 29 blobs (Fig. 7 caption) times 1.04 food each (ER p.8) is about 30 food per generation, more than the 25 Environment B places. Same caveat: only if B had no other food source."
+  - "Late transfer fitness: the text gives 1.04 +/- 0.04 (ER p.8); the Fig. 11 table's last-10 row gives 1.03 +/- 0.01, a spread four times smaller."
+  - "Fig. 11 labels d = -0.80 'medium'; 0.8 is Cohen's cut-off for 'large', so this is borderline by rounding."
+

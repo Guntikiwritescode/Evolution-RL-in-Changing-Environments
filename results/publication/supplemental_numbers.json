@@ -1,0 +1,1526 @@
+[
+  {
+    "macro": "POneFreshMatched",
+    "value": 67.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json targets_recheck.n_pass"
+  },
+  {
+    "macro": "POneTargets",
+    "value": 76.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json targets_recheck.n_targets"
+  },
+  {
+    "macro": "POneCalibrationMatched",
+    "value": 70.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json targets_recheck.calibration_seeds_n_pass"
+  },
+  {
+    "macro": "POneGsTrainingExtinct",
+    "value": 30.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json extinction.GS.extinct_in_training"
+  },
+  {
+    "macro": "POneTransferTargets",
+    "value": 6.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json distinct ET held-out quantities specified in write_replication.py"
+  },
+  {
+    "macro": "POneTransferMatched",
+    "value": 2.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json ET held-out verdicts"
+  },
+  {
+    "macro": "POneTransferPosthocMatched",
+    "value": 3.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json ET held-out posthoc_verdicts (after-data)"
+  },
+  {
+    "macro": "POneEtSteps",
+    "value": 9639080.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json text.compute_et.rebuilt"
+  },
+  {
+    "macro": "POneEtOriginalSteps",
+    "value": 7900000.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json text.compute_et.value"
+  },
+  {
+    "macro": "POneGsSteps",
+    "value": 35071781.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json text.compute_gs.rebuilt"
+  },
+  {
+    "macro": "POneGsOriginalSteps",
+    "value": 33500000.0,
+    "decimals": 0,
+    "source": "results/part1/final/comparison.json text.compute_gs.value"
+  },
+  {
+    "macro": "PTwoMainEtN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET; N"
+  },
+  {
+    "macro": "PTwoMainEtPopulationMean",
+    "value": 24.3625,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainEtPopulationSd",
+    "value": 0.3279964303029185,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainEtExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET; Extinction"
+  },
+  {
+    "macro": "PTwoMainEtFreezebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_freezeB; N"
+  },
+  {
+    "macro": "PTwoMainEtFreezebPopulationMean",
+    "value": 24.1305,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_freezeB; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainEtFreezebPopulationSd",
+    "value": 1.1253228459147573,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_freezeB; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainEtFreezebExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_freezeB; Extinction"
+  },
+  {
+    "macro": "PTwoMainEtClonebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_cloneB; N"
+  },
+  {
+    "macro": "PTwoMainEtClonebPopulationMean",
+    "value": 21.018,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_cloneB; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainEtClonebPopulationSd",
+    "value": 7.79537783419697,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_cloneB; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainEtClonebExtinction",
+    "value": 0.1,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ET_cloneB; Extinction"
+  },
+  {
+    "macro": "PTwoMainGsFoodFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_food_frozen; N"
+  },
+  {
+    "macro": "PTwoMainGsFoodFrozenPopulationMean",
+    "value": 3.431,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_food_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainGsFoodFrozenPopulationSd",
+    "value": 5.476412554981756,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_food_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainGsFoodFrozenExtinction",
+    "value": 0.71,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_food_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoMainGsPopFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_frozen; N"
+  },
+  {
+    "macro": "PTwoMainGsPopFrozenPopulationMean",
+    "value": 25.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainGsPopFrozenPopulationSd",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainGsPopFrozenExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoMainGsPopMutN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_mut; N"
+  },
+  {
+    "macro": "PTwoMainGsPopMutPopulationMean",
+    "value": 24.344499999999996,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_mut; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainGsPopMutPopulationSd",
+    "value": 0.2849133695366076,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_mut; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainGsPopMutExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=GS_pop_mut; Extinction"
+  },
+  {
+    "macro": "PTwoMainSvFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=SV_frozen; N"
+  },
+  {
+    "macro": "PTwoMainSvFrozenPopulationMean",
+    "value": 24.2,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=SV_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainSvFrozenPopulationSd",
+    "value": 2.30033862484303,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=SV_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainSvFrozenExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=SV_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoMainOracleBN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ORACLE_B; N"
+  },
+  {
+    "macro": "PTwoMainOracleBPopulationMean",
+    "value": 24.999499999999998,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ORACLE_B; PopulationMean"
+  },
+  {
+    "macro": "PTwoMainOracleBPopulationSd",
+    "value": 0.007071067811865575,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ORACLE_B; PopulationSd"
+  },
+  {
+    "macro": "PTwoMainOracleBExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=main,group=ORACLE_B; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoEtN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET; N"
+  },
+  {
+    "macro": "PTwoArmTwoEtPopulationMean",
+    "value": 22.5865,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoEtPopulationSd",
+    "value": 3.626683320824654,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoEtExtinction",
+    "value": 0.01,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoEtFreezebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_freezeB; N"
+  },
+  {
+    "macro": "PTwoArmTwoEtFreezebPopulationMean",
+    "value": 23.8225,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_freezeB; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoEtFreezebPopulationSd",
+    "value": 1.1951509019332913,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_freezeB; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoEtFreezebExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_freezeB; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoEtClonebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_cloneB; N"
+  },
+  {
+    "macro": "PTwoArmTwoEtClonebPopulationMean",
+    "value": 21.018,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_cloneB; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoEtClonebPopulationSd",
+    "value": 7.79537783419697,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_cloneB; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoEtClonebExtinction",
+    "value": 0.1,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ET_cloneB; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoGsFoodFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_food_frozen; N"
+  },
+  {
+    "macro": "PTwoArmTwoGsFoodFrozenPopulationMean",
+    "value": 3.431,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_food_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoGsFoodFrozenPopulationSd",
+    "value": 5.476412554981756,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_food_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoGsFoodFrozenExtinction",
+    "value": 0.71,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_food_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_frozen; N"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopFrozenPopulationMean",
+    "value": 25.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopFrozenPopulationSd",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopFrozenExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopMutN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_mut; N"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopMutPopulationMean",
+    "value": 24.2675,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_mut; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopMutPopulationSd",
+    "value": 2.9370948881351358,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_mut; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoGsPopMutExtinction",
+    "value": 0.005,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=GS_pop_mut; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoSvFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=SV_frozen; N"
+  },
+  {
+    "macro": "PTwoArmTwoSvFrozenPopulationMean",
+    "value": 23.986000000000004,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=SV_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoSvFrozenPopulationSd",
+    "value": 2.957913158166798,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=SV_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoSvFrozenExtinction",
+    "value": 0.005,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=SV_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmTwoOracleBN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ORACLE_B; N"
+  },
+  {
+    "macro": "PTwoArmTwoOracleBPopulationMean",
+    "value": 24.999499999999998,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ORACLE_B; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmTwoOracleBPopulationSd",
+    "value": 0.007071067811865575,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ORACLE_B; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmTwoOracleBExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm2,group=ORACLE_B; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeEtN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET; N"
+  },
+  {
+    "macro": "PTwoArmThreeEtPopulationMean",
+    "value": 18.102,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeEtPopulationSd",
+    "value": 5.732135981863381,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeEtExtinction",
+    "value": 0.065,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeEtFreezebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_freezeB; N"
+  },
+  {
+    "macro": "PTwoArmThreeEtFreezebPopulationMean",
+    "value": 17.597500000000004,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_freezeB; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeEtFreezebPopulationSd",
+    "value": 7.836626014199744,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_freezeB; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeEtFreezebExtinction",
+    "value": 0.14,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_freezeB; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeEtClonebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_cloneB; N"
+  },
+  {
+    "macro": "PTwoArmThreeEtClonebPopulationMean",
+    "value": 3.4414999999999996,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_cloneB; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeEtClonebPopulationSd",
+    "value": 7.168568169306194,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_cloneB; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeEtClonebExtinction",
+    "value": 0.8,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ET_cloneB; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeGsFoodFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_food_frozen; N"
+  },
+  {
+    "macro": "PTwoArmThreeGsFoodFrozenPopulationMean",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_food_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeGsFoodFrozenPopulationSd",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_food_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeGsFoodFrozenExtinction",
+    "value": 1.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_food_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_frozen; N"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopFrozenPopulationMean",
+    "value": 23.843999999999998,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopFrozenPopulationSd",
+    "value": 0.9812636709670847,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopFrozenExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopMutN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_mut; N"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopMutPopulationMean",
+    "value": 23.627,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_mut; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopMutPopulationSd",
+    "value": 0.8128187816846363,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_mut; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeGsPopMutExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=GS_pop_mut; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeSvFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=SV_frozen; N"
+  },
+  {
+    "macro": "PTwoArmThreeSvFrozenPopulationMean",
+    "value": 11.239499999999998,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=SV_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeSvFrozenPopulationSd",
+    "value": 10.698433161475224,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=SV_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeSvFrozenExtinction",
+    "value": 0.45,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=SV_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmThreeOracleBN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ORACLE_B; N"
+  },
+  {
+    "macro": "PTwoArmThreeOracleBPopulationMean",
+    "value": 24.756499999999996,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ORACLE_B; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmThreeOracleBPopulationSd",
+    "value": 0.29186241337607766,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ORACLE_B; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmThreeOracleBExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm3,group=ORACLE_B; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourEtN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET; N"
+  },
+  {
+    "macro": "PTwoArmFourEtPopulationMean",
+    "value": 13.432,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourEtPopulationSd",
+    "value": 11.591258012466024,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourEtExtinction",
+    "value": 0.425,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourEtFreezebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_freezeB; N"
+  },
+  {
+    "macro": "PTwoArmFourEtFreezebPopulationMean",
+    "value": 9.5035,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_freezeB; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourEtFreezebPopulationSd",
+    "value": 11.267850728965628,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_freezeB; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourEtFreezebExtinction",
+    "value": 0.57,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_freezeB; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourEtClonebN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_cloneB; N"
+  },
+  {
+    "macro": "PTwoArmFourEtClonebPopulationMean",
+    "value": 0.5379999999999999,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_cloneB; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourEtClonebPopulationSd",
+    "value": 3.4030663087144717,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_cloneB; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourEtClonebExtinction",
+    "value": 0.975,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ET_cloneB; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourGsFoodFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_food_frozen; N"
+  },
+  {
+    "macro": "PTwoArmFourGsFoodFrozenPopulationMean",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_food_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourGsFoodFrozenPopulationSd",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_food_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourGsFoodFrozenExtinction",
+    "value": 1.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_food_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourGsPopFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_frozen; N"
+  },
+  {
+    "macro": "PTwoArmFourGsPopFrozenPopulationMean",
+    "value": 13.55,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourGsPopFrozenPopulationSd",
+    "value": 9.971361000435449,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourGsPopFrozenExtinction",
+    "value": 0.29,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourGsPopMutN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_mut; N"
+  },
+  {
+    "macro": "PTwoArmFourGsPopMutPopulationMean",
+    "value": 12.671500000000002,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_mut; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourGsPopMutPopulationSd",
+    "value": 11.729460300658493,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_mut; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourGsPopMutExtinction",
+    "value": 0.46,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=GS_pop_mut; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourSvFrozenN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=SV_frozen; N"
+  },
+  {
+    "macro": "PTwoArmFourSvFrozenPopulationMean",
+    "value": 2.8505000000000003,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=SV_frozen; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourSvFrozenPopulationSd",
+    "value": 7.669675309081452,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=SV_frozen; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourSvFrozenExtinction",
+    "value": 0.875,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=SV_frozen; Extinction"
+  },
+  {
+    "macro": "PTwoArmFourOracleBN",
+    "value": 200.0,
+    "decimals": 0,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ORACLE_B; N"
+  },
+  {
+    "macro": "PTwoArmFourOracleBPopulationMean",
+    "value": 24.999000000000002,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ORACLE_B; PopulationMean"
+  },
+  {
+    "macro": "PTwoArmFourOracleBPopulationSd",
+    "value": 0.00997484272744131,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ORACLE_B; PopulationSd"
+  },
+  {
+    "macro": "PTwoArmFourOracleBExtinction",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part2/final/analysis/outcomes.csv world=arm4,group=ORACLE_B; Extinction"
+  },
+  {
+    "macro": "PThreeOeReachedN",
+    "value": 43.0,
+    "decimals": 0,
+    "source": "results/part3/final/oe_seed*/eval_test.json: time-to-90 criterion, T2/T3"
+  },
+  {
+    "macro": "PThreeOeReachedShare",
+    "value": 0.215,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json: share reaching run-specific 90% T1 mean"
+  },
+  {
+    "macro": "PThreeOeReachedMedianTime",
+    "value": 0.1,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json: median conditional on reaching"
+  },
+  {
+    "macro": "PThreeOeTOneZero",
+    "value": 0.4051867241860878,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T1; Zero"
+  },
+  {
+    "macro": "PThreeOeTOneFinal",
+    "value": 0.39464260063797924,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T1; Final"
+  },
+  {
+    "macro": "PThreeOeTOneExtinction",
+    "value": 0.48,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T1; Extinction"
+  },
+  {
+    "macro": "PThreeOeTTwoZero",
+    "value": 0.4383340126431791,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T2; Zero"
+  },
+  {
+    "macro": "PThreeOeTTwoFinal",
+    "value": 0.23377061023977105,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T2; Final"
+  },
+  {
+    "macro": "PThreeOeTTwoExtinction",
+    "value": 0.94,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T2; Extinction"
+  },
+  {
+    "macro": "PThreeOeTThreeZero",
+    "value": 0.29655642256069537,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T3; Zero"
+  },
+  {
+    "macro": "PThreeOeTThreeFinal",
+    "value": 0.26548692008093294,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T3; Final"
+  },
+  {
+    "macro": "PThreeOeTThreeExtinction",
+    "value": 0.76,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/eval_test.json; T3; Extinction"
+  },
+  {
+    "macro": "PThreeOeValidationFirst",
+    "value": 9.481770833333332,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeOeValidationLast",
+    "value": 10.610221354166665,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeOeValidationPeakMean",
+    "value": 10.923079427083334,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeOeFloorShare",
+    "value": 0.5780318825037755,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/progress.jsonl; mean per-run ratio"
+  },
+  {
+    "macro": "PThreeOeBirthsPerThousandWorldSteps",
+    "value": 46.62156029135112,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/progress.jsonl; mean per-run ratio"
+  },
+  {
+    "macro": "PThreeOeFloorBirthsPerThousandWorldSteps",
+    "value": 64.46558071744155,
+    "decimals": 3,
+    "source": "results/part3/final/oe_seed*/progress.jsonl; mean per-run ratio"
+  },
+  {
+    "macro": "PThreeOeDiversityBehavior",
+    "value": 0.14435931745087247,
+    "decimals": 3,
+    "source": "results/part3/final/analysis.json diversity_end.oe.behavior; original analysis summary, not independent checkpoint audit"
+  },
+  {
+    "macro": "PThreeOeDiversityTraits",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/final/analysis.json diversity_end.oe.traits; original analysis summary, not independent checkpoint audit"
+  },
+  {
+    "macro": "PThreeOeDiversityWeights",
+    "value": 5.946633917863209,
+    "decimals": 3,
+    "source": "results/part3/final/analysis.json diversity_end.oe.weights; original analysis summary, not independent checkpoint audit"
+  },
+  {
+    "macro": "PThreeOeFixedReachedN",
+    "value": 43.0,
+    "decimals": 0,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json: time-to-90 criterion, T2/T3"
+  },
+  {
+    "macro": "PThreeOeFixedReachedShare",
+    "value": 0.215,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json: share reaching run-specific 90% T1 mean"
+  },
+  {
+    "macro": "PThreeOeFixedReachedMedianTime",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json: median conditional on reaching"
+  },
+  {
+    "macro": "PThreeOeFixedTOneZero",
+    "value": 0.5923137921732817,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T1; Zero"
+  },
+  {
+    "macro": "PThreeOeFixedTOneFinal",
+    "value": 0.5087645913858366,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T1; Final"
+  },
+  {
+    "macro": "PThreeOeFixedTOneExtinction",
+    "value": 0.3,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T1; Extinction"
+  },
+  {
+    "macro": "PThreeOeFixedTTwoZero",
+    "value": 0.5285493050915369,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T2; Zero"
+  },
+  {
+    "macro": "PThreeOeFixedTTwoFinal",
+    "value": 0.28969481278861997,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T2; Final"
+  },
+  {
+    "macro": "PThreeOeFixedTTwoExtinction",
+    "value": 0.93,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T2; Extinction"
+  },
+  {
+    "macro": "PThreeOeFixedTThreeZero",
+    "value": 0.5440946962969789,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T3; Zero"
+  },
+  {
+    "macro": "PThreeOeFixedTThreeFinal",
+    "value": 0.40760011401355994,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T3; Final"
+  },
+  {
+    "macro": "PThreeOeFixedTThreeExtinction",
+    "value": 0.48,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/eval_test.json; T3; Extinction"
+  },
+  {
+    "macro": "PThreeOeFixedValidationFirst",
+    "value": 16.874186197916664,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeOeFixedValidationLast",
+    "value": 16.21214192708333,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeOeFixedValidationPeakMean",
+    "value": 18.36559244791667,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeOeFixedFloorShare",
+    "value": 0.5858175816218627,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/progress.jsonl; mean per-run ratio"
+  },
+  {
+    "macro": "PThreeOeFixedBirthsPerThousandWorldSteps",
+    "value": 28.683461020356496,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/progress.jsonl; mean per-run ratio"
+  },
+  {
+    "macro": "PThreeOeFixedFloorBirthsPerThousandWorldSteps",
+    "value": 41.65612641488626,
+    "decimals": 3,
+    "source": "results/part3/final/oe_fixed_seed*/progress.jsonl; mean per-run ratio"
+  },
+  {
+    "macro": "PThreeOeFixedDiversityBehavior",
+    "value": 0.05562306936407687,
+    "decimals": 3,
+    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.behavior; original analysis summary, not independent checkpoint audit"
+  },
+  {
+    "macro": "PThreeOeFixedDiversityTraits",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.traits; original analysis summary, not independent checkpoint audit"
+  },
+  {
+    "macro": "PThreeOeFixedDiversityWeights",
+    "value": 0.8354142926758558,
+    "decimals": 3,
+    "source": "results/part3/final/analysis.json diversity_end.oe_fixed.weights; original analysis summary, not independent checkpoint audit"
+  },
+  {
+    "macro": "PThreePpoFixedReachedN",
+    "value": 40.0,
+    "decimals": 0,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json: time-to-90 criterion, T2/T3"
+  },
+  {
+    "macro": "PThreePpoFixedReachedShare",
+    "value": 0.2,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json: share reaching run-specific 90% T1 mean"
+  },
+  {
+    "macro": "PThreePpoFixedReachedMedianTime",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json: median conditional on reaching"
+  },
+  {
+    "macro": "PThreePpoFixedTOneZero",
+    "value": 0.9161184551851039,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T1; Zero"
+  },
+  {
+    "macro": "PThreePpoFixedTOneFinal",
+    "value": 0.9195922269644483,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T1; Final"
+  },
+  {
+    "macro": "PThreePpoFixedTOneExtinction",
+    "value": 0.1,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T1; Extinction"
+  },
+  {
+    "macro": "PThreePpoFixedTTwoZero",
+    "value": 0.7181403645844412,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T2; Zero"
+  },
+  {
+    "macro": "PThreePpoFixedTTwoFinal",
+    "value": 0.7123181117028919,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T2; Final"
+  },
+  {
+    "macro": "PThreePpoFixedTTwoExtinction",
+    "value": 0.95,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T2; Extinction"
+  },
+  {
+    "macro": "PThreePpoFixedTThreeZero",
+    "value": 0.9202411913016291,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T3; Zero"
+  },
+  {
+    "macro": "PThreePpoFixedTThreeFinal",
+    "value": 0.9146894235712208,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T3; Final"
+  },
+  {
+    "macro": "PThreePpoFixedTThreeExtinction",
+    "value": 0.14,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/eval_test.json; T3; Extinction"
+  },
+  {
+    "macro": "PThreePpoFixedValidationFirst",
+    "value": 27.165787760416663,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreePpoFixedValidationLast",
+    "value": 27.17457682291667,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreePpoFixedValidationPeakMean",
+    "value": 27.200944010416663,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreePpoDrReachedN",
+    "value": 40.0,
+    "decimals": 0,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json: time-to-90 criterion, T2/T3"
+  },
+  {
+    "macro": "PThreePpoDrReachedShare",
+    "value": 0.2,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json: share reaching run-specific 90% T1 mean"
+  },
+  {
+    "macro": "PThreePpoDrReachedMedianTime",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json: median conditional on reaching"
+  },
+  {
+    "macro": "PThreePpoDrTOneZero",
+    "value": 0.923627618330003,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T1; Zero"
+  },
+  {
+    "macro": "PThreePpoDrTOneFinal",
+    "value": 0.9235320739644668,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T1; Final"
+  },
+  {
+    "macro": "PThreePpoDrTOneExtinction",
+    "value": 0.03,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T1; Extinction"
+  },
+  {
+    "macro": "PThreePpoDrTTwoZero",
+    "value": 0.7243511509494056,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T2; Zero"
+  },
+  {
+    "macro": "PThreePpoDrTTwoFinal",
+    "value": 0.7477577591919301,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T2; Final"
+  },
+  {
+    "macro": "PThreePpoDrTTwoExtinction",
+    "value": 0.83,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T2; Extinction"
+  },
+  {
+    "macro": "PThreePpoDrTThreeZero",
+    "value": 0.8981310865164402,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T3; Zero"
+  },
+  {
+    "macro": "PThreePpoDrTThreeFinal",
+    "value": 0.8840261652938213,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T3; Final"
+  },
+  {
+    "macro": "PThreePpoDrTThreeExtinction",
+    "value": 0.15,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/eval_test.json; T3; Extinction"
+  },
+  {
+    "macro": "PThreePpoDrValidationFirst",
+    "value": 26.43981119791666,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreePpoDrValidationLast",
+    "value": 26.42682291666667,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreePpoDrValidationPeakMean",
+    "value": 26.43981119791667,
+    "decimals": 3,
+    "source": "results/part3/final/ppo_dr_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsDrReachedN",
+    "value": 40.0,
+    "decimals": 0,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json: time-to-90 criterion, T2/T3"
+  },
+  {
+    "macro": "PThreeEsDrReachedShare",
+    "value": 0.2,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json: share reaching run-specific 90% T1 mean"
+  },
+  {
+    "macro": "PThreeEsDrReachedMedianTime",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json: median conditional on reaching"
+  },
+  {
+    "macro": "PThreeEsDrTOneZero",
+    "value": 0.9017476611391696,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T1; Zero"
+  },
+  {
+    "macro": "PThreeEsDrTOneFinal",
+    "value": 0.9270454964411079,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T1; Final"
+  },
+  {
+    "macro": "PThreeEsDrTOneExtinction",
+    "value": 0.03,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T1; Extinction"
+  },
+  {
+    "macro": "PThreeEsDrTTwoZero",
+    "value": 0.711434537088169,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T2; Zero"
+  },
+  {
+    "macro": "PThreeEsDrTTwoFinal",
+    "value": 0.883304727569761,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T2; Final"
+  },
+  {
+    "macro": "PThreeEsDrTTwoExtinction",
+    "value": 0.89,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T2; Extinction"
+  },
+  {
+    "macro": "PThreeEsDrTThreeZero",
+    "value": 0.8543368549853686,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T3; Zero"
+  },
+  {
+    "macro": "PThreeEsDrTThreeFinal",
+    "value": 0.8772413271356999,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T3; Final"
+  },
+  {
+    "macro": "PThreeEsDrTThreeExtinction",
+    "value": 0.22,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/eval_test.json; T3; Extinction"
+  },
+  {
+    "macro": "PThreeEsDrValidationFirst",
+    "value": 21.226171875,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsDrValidationLast",
+    "value": 25.64069010416667,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsDrValidationPeakMean",
+    "value": 25.640690104166662,
+    "decimals": 3,
+    "source": "results/part3/final/es_dr_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsFixedReachedN",
+    "value": 40.0,
+    "decimals": 0,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json: time-to-90 criterion, T2/T3"
+  },
+  {
+    "macro": "PThreeEsFixedReachedShare",
+    "value": 0.2,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json: share reaching run-specific 90% T1 mean"
+  },
+  {
+    "macro": "PThreeEsFixedReachedMedianTime",
+    "value": 0.0,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json: median conditional on reaching"
+  },
+  {
+    "macro": "PThreeEsFixedTOneZero",
+    "value": 0.8223300620372908,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T1; Zero"
+  },
+  {
+    "macro": "PThreeEsFixedTOneFinal",
+    "value": 0.9067015100921383,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T1; Final"
+  },
+  {
+    "macro": "PThreeEsFixedTOneExtinction",
+    "value": 0.11,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T1; Extinction"
+  },
+  {
+    "macro": "PThreeEsFixedTTwoZero",
+    "value": 0.6769835468364412,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T2; Zero"
+  },
+  {
+    "macro": "PThreeEsFixedTTwoFinal",
+    "value": 0.8655732468950288,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T2; Final"
+  },
+  {
+    "macro": "PThreeEsFixedTTwoExtinction",
+    "value": 0.87,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T2; Extinction"
+  },
+  {
+    "macro": "PThreeEsFixedTThreeZero",
+    "value": 0.8041461471990755,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T3; Zero"
+  },
+  {
+    "macro": "PThreeEsFixedTThreeFinal",
+    "value": 0.853005865605699,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T3; Final"
+  },
+  {
+    "macro": "PThreeEsFixedTThreeExtinction",
+    "value": 0.21,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/eval_test.json; T3; Extinction"
+  },
+  {
+    "macro": "PThreeEsFixedValidationFirst",
+    "value": 17.4908203125,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsFixedValidationLast",
+    "value": 24.394140625,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsFixedValidationPeakMean",
+    "value": 24.394140625,
+    "decimals": 3,
+    "source": "results/part3/addendum/es_fixed_seed*/curves.json scores"
+  },
+  {
+    "macro": "PThreeEsFixedTrainHours",
+    "value": 0.002049166666666667,
+    "decimals": 3,
+    "source": "results/part3/addendum/analysis.json descriptive.es_fixed.train_wall_hours_mean"
+  },
+  {
+    "macro": "SpendThroughput",
+    "value": 1.9760327612000026,
+    "decimals": 2,
+    "source": "results/part3/throughput/spend.json stage total (not duplicated from analysis.json)"
+  },
+  {
+    "macro": "SpendPilot",
+    "value": 5.286807774651704,
+    "decimals": 2,
+    "source": "results/part3/pilot/spend.json stage total (not duplicated from analysis.json)"
+  },
+  {
+    "macro": "HoursPilot",
+    "value": 5.933671523597505,
+    "decimals": 3,
+    "source": "results/part3/pilot/spend.json machine_hours or summed pod duration"
+  },
+  {
+    "macro": "SpendTuning",
+    "value": 2.1552,
+    "decimals": 2,
+    "source": "results/part3/tuning/spend.json stage total (not duplicated from analysis.json)"
+  },
+  {
+    "macro": "HoursTuning",
+    "value": 2.418,
+    "decimals": 3,
+    "source": "results/part3/tuning/spend.json machine_hours or summed pod duration"
+  },
+  {
+    "macro": "SpendFinal",
+    "value": 30.5326,
+    "decimals": 2,
+    "source": "results/part3/final/spend.json stage total (not duplicated from analysis.json)"
+  },
+  {
+    "macro": "HoursFinal",
+    "value": 34.266,
+    "decimals": 3,
+    "source": "results/part3/final/spend.json machine_hours or summed pod duration"
+  },
+  {
+    "macro": "SpendExploreLong",
+    "value": 5.8993,
+    "decimals": 2,
+    "source": "results/part3/explore_long/spend.json stage total (not duplicated from analysis.json)"
+  },
+  {
+    "macro": "HoursExploreLong",
+    "value": 6.621111111111111,
+    "decimals": 3,
+    "source": "results/part3/explore_long/spend.json machine_hours or summed pod duration"
+  },
+  {
+    "macro": "SpendAddendum",
+    "value": 0.3842,
+    "decimals": 2,
+    "source": "results/part3/addendum/spend.json stage total (not duplicated from analysis.json)"
+  },
+  {
+    "macro": "HoursAddendum",
+    "value": 0.43166666666666664,
+    "decimals": 3,
+    "source": "results/part3/addendum/spend.json machine_hours or summed pod duration"
+  },
+  {
+    "macro": "RecordedStageEstimates",
+    "value": 46.574140535851704,
+    "decimals": 2,
+    "source": "results/publication/compute_spend.csv; partial historical stage estimates, not total project cost"
+  }
+]

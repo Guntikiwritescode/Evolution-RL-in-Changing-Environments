@@ -1,0 +1,18 @@
+\begin{table}[tb]
+\centering\small
+\caption{Training and fixed test suites. Each test suite contains ten environments. The canonical fixed-training setting is given in the text. Unused layout parameters have no effect in a given environment.}\label{tab:env}
+\begin{tabularx}{\linewidth}{lYYY}
+\toprule
+Parameter & Varied training / T1 & T2 & T3\\\midrule
+Arena side $L$ & 40--80 & 30--40 & 40--80\\
+Food items $F$ & 20--60 & 10--20 & 20--60\\
+Layouts & Uniform, clusters, patches & Clusters & Uniform, clusters, patches\\
+Cluster count $k$ & 2--5 & 2--3 & 2--5\\
+Cluster scale $\sigma$ & 3--8 & 2--4 & 3--8\\
+Patch radius & 4--10 & Not used & 4--10\\
+Regrowth probability & 0.01--0.05 & 0.005--0.01 & 0.01--0.05\\
+Food drift & 0 & 0 & 0.05--0.3\\
+Season period (steps) & None & None & 100--300\\
+\bottomrule
+\end{tabularx}
+\end{table}

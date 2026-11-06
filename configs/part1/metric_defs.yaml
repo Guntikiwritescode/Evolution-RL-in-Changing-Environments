@@ -1,0 +1,8 @@
+# Metric definitions chosen in calibration stage 2 (calibration/selected.json).
+final_fitness: final_fitness_last10
+final_median: final_median_last1
+cv2: cv2_4_samp_trainmean
+shannon: H_exact4_trainmean
+energy_efficiency: eff_E2_cost_per_dist_drop
+survival: survival_last10
+

@@ -1,0 +1,31 @@
+# Part 3 method settings (docs/SPEC_part3.md, Sections 5-6). PROVISIONAL: the pilot
+# (check-in 8) and tuning (check-in 9) set the final values; every change is dated
+# in docs/PREREG_part3.md.
+body_option: b        # (a) ES optimizes the body, PPO's body is a tuning setting; (b) default body everywhere.
+                      # AA chose (b) at check-in 7 (2 Nov 2026): default body for every method, OE mutates brains only.
+budget:
+  train_agent_steps: 200000000   # 2e8, provisional (the pilot sets it)
+  adapt_agent_steps: 20000000    # 2e7, provisional
+  adapt_checkpoints: 10          # competence measured after each tenth of the adaptation budget
+oe:
+  settings: {N_INITIAL: 32, CHANGE_EVERY: 2000, WEIGHT_SD: 0.02, TRAIT_FRAC: 0.05, MIN_POP: 16}
+  chunk_steps: 2000
+oe_fixed:
+  settings: {N_INITIAL: 32, CHANGE_EVERY: 0, WEIGHT_SD: 0.02, TRAIT_FRAC: 0.05, MIN_POP: 16}
+  chunk_steps: 2000
+ppo:                   # PPO-fixed and PPO-DR share these
+  n_envs: 64
+  settings: {LR: 0.0003, NUM_STEPS: 64, UPDATE_EPOCHS: 4, NUM_MINIBATCHES: 32, GAMMA: 0.99,
+             GAE_LAMBDA: 0.95, CLIP_EPS: 0.2, ENT_COEF: 0.0, VF_COEF: 0.5, MAX_GRAD_NORM: 0.5,
+             ANNEAL_LR: false, NORMALIZE_REWARD: true, LOG_STD_INIT: 0.0}
+  body: [1.0, 1.0, 10.0]   # used only with option (a); with option (b) PPO always uses the default body
+  chunk_updates: 10
+es:
+  settings: {POP_SIZE: 64, SIGMA: 0.05, LR: 0.01, EPISODES: 2}
+  chunk_generations: 5
+evaluation:
+  episodes_per_env: 8      # competence episodes per environment and checkpoint (provisional)
+  oe_sample: 16            # agents sampled from an OE population per competence episode
+  persistence_agents: 32
+  persistence_steps: 5000
+

@@ -1,0 +1,15 @@
+\section{Introduction}
+\citet{milano2019moderate} found that environmental variation across generations improved evolved controllers, with the best performance at a moderate rate of change. Ecological neuroevolution imposes a different selection pressure: agents must acquire enough food to survive and reproduce. Food acquisition also determines task performance, but selection through survival may favor different controllers from direct optimization of food intake.
+
+We compare ecological neuroevolution (OE), evolution strategies (ES) and proximal policy optimization (PPO) in a continuous two-dimensional foraging world. OE maintains an interacting population with energy-dependent death and reproduction, supplemented by a minimum population of externally supplied replacements. ES and PPO optimize food acquisition and deploy copies of a single controller. Each method has separately tuned fixed- and varied-environment configurations. We evaluate food acquisition before and during adaptation, then measure population persistence in a separate assay without replacements.
+
+We predicted that varied-environment OE would outperform PPO with domain randomization during adaptation. OE instead starts below PPO-DR and remains below it throughout the measured interval. Varied OE also scores below fixed OE; a later ES comparison favors the varied configuration by a smaller amount. Because the fixed and varied configurations were tuned separately, these comparisons do not isolate environmental variation.
+
+\section{Related work}
+\citet{milano2019moderate} varied the rate of environmental change during evolution. \citet{milano2024qualitative} compared ES and PPO across tasks and treatments of environmental variation. Our experiment compares separately selected fixed- and varied-training configurations in a foraging task, using one variation schedule.
+
+\citet{hamon2023eco} studied persistent neural-agent populations with physiology-dependent reproduction and death. \citet{nisioti2022plasticity} used a minimal ecological model and ablations to distinguish fitness-based selection from niche-limited competition. Our implementation also couples survival and reproduction to agent behavior, but uses feedforward controllers and externally supplied population replacements.
+
+\citet{nisioti2025transfer} compared neuroevolution and reinforcement learning across curricula and found that the outcome depended on the method and task. \citet{nisioti2026continual} examine adaptation and forgetting under sequential task changes. \citet{ge2026arena} compare update and inheritance regimes through nested ecological evaluations of frozen controllers. Both studies are preprints. In our experiment, adaptation begins independently from a trained snapshot in each test environment and permits further parameter updates.
+
+XLand and PAIRED adapt task distributions during learning \citep{xland2021,dennis2020paired}; our varied-training configurations sample from a fixed distribution. DERL and Evolution Gym combine morphological and controller optimization \citep{gupta2021embodied,bhatia2021evogym}. All neural agents in the present experiment share a fixed body.

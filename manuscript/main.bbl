@@ -1,0 +1,151 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Agarwal et~al.(2021)Agarwal, Schwarzer, Castro, Courville, and
+  Bellemare]{agarwal2021deep}
+Rishabh Agarwal, Max Schwarzer, Pablo~Samuel Castro, Aaron Courville, and
+  Marc~G. Bellemare.
+\newblock {Deep Reinforcement Learning at the Edge of the Statistical
+  Precipice}.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~34, 2021.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html}.
+
+\bibitem[Bhatia et~al.(2021)Bhatia, Jackson, Tian, Xu, and
+  Matusik]{bhatia2021evogym}
+Jagdeep~Singh Bhatia, Holly Jackson, Yunsheng Tian, Jie Xu, and Wojciech
+  Matusik.
+\newblock {Evolution Gym: A Large-Scale Benchmark for Evolving Soft Robots}.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~34, 2021.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2021/hash/118921efba23fc329e6560b27861f0c2-Abstract.html}.
+
+\bibitem[Dennis et~al.(2020)Dennis, Jaques, Vinitsky, Bayen, Russell, Critch,
+  and Levine]{dennis2020paired}
+Michael Dennis, Natasha Jaques, Eugene Vinitsky, Alexandre Bayen, Stuart
+  Russell, Andrew Critch, and Sergey Levine.
+\newblock {Emergent Complexity and Zero-shot Transfer via Unsupervised
+  Environment Design}.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, 2020.
+\newblock URL
+  \url{https://proceedings.nips.cc/paper_files/paper/2020/hash/985e9a46e10005356bbaf194249f6856-Abstract.html}.
+
+\bibitem[Ge and Cheng(2026)]{ge2026arena}
+Yuxu Ge and Yifei Cheng.
+\newblock Neuroevolution arena: Nested ecological evaluation of
+  update-and-inheritance regimes across neural architectures.
+\newblock arXiv:2608.10323v1, 2026.
+\newblock URL \url{https://arxiv.org/abs/2608.10323}.
+\newblock Preprint, 10 August 2026.
+
+\bibitem[Gupta et~al.(2021)Gupta, Savarese, Ganguli, and
+  Fei-Fei]{gupta2021embodied}
+Agrim Gupta, Silvio Savarese, Surya Ganguli, and Li~Fei-Fei.
+\newblock {Embodied intelligence via learning and evolution}.
+\newblock \emph{Nature Communications}, 12\penalty0 (1):\penalty0 5721, 2021.
+\newblock \doi{10.1038/s41467-021-25874-z}.
+
+\bibitem[Hamon et~al.(2023)Hamon, Nisioti, and Moulin-Frier]{hamon2023eco}
+Gautier Hamon, Eleni Nisioti, and Clément Moulin-Frier.
+\newblock {Eco-evolutionary Dynamics of Non-episodic Neuroevolution in Large
+  Multi-agent Environments}.
+\newblock In \emph{Proceedings of the Companion Conference on Genetic and
+  Evolutionary Computation}, pages 143--146. ACM, 2023.
+\newblock \doi{10.1145/3583133.3590703}.
+
+\bibitem[Henderson et~al.(2018)Henderson, Islam, Bachman, Pineau, Precup, and
+  Meger]{henderson2018deep}
+Peter Henderson, Riashat Islam, Philip Bachman, Joelle Pineau, Doina Precup,
+  and David Meger.
+\newblock {Deep Reinforcement Learning that Matters}.
+\newblock In \emph{Proceedings of the AAAI Conference on Artificial
+  Intelligence}, volume~32, 2018.
+\newblock URL \url{https://doi.org/10.1609/aaai.v32i1.11694}.
+
+\bibitem[Lange(2023)]{lange2023evosax}
+Robert~Tjarko Lange.
+\newblock {evosax: JAX-Based Evolution Strategies}.
+\newblock In \emph{Proceedings of the Companion Conference on Genetic and
+  Evolutionary Computation}, pages 659--662. ACM, 2023.
+\newblock \doi{10.1145/3583133.3590733}.
+
+\bibitem[Milano and Nolfi(2024)]{milano2024qualitative}
+Nicola Milano and Stefano Nolfi.
+\newblock {Qualitative differences between evolutionary strategies and
+  reinforcement learning methods for control of autonomous agents}.
+\newblock \emph{Evolutionary Intelligence}, 17\penalty0 (2):\penalty0
+  1185--1195, 2024.
+\newblock \doi{10.1007/s12065-022-00801-3}.
+
+\bibitem[Milano et~al.(2019)Milano, Carvalho, and Nolfi]{milano2019moderate}
+Nicola Milano, Jônata~Tyska Carvalho, and Stefano Nolfi.
+\newblock {Moderate Environmental Variation Across Generations Promotes the
+  Evolution of Robust Solutions}.
+\newblock \emph{Artificial Life}, 24\penalty0 (4):\penalty0 277--295, 2019.
+\newblock \doi{10.1162/artl_a_00274}.
+
+\bibitem[Nisioti and Moulin-Frier(2022)]{nisioti2022plasticity}
+Eleni Nisioti and Clément Moulin-Frier.
+\newblock {Plasticity and evolvability under environmental variability: the
+  joint role of fitness-based selection and niche-limited competition}.
+\newblock In \emph{Proceedings of the Genetic and Evolutionary Computation
+  Conference}, pages 113--121. ACM, 2022.
+\newblock \doi{10.1145/3512290.3528826}.
+
+\bibitem[Nisioti et~al.(2025)Nisioti, Plantec, Montero, Pedersen, and
+  Risi]{nisioti2025transfer}
+Eleni Nisioti, Erwan Plantec, Milton Montero, Joachim Pedersen, and Sebastian
+  Risi.
+\newblock {When Does Neuroevolution Outcompete Reinforcement Learning in
+  Transfer Learning Tasks?}
+\newblock In \emph{Proceedings of the Genetic and Evolutionary Computation
+  Conference}, pages 48--57. Association for Computing Machinery, 2025.
+\newblock \doi{10.1145/3712256.3726475}.
+\newblock Author preprint: arXiv:2505.22696.
+
+\bibitem[Nisioti et~al.(2026)Nisioti, Cossu, Korte, and
+  Risi]{nisioti2026continual}
+Eleni Nisioti, Andrea Cossu, Kathrin Korte, and Sebastian Risi.
+\newblock {Continual Reinforcement Learning with Neuroevolution}.
+\newblock arXiv:2610.01583, 2026.
+
+\bibitem[{Open Ended Learning Team} et~al.(2021){Open Ended Learning Team},
+  Stooke, Mahajan, Barros, Deck, Bauer, Sygnowski, Trebacz, Jaderberg, Mathieu,
+  McAleese, Bradley-Schmieg, Wong, Porcel, Raileanu, Hughes-Fitt, Dalibard, and
+  Czarnecki]{xland2021}
+{Open Ended Learning Team}, Adam Stooke, Anuj Mahajan, Catarina Barros, Charlie
+  Deck, Jakob Bauer, Jakub Sygnowski, Maja Trebacz, Max Jaderberg, Michael
+  Mathieu, Nat McAleese, Nathalie Bradley-Schmieg, Nathaniel Wong, Nicolas
+  Porcel, Roberta Raileanu, Steph Hughes-Fitt, Valentin Dalibard, and
+  Wojciech~Marian Czarnecki.
+\newblock {Open-Ended Learning Leads to Generally Capable Agents}.
+\newblock arXiv:2107.12808, 2021.
+
+\bibitem[Palfree(2021)]{palfree_evolution_simulator}
+Jasper Palfree.
+\newblock Evolution simulator ({MinuteLabs.io}).
+\newblock \url{https://github.com/minutelabsio/evolution-simulator}, commit
+  55af956, 2021.
+\newblock GPL-3.0.
+
+\bibitem[Salimans et~al.(2017)Salimans, Ho, Chen, Sidor, and
+  Sutskever]{salimans2017evolution}
+Tim Salimans, Jonathan Ho, Xi~Chen, Szymon Sidor, and Ilya Sutskever.
+\newblock {Evolution Strategies as a Scalable Alternative to Reinforcement
+  Learning}.
+\newblock arXiv:1703.03864, 2017.
+
+\bibitem[Schulman et~al.(2017)Schulman, Wolski, Dhariwal, Radford, and
+  Klimov]{schulman2017proximal}
+John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and Oleg Klimov.
+\newblock {Proximal Policy Optimization Algorithms}.
+\newblock arXiv:1707.06347, 2017.
+
+\end{thebibliography}

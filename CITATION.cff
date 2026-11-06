@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If using this research package, cite the accompanying manuscript and identify the package version."
+type: software
+title: "Evolution and Reinforcement Learning in Changing Environments: Research Package"
+authors:
+  - family-names: Guntaka
+    given-names: Abhinav
+version: 1.0.0
+repository-code: "https://github.com/Guntikiwritescode/ecological-neuroevolution"
+license: GPL-3.0-only
+preferred-citation:
+  type: unpublished
+  title: "Evolution and Reinforcement Learning in Changing Environments"
+  authors:
+    - family-names: Guntaka
+      given-names: Abhinav
+  year: 2026
+  notes: "Research manuscript."
