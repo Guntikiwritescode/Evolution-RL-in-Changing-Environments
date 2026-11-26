@@ -25,8 +25,8 @@ plan.json example:
 
 Commands (python3 -I scripts/part3/pod/control.py ...):
   package COMMIT      build STAGE_DIR/code.tgz from GitHub at COMMIT and check it like the pod opens it
-  balance             account balance and spend rate (GraphQL "myself")
-  stock               data centers listing the GPU (GraphQL "dataCenters")
+  balance             account balance and spend rate
+  stock               secure-cloud stock and price of the plan's GPU, overall and per data center
   create PART DC,DC   network volume in the first data center that can take the pod, then the pod
   watch MINUTES       every 90 s: upload code, copy results, apply the stop rules
   delete PART         delete the part's pod, then its volume if its results check passes
@@ -54,8 +54,7 @@ import urllib.parse
 import urllib.request
 from pathlib import Path
 
-REST = "https://rest.runpod.io/v1"
-GRAPHQL = "https://api.runpod.io/graphql"
+API = "https://api.runpod.io/v2"
 REPO_URL = "https://github.com/Guntikiwritescode/evolving-ai-v2"
 POD_DIR = Path(__file__).resolve().parent
 UA = "evolving-ai-pod-control/2.0"
@@ -229,28 +228,26 @@ def http(method: str, url: str, body: bytes | None = None, headers: dict | None 
 
 def api(method: str, path: str, obj=None):
     body = json.dumps(obj).encode() if obj is not None else None
-    code, data = http(method, REST + path, body, {"Authorization": f"Bearer {key()}",
-                                                  "Content-Type": "application/json"})
+    code, data = http(method, API + path, body, {"Authorization": f"Bearer {key()}",
+                                                 "Content-Type": "application/json"})
     try:
         return code, json.loads(data) if data else None
     except ValueError:
         return code, data.decode(errors="replace")
 
 
-def gql(query: str):
-    code, data = http("POST", GRAPHQL, json.dumps({"query": query}).encode(),
-                      {"Authorization": f"Bearer {key()}", "Content-Type": "application/json"})
-    try:
-        return code, json.loads(data)
-    except ValueError:
-        return code, data.decode(errors="replace")
-
-
 def balance() -> tuple[float | None, float | None]:
-    code, r = gql("query { myself { clientBalance currentSpendPerHr } }")
+    """Account balance, and the account's spend rate as the summed hourly cost of its running pods."""
+    code, r = api("GET", "/billing/balance")
     try:
-        m = r["data"]["myself"]
-        return float(m["clientBalance"]), float(m["currentSpendPerHr"])
+        bal = float(r["balanceAmount"])
+        rate, cursor = 0.0, None
+        while True:
+            code, r = api("GET", "/pods" + (f"?cursor={urllib.parse.quote(cursor)}" if cursor else ""))
+            rate += sum(float(q["cost"]) for q in r["pods"] if q["status"] == "RUNNING")
+            cursor = (r.get("pagination") or {}).get("nextCursor")
+            if not cursor:
+                return bal, rate
     except Exception:                 # noqa: BLE001
         print(f"{now_utc()}  balance read failed: {code} {str(r)[:200]}", flush=True)
         return None, None
@@ -298,19 +295,16 @@ def cmd_balance():
 
 
 def cmd_stock():
-    """Secure-cloud stock and price of the plan's GPU. RunPod's per-data-center stock field
-    (dataCenters.gpuAvailability) came back empty for every GPU on 4 Nov 2026, so `create` tries
-    data centers in turn instead."""
     plan = load_plan()
-    q = ('query { gpuTypes(input: {id: "%s"}) { id lowestPrice(input: {gpuCount: 1, secureCloud: true}) '
-         '{ stockStatus uninterruptablePrice } } }' % plan["gpu"])
-    code, r = gql(q)
+    code, r = api("GET", f"/catalog/gpus/{urllib.parse.quote(plan['gpu'])}"
+                         "?include=AVAILABILITY&product=POD&cloud=SECURE")
     try:
-        lp = r["data"]["gpuTypes"][0]["lowestPrice"]
+        out = {"at": now_utc(), "gpu": plan["gpu"], "secure_stock": r["availability"],
+               "price_per_hour": r["price"]["secure"],
+               "data_centers": {dc["id"]: dc["availability"] for dc in r.get("dataCenters", [])}}
     except Exception:                 # noqa: BLE001
         sys.exit(f"stock query failed: {code} {str(r)[:500]}")
-    print(json.dumps({"at": now_utc(), "gpu": plan["gpu"], "secure_stock": lp["stockStatus"],
-                      "price_per_hour": lp["uninterruptablePrice"]}))
+    print(json.dumps(out))
 
 
 def cmd_create(part: str, dcs: str):
@@ -326,14 +320,12 @@ def cmd_create(part: str, dcs: str):
 
 def pod_body(plan: dict, part: str, p: dict, env: dict) -> dict:
     """The REST body for a part's pod: with a network volume, or (volume "none") with none."""
-    body = {"name": f"evolving-ai-p3-{plan['stage']}-{part}", "imageName": "ubuntu:24.04", "cloudType": "SECURE",
-            "computeType": "GPU", "gpuTypeIds": [plan["gpu"]], "gpuCount": 1, "containerDiskInGb": 40,
+    body = {"name": f"evolving-ai-p3-{plan['stage']}-{part}", "image": "ubuntu:24.04", "cloud": "SECURE",
+            "gpu": {"id": plan["gpu"], "count": 1}, "disk": 40,
             "dataCenterIds": [p["dc"]], "ports": ["8888/http", "8889/http"], "env": env,
-            "dockerStartCmd": ["bash", "-c", 'echo "$START_B64" | base64 -d > /start_job.sh && bash /start_job.sh']}
-    if plan.get("volume", "network") == "none":
-        body["volumeInGb"] = 0
-    else:
-        body.update({"networkVolumeId": p["volume_id"], "volumeMountPath": "/workspace"})
+            "cmd": ["bash", "-c", 'echo "$START_B64" | base64 -d > /start_job.sh && bash /start_job.sh']}
+    if plan.get("volume", "network") != "none":
+        body["mounts"] = {"network": [{"volumeId": p["volume_id"], "path": "/workspace"}]}
     return body
 
 
@@ -353,8 +345,8 @@ def create_in(part: str, dc: str) -> bool:
     elif p.get("volume_id") and p.get("volume_deleted_ts") is None and p.get("dc") != dc:
         sys.exit(f"{part} has volume {p['volume_id']} in {p.get('dc')}, not {dc}; delete it first")
     if not no_volume and (not p.get("volume_id") or p.get("volume_deleted_ts") is not None):
-        code, v = api("POST", "/networkvolumes", {"name": f"evolving-ai-p3-{plan['stage']}-{part}",
-                                                   "size": plan["volume_gb"], "dataCenterId": dc})
+        code, v = api("POST", "/network-volumes", {"name": f"evolving-ai-p3-{plan['stage']}-{part}",
+                                                    "size": plan["volume_gb"], "dataCenter": dc})
         if code not in (200, 201) or not isinstance(v, dict) or "id" not in v:
             sys.exit(f"volume for {part} in {dc} failed: {code} {v}")
         old = st.setdefault("earlier_volumes", [])
@@ -381,7 +373,7 @@ def create_in(part: str, dc: str) -> bool:
         if not delete_volume(st, part):
             sys.exit(f"{part}: volume {p['volume_id']} could not be deleted; stopping")
         return False
-    price = float(r.get("costPerHr") or r.get("adjustedCostPerHr") or plan["price_max"])
+    price = float(r.get("cost") or plan["price_max"])
     p.update({"pod_id": r["id"], "token": token, "sha256": env["CODE_SHA256"], "price": price,
               "pod_created_ts": time.time(), "pod_created_at": now_utc(), "uploaded": False, "upload_tries": 0,
               "pod_deleted_ts": None, "end_reason": None})
@@ -415,8 +407,8 @@ def delete_volume(st: dict, part: str) -> bool:
     p = st["parts"][part]
     if p.get("volume_deleted_ts"):
         return True
-    code, r = api("DELETE", f"/networkvolumes/{p['volume_id']}")
-    gone, _ = api("GET", f"/networkvolumes/{p['volume_id']}")
+    code, r = api("DELETE", f"/network-volumes/{p['volume_id']}")
+    gone, _ = api("GET", f"/network-volumes/{p['volume_id']}")
     if code in (200, 204) or gone == 404:
         p.update({"volume_deleted_ts": time.time(), "volume_deleted_at": now_utc(),
                   "volume_delete_codes": [code, gone]})

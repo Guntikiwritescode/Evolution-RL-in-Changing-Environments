@@ -177,7 +177,7 @@ def test_volume_delete_needs_the_pod_deleted_first(tmp_path, monkeypatch):
     assert calls == []
     (tmp_path / "state.json").write_text(json.dumps({"parts": {"a": {"pod_id": "p1", "pod_deleted_ts": 1.0, "volume_id": "v1"}}}))
     assert control.cmd_volume_delete("a") is True
-    assert calls[0] == ("DELETE", "/networkvolumes/v1")
+    assert calls[0] == ("DELETE", "/network-volumes/v1")
     assert json.loads((tmp_path / "state.json").read_text())["parts"]["a"]["volume_deleted_ts"] is not None
 
 
@@ -197,12 +197,12 @@ def test_create_without_a_network_volume(tmp_path, monkeypatch):
 
     def api(method, path, obj=None):
         calls.append((method, path, obj))
-        return (200, {"id": "pod1", "costPerHr": 0.89}) if path == "/pods" else (500, None)
+        return (201, {"id": "pod1", "cost": 0.89}) if path == "/pods" else (500, None)
     monkeypatch.setattr(control, "api", api)
     assert control.create_in("a", "EU-RO-1") is True
     assert [c[1] for c in calls] == ["/pods"]                      # no network volume is created
     body = calls[0][2]
-    assert "networkVolumeId" not in body and body["volumeInGb"] == 0 and body["dataCenterIds"] == ["EU-RO-1"]
+    assert "mounts" not in body and body["dataCenterIds"] == ["EU-RO-1"]
     assert body["env"]["VOLUME_KIND"] == "none"
     st = json.loads((tmp_path / "state.json").read_text())["parts"]["a"]
     assert st["pod_id"] == "pod1" and "volume_id" not in st
@@ -211,7 +211,7 @@ def test_create_without_a_network_volume(tmp_path, monkeypatch):
 def test_create_with_a_network_volume_is_unchanged(tmp_path, monkeypatch):
     plan = _stage(tmp_path, monkeypatch, "network")
     body = control.pod_body(plan, "a", {"dc": "EU-RO-1", "volume_id": "v1"}, {"X": "1"})
-    assert body["networkVolumeId"] == "v1" and body["volumeMountPath"] == "/workspace" and "volumeInGb" not in body
+    assert body["mounts"] == {"network": [{"volumeId": "v1", "path": "/workspace"}]}
 
 
 def test_finish_without_a_volume_retries_the_last_copy_and_deletes_no_volume(tmp_path, monkeypatch):
@@ -225,4 +225,29 @@ def test_finish_without_a_volume_retries_the_last_copy_and_deletes_no_volume(tmp
     monkeypatch.setattr(control, "api", lambda method, path, obj=None: deleted.append((method, path)) or ((204, None) if method == "DELETE" else (404, None)))
     control.finish(st, plan, "a", "finished")
     assert len(copies) == 3                                         # retried until a copy worked
-    assert ("DELETE", "/pods/pod1") in deleted and not any("networkvolumes" in p for _, p in deleted)
+    assert ("DELETE", "/pods/pod1") in deleted and not any("network-volumes" in p for _, p in deleted)
+
+
+def test_balance_adds_up_the_running_pods_on_every_page(monkeypatch):
+    pages = {"/billing/balance": {"balanceAmount": 12.5},
+             "/pods": {"pods": [{"status": "RUNNING", "cost": 0.5}, {"status": "EXITED", "cost": 0.7}],
+                       "pagination": {"hasNextPage": True, "nextCursor": "c2"}},
+             "/pods?cursor=c2": {"pods": [{"status": "RUNNING", "cost": 0.25}],
+                                 "pagination": {"hasNextPage": False, "nextCursor": None}}}
+    monkeypatch.setattr(control, "api", lambda method, path, obj=None: (200, pages[path]))
+    assert control.balance() == (12.5, 0.75)
+
+
+def test_stock_reads_the_gpu_catalog(tmp_path, monkeypatch, capsys):
+    _stage(tmp_path, monkeypatch, "network")
+    calls = []
+
+    def api(method, path, obj=None):
+        calls.append(path)
+        return 200, {"id": "G", "availability": "LOW", "price": {"secure": 0.69, "community": 0.34},
+                     "dataCenters": [{"id": "EU-RO-1", "name": "EU Romania 1", "availability": "LOW"}]}
+    monkeypatch.setattr(control, "api", api)
+    control.cmd_stock()
+    out = json.loads(capsys.readouterr().out)
+    assert calls == ["/catalog/gpus/G?include=AVAILABILITY&product=POD&cloud=SECURE"]
+    assert out["secure_stock"] == "LOW" and out["price_per_hour"] == 0.69 and out["data_centers"] == {"EU-RO-1": "LOW"}

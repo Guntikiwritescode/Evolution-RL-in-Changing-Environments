@@ -303,11 +303,11 @@ BREAKS = [
      [("scripts/part3/analyze.py", '("H3", "OE > ES-DR", "S1", sec["S1"]),', '("H3", "OE > ES-DR", "S1", sec["S2"]),')]),
     # Addendum A (PREREG_part3.md Section 16): ES-fixed
     ('add_novol_create', 'tests/test_part3_control.py::test_create_without_a_network_volume',
-     [('scripts/part3/pod/control.py', '    if plan.get("volume", "network") == "none":\n        body["volumeInGb"] = 0\n    else:\n        body.update(', '    if False:\n        body["volumeInGb"] = 0\n    else:\n        body.update(')]),
+     [('scripts/part3/pod/control.py', '    if plan.get("volume", "network") != "none":\n        body["mounts"]', '    if True:\n        body["mounts"]')]),
     ('add_novol_env', 'tests/test_part3_control.py::test_create_without_a_network_volume',
      [('scripts/part3/pod/control.py', '"VOLUME_KIND": "none" if no_volume else "network"}', '"VOLUME_KIND": "network"}')]),
     ('add_vol_body', 'tests/test_part3_control.py::test_create_with_a_network_volume_is_unchanged',
-     [('scripts/part3/pod/control.py', 'body.update({"networkVolumeId": p["volume_id"], "volumeMountPath": "/workspace"})', 'body.update({"networkVolumeId": p["volume_id"]})')]),
+     [('scripts/part3/pod/control.py', '[{"volumeId": p["volume_id"], "path": "/workspace"}]', '[{"volumeId": p["volume_id"]}]')]),
     ('add_novol_retry', 'tests/test_part3_control.py::test_finish_without_a_volume_retries_the_last_copy_and_deletes_no_volume',
      [('scripts/part3/pod/control.py', '    tries = 1 if p.get("volume_id") else LAST_COPY_TRIES', '    tries = 1')]),
     ('add_novol_keep', 'tests/test_part3_control.py::test_finish_without_a_volume_retries_the_last_copy_and_deletes_no_volume',

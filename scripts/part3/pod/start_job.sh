@@ -22,7 +22,7 @@ stop() { log "FAILED: $*"; sleep infinity; }
 # cannot enforce the cost limit. Keep control.py watch running until every pod is deleted.
 # This deletion attempt does not stop the job if the API call fails.
 self_delete() {
-  curl -s -m 30 -X DELETE "https://rest.runpod.io/v1/pods/$RUNPOD_POD_ID" \
+  curl -s -m 30 -X DELETE "https://api.runpod.io/v2/pods/$RUNPOD_POD_ID" \
        -H "Authorization: Bearer $RUNPOD_API_KEY" > /w/logs/self_delete.txt 2>&1
   echo "exit $?" >> /w/logs/self_delete.txt
 }
